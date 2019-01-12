@@ -48,7 +48,12 @@ end
 function technologies(player)
     local caption = player.gui.center.Q.add2q.add{type = "label", name = "add2q_caption", caption = "List of technologies"}
     caption.style.minimal_width = player.mod_settings["research-queue-table-width"].value * 68
-    if global.showIcon[player.index] then column_count = player.mod_settings["research-queue-table-width"].value else column_count = math.floor(player.mod_settings["research-queue-table-width"].value / 3) end --create a smaller table if text is displayed.
+    --create a smaller table if text is displayed.
+    if global.showIcon[player.index] then
+        column_count = player.mod_settings["research-queue-table-width"].value
+    else
+        column_count = math.floor(player.mod_settings["research-queue-table-width"].value / 3)
+    end
     local rq_table = player.gui.center.Q.add2q.add{type = "table", name = "add2q_table", style = "rq-table1", column_count = column_count}
     local count = 0
     for name, tech in pairs(player.force.technologies) do
@@ -87,7 +92,7 @@ function technologies(player)
                             background2 = "rq-inq-button"
                         end
                     end
-                    count = count +1
+                    count = count + 1
                     if global.showIcon[player.index] then
                         local row = math.ceil(count / player.mod_settings["research-queue-table-width"].value)
                         if global.offset_tech[player.index] < row and row <= (player.mod_settings["research-queue-table-height"].value + global.offset_tech[player.index]) then

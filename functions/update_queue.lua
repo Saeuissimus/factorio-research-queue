@@ -137,9 +137,9 @@ end
 -- move research_name up _times_ times in the queue
 function up(player, research_name, times)
     local moved_by_count = 0
+    local force = player.force
     local research_index = row_from_research_name(force, research_name)
     for i = 1, math.min(times, research_index - 1) do
-        local force = player.force
         if is_prerequisite(global.researchQ[force.name][research_index - i], force.technologies[research_name].prerequisites) then
             break
         end
