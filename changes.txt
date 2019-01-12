@@ -1,0 +1,20 @@
+1.6.7
+- Added Hotkey to open qui
+- Right click erases text in search field
+1.6.6
+- Fixed crush at "__research-queue__/functions/update_queue.lua:167: in function 'updateQ'" - missing styles, added pcall
+1.6.5
+- Added hint with technology name to technology button
+- Fixed scroll didn't reset when filters change
+- Now you can shift-click or alt-click up button - this will result in x5 clicks, same for down button
+- Now you can control-click or right-click up button - this will result in x50 clicks (likely moving a technology up as high as possible), same for down button
+- Now setting ingredients filters will also hide non-researched technologies which have prerequesties not matching given criteria
+- Fixed time estimation bug if no research is running
+1.6.4
+- More fixes
+- Added quick search (searches only in english since I didn't figured out how to get Localized name in plain string)
+1.6.3
+- Fixed crush in GUI when no technology style is generated (this happens somewhere in Angel's mods)
+- Moved config to settings
+- Added optional dependencies to Angels' mods
+- Fixed versions in dependencies
