@@ -4,8 +4,8 @@ function options(player)
     local caption = player.gui.center.Q.add2q.add{type = "label", name = "options_caption", caption = "Options"}
     caption.style.minimal_width = player.mod_settings["research-queue-table-width"].value * 68
     local options = player.gui.center.Q.add2q.add{type = "table", name = "options", style = "rq-table2", column_count = player.mod_settings["research-queue-table-width"].value}
-    local text_filter = player.gui.center.Q.add2q.add{type = "textfield", name = "rq-text-filter", text = global.text_filter or ""}
-    text_filter.focus()
+    player.gui.center.Q.add2q.add{type = "textfield", name = "rq-text-filter", text = global.text_filter or ""}
+    -- text_filter.focus()
 
     options.add{type = "button", name = "rqextend-button", style = global.showExtended[player.index] and "rq-compact-button" or "rq-extend-button"}
 
