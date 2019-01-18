@@ -80,62 +80,24 @@ for k, tech in pairs(data.raw.technology) do
     end
 end
 
+data.raw["gui-style"].default["rq-tool-selected-filter"] =
+{
+    type = "button_style",
+    parent = "image_tab_selected_slot",
+    width = 36,
+    height = 36
+}
+
+data.raw["gui-style"].default["rq-tool-inactive-filter"] =
+{
+    type = "button_style",
+    parent = "image_tab_slot",
+    width = 36,
+    height = 36
+}
+
 for k, tool in pairs(data.raw.tool) do
     if tool.icon then
-    data.raw["gui-style"].default["rq-tool" .. tool.name] =
-    {
-        type = "checkbox_style",
-        top_padding = 0,
-        right_padding = 0,
-        bottom_padding = 0,
-        left_padding = 0,
-        width = 32,
-        height = 32,
-        scalable = false,
-        left_click_sound =
-        {
-            {
-            filename = "__core__/sound/gui-click.ogg",
-            volume = 1
-            }
-        },
-        default_background =
-        {
-            filename = tool.icon,
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 0,
-            y = 0
-        },
-        hovered_background =
-        {
-            filename = tool.icon,
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 0,
-            y = 0
-        },
-        clicked_background =
-        {
-            filename = tool.icon,
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 0,
-            y = 0
-        },
-        checked =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 96,
-            y = 64
-        }
-    }
     data.raw["gui-style"].default["rq-tool" .. tool.name .. "frame"] =
     {
         type = "frame_style",
@@ -578,10 +540,10 @@ data.raw["gui-style"].default["rq-up-button"] =
     default_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
          filename = "__research-queue__/graphics/gui_elements.png",
@@ -595,10 +557,10 @@ data.raw["gui-style"].default["rq-up-button"] =
     hovered_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
          filename = "__research-queue__/graphics/gui_elements.png",
@@ -612,10 +574,10 @@ data.raw["gui-style"].default["rq-up-button"] =
     clicked_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
          filename = "__research-queue__/graphics/gui_elements.png",
@@ -629,10 +591,10 @@ data.raw["gui-style"].default["rq-up-button"] =
     disabled_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
          filename = "__research-queue__/graphics/gui_elements.png",
@@ -667,10 +629,10 @@ data.raw["gui-style"].default["rq-down-button"] =
     default_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
          filename = "__research-queue__/graphics/gui_elements.png",
@@ -684,10 +646,10 @@ data.raw["gui-style"].default["rq-down-button"] =
     hovered_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
          filename = "__research-queue__/graphics/gui_elements.png",
@@ -701,10 +663,10 @@ data.raw["gui-style"].default["rq-down-button"] =
     clicked_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
          filename = "__research-queue__/graphics/gui_elements.png",
@@ -718,10 +680,10 @@ data.raw["gui-style"].default["rq-down-button"] =
     disabled_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
          filename = "__research-queue__/graphics/gui_elements.png",
@@ -756,10 +718,10 @@ data.raw["gui-style"].default["rq-cancel-button"] =
     default_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
             filename = "__research-queue__/graphics/gui_elements.png",
@@ -773,10 +735,10 @@ data.raw["gui-style"].default["rq-cancel-button"] =
     hovered_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
             filename = "__research-queue__/graphics/gui_elements.png",
@@ -790,10 +752,10 @@ data.raw["gui-style"].default["rq-cancel-button"] =
     clicked_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
             filename = "__research-queue__/graphics/gui_elements.png",
@@ -804,15 +766,13 @@ data.raw["gui-style"].default["rq-cancel-button"] =
             y = 32
         }
     },
-    disabled_graphical_set =
-    {
+    disabled_graphical_set = {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
-        monolith_image =
-        {
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
+        monolith_image = {
             filename = "__research-queue__/graphics/gui_elements.png",
             priority = "extra-high-no-scale",
             width = 32,
@@ -1104,10 +1064,10 @@ data.raw["gui-style"].default["rq-compact-button"] =
     default_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
             filename = "__research-queue__/graphics/gui_elements.png",
@@ -1121,10 +1081,10 @@ data.raw["gui-style"].default["rq-compact-button"] =
     hovered_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
             filename = "__research-queue__/graphics/gui_elements.png",
@@ -1138,10 +1098,10 @@ data.raw["gui-style"].default["rq-compact-button"] =
     clicked_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
             filename = "__research-queue__/graphics/gui_elements.png",
@@ -1176,10 +1136,10 @@ data.raw["gui-style"].default["rq-extend-button"] =
     default_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
             filename = "__research-queue__/graphics/gui_elements.png",
@@ -1193,10 +1153,10 @@ data.raw["gui-style"].default["rq-extend-button"] =
     hovered_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
             filename = "__research-queue__/graphics/gui_elements.png",
@@ -1210,10 +1170,10 @@ data.raw["gui-style"].default["rq-extend-button"] =
     clicked_graphical_set =
     {
         type = "monolith",
- top_monolith_border = 0,
- right_monolith_border = 0,
- bottom_monolith_border = 0,
- left_monolith_border = 0,
+        top_monolith_border = 0,
+        right_monolith_border = 0,
+        bottom_monolith_border = 0,
+        left_monolith_border = 0,
         monolith_image =
         {
             filename = "__research-queue__/graphics/gui_elements.png",

@@ -7,20 +7,21 @@ function options(player)
     local text_filter = player.gui.center.Q.add2q.add{type = "textfield", name = "rq-text-filter", text = global.text_filter or ""}
     text_filter.focus()
 
-    local style = nil
-    if global.showExtended[player.index] then style = "rq-compact-button" else style = "rq-extend-button" end
-    options.add{type = "button", name = "rqextend-button", style = style}
+    options.add{type = "button", name = "rqextend-button", style = global.showExtended[player.index] and "rq-compact-button" or "rq-extend-button"}
 
-    local check = options.add{type = "checkbox", name = "rqtext", style = "rq-text-checkbox", state = global.showIcon[player.index]}
+    options.add{type = "checkbox", name = "rqtext", style = "rq-text-checkbox", state = global.showIcon[player.index]}
 
     options.add{type = "checkbox", name = "rqscience", style = "rq-scienceDone-checkbox", state = not global.showResearched[player.index]}
 
-    for name, science in pairs(global.science) do
+    local item_prototypes = game.item_prototypes
+
+    for name, science in pairs(global.science_packs) do
         if global.showExtended[player.index] or not (global.bobsmodules[name] or global.bobsaliens[name]) then
-            local pcall_status = pcall(options.add, {type = "checkbox", name = "rq-science" .. name, style = "rq-tool" .. name, state = not science[player.index]}) --technology icon
-            if not pcall_status then
-                 pcall_status = pcall(options.add, {type = "checkbox", name = "rq-science" .. name, caption = name, state = not science[player.index]})   --tool icon
-            end
+            -- Technology icon. If the user clicks this, it will toggle the filter for this specific ingredient.
+            local filter_style = science[player.index] and "rq-tool-selected-filter" or "rq-tool-inactive-filter"
+            -- TODO: write up a templated string for the tooltip to allow for a reasonable tooltip with localizations
+            options.add{type = "sprite-button", name = "rq-science" .. name,
+                        style = filter_style, sprite = "item/" .. name, tooltip = item_prototypes[name].localised_name}
 
         elseif global.bobsmodules[name] and not options["rq-bobsmodules"] then
             options.add{type = "checkbox", name = "rq-bobsmodules", style = "rq-bobsmodules", state = not global.showBobsmodules[player.index]}
@@ -61,7 +62,7 @@ function technologies(player)
             if (global.showExtended[player.index] or not tech.upgrade or not any(tech.prerequisites, "upgrade") or any(tech.prerequisites, "researched") or matches(tech.prerequisites, "name", global.researchQ[player.force.name])) then
             -- ^checks if the research is an upgrade technology and whether or not to show it.
                 local forbidden_ingredients = {} -- create a table of research ingredients that the research may not have.
-                for item, science in pairs(global.science) do
+                for item, science in pairs(global.science_packs) do
                     if not science[player.index] then table.insert(forbidden_ingredients, item) end
                 end
 

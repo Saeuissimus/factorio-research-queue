@@ -3,7 +3,8 @@ local mod_gui = require("mod-gui")
 function init()
     if global.researchQ == nil then global.researchQ = {} end
     if global.labs == nil then global.labs = {} end
-    for name, force in pairs(game.forces) do
+    local forces = game.forces
+    for name, force in pairs(forces) do
         if global.researchQ[name] == nil then
             global.researchQ[name] = {}
             if force.current_research then
@@ -17,13 +18,13 @@ function init()
     if global.offset_queue == nil then global.offset_queue = {} end
     if global.offset_tech == nil then global.offset_tech = {} end
     if global.showExtended == nil then global.showExtended = {} end
-    if global.science == nil then global.science = {} end
-    for name, item in pairs(game.item_prototypes) do
+    if global.science_packs == nil then global.science_packs = {} end
+    local item_prototypes = game.item_prototypes
+    for name, item in pairs(item_prototypes) do
         if item.type == "tool" then
-            global.science[name] = {}
+            global.science_packs[name] = {}
         end
     end
-    colspan = nil
     global.bobsmodules = {
         ["module-case"] = true,
         ["module-circuit-board"] = true,
@@ -47,22 +48,23 @@ end
 
 function player_init(player_index)
     if global.researchQ == nil then init() end
-    local top = mod_gui.get_button_flow(game.players[player_index])
+    local player = game.players[player_index]
+    local top = mod_gui.get_button_flow(player)
     if not top.research_Q then top.add{type = "button", name = "research_Q", caption = "RQ", style = "rq-top-button"} end
     global.showIcon[player_index] = true
     global.showResearched[player_index] = false
     global.offset_queue[player_index] = 0
     global.offset_tech[player_index] = 0
     global.showExtended[player_index] = false
-    for name, science in pairs(global.science) do
-        if game.players[player_index].force.recipes[name] ~= nil then
-        science[player_index] = game.players[player_index].force.recipes[name].enabled
+    for name, science in pairs(global.science_packs) do
+        if player.force.recipes[name] ~= nil then
+        science[player_index] = player.force.recipes[name].enabled
         else science[player_index] = false
         end
     end
-    global.showBobsmodules[player_index] = game.players[player_index].force.technologies["modules"].researched
-    if game.players[player_index].force.technologies["alien-research"] then
-        global.showBobsaliens[player_index] = game.players[player_index].force.technologies["alien-research"].researched
+    global.showBobsmodules[player_index] = player.force.technologies["modules"].researched
+    if player.force.technologies["alien-research"] then
+        global.showBobsaliens[player_index] = player.force.technologies["alien-research"].researched
     else
         global.showBobsaliens[player_index] = false
     end

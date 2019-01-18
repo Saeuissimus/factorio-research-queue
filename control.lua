@@ -8,13 +8,15 @@ local mod_gui = require("mod-gui")
 script.on_configuration_changed(function(event)
     if event.mod_changes ~= nil and event.mod_changes["research-queue"] ~= nil then
         init()
-        for index, _ in pairs(game.players) do
+        local players = game.players
+        for index, _ in pairs(players) do
             player_init(index)
-            local top = mod_gui.get_button_flow(game.players[index])
+            local top = mod_gui.get_button_flow(players[index])
             top.research_Q.caption = "RQ"
         end
     end
-    for name, force in pairs(game.forces) do
+    local forces = game.forces
+    for name, force in pairs(forces) do
         if global.researchQ[name] ~= nil and #global.researchQ[name] > 0 then
             check_queue(force)
         end
@@ -53,12 +55,8 @@ script.on_event(defines.events.on_gui_checked_state_changed, function(event)
     local player = game.players[event.player_index]
     local force = player.force
     global.offset_tech[player.index] = 0
-    if string.find(event.element.name, "rq-science", 1, true) == 1 then
-        local tool = string.gsub(event.element.name, "rq%-science", "")
-        global.science[tool][player.index] = not global.science[tool][player.index]
-        drawGrid(force)
 
-    elseif event.element.name == "rqtext" then
+    if event.element.name == "rqtext" then
         global.showIcon[player.index] = not global.showIcon[player.index]
         drawGrid(force)
 
@@ -68,14 +66,14 @@ script.on_event(defines.events.on_gui_checked_state_changed, function(event)
 
     elseif event.element.name == "rq-bobsmodules" then
         global.showBobsmodules[player.index] = not global.showBobsmodules[player.index]
-        for name, science in pairs(global.science) do
+        for name, science in pairs(global.science_packs) do
             if global.bobsmodules[name] then science[player.index] = global.showBobsmodules[player.index] end
         end
         drawGrid(force)
 
     elseif event.element.name == "rq-bobsaliens" then
         global.showBobsaliens[player.index] = not global.showBobsaliens[player.index]
-        for name, science in pairs(global.science) do
+        for name, science in pairs(global.science_packs) do
             if global.bobsaliens[name] then science[player.index] = global.showBobsaliens[player.index] end
         end
         drawGrid(force)
@@ -153,6 +151,12 @@ script.on_event(defines.events.on_gui_click, function(event)
         end
         updateQ(force)
 
+    elseif string.find(event.element.name, "rq-science", 1, true) == 1 then
+        global.offset_tech[player.index] = 0
+        local tool = string.gsub(event.element.name, "rq%-science", "")
+        global.science_packs[tool][player.index] = not global.science_packs[tool][player.index]
+        drawGrid(force)
+
     elseif event.element.name == "rqscrollqueueup" then
         global.offset_queue[player.index] = global.offset_queue[player.index] - 1
         updateQ(force)
@@ -165,7 +169,7 @@ script.on_event(defines.events.on_gui_click, function(event)
         global.offset_tech[player.index] = 0
         global.showExtended[player.index] = not global.showExtended[player.index]
         if not global.showExtended[player.index] then global.offset_tech[player.index] = 0 end
-        for name, science in pairs(global.science) do
+        for name, science in pairs(global.science_packs) do
             if global.bobsmodules[name] then science[player.index] = global.showBobsmodules[player.index] end
             if global.bobsaliens[name] then science[player.index] = global.showBobsaliens[player.index] end
         end
@@ -267,7 +271,8 @@ script.on_event(defines.events.on_pre_player_mined_item, remove_lab)
 script.on_event(defines.events.on_robot_pre_mined, remove_lab)
 
 script.on_nth_tick(60, function(event)
-    for _, player in pairs(game.players) do
+    local players = game.players
+    for _, player in pairs(players) do
         if player.gui.center.Q then
             updateQ(player.force)
         end
