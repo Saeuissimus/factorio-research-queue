@@ -2,8 +2,8 @@ if not rq then rq = {} end
 require("util")
 
 function research_is_in_queue(research_name, queue, start, last)
-    start = start or 1
-    last = last or #queue
+    local start = start or 1
+    local last = last or #queue
     for i = start, last do
         if research_name == queue[i] then
             return true
@@ -12,21 +12,33 @@ function research_is_in_queue(research_name, queue, start, last)
     return false
 end
 
-function check_queue(force)
-    for i, tech in ipairs(global.researchQ[force.name]) do
-        -- checks if the technology still exists
-        if force.technologies[tech] then
+-- techs_to_remove should map tech names to removal flags
+function check_queue(force, techs_to_remove)
+    local queue = global.researchQ[force.name]
+    techs_to_remove = techs_to_remove or {}
+    for i, tech in ipairs(queue) do
+        local should_be_removed = techs_to_remove[tech] or force.technologies[tech] == nil
+        if not should_be_removed then
             for _, pre in pairs(force.technologies[tech].prerequisites) do
-                -- checks if the prerequisite is already researched
-                -- checks if the prerequisite is in the queue before the technology
-                if not pre.researched and not research_is_in_queue(pre.name, global.researchQ[force.name], 1, i) then
-                    remove_research(force, tech)
+                if not(pre.researched or techs_to_remove[pre.name] == false) then
+                    should_be_removed = true
+                    break
                 end
             end
-        else
-            remove_research(force, tech)
+        end
+        techs_to_remove[tech] = should_be_removed
+    end
+
+    local gui_invalidated = false
+    -- log(serpent.block(techs_to_remove))
+    for i = #queue, 1, -1 do
+        local tech = queue[i]
+        if techs_to_remove[tech] then
+            table.remove(queue, i)
+            gui_invalidated = true
         end
     end
+    return gui_invalidated
 end
 
 function prompt_overwrite_research(player, research_name)
@@ -43,11 +55,12 @@ function prompt_overwrite_research(player, research_name)
     end
 end
 
-function est_time(force)
+function est_time(force, last_tech_index)
     if not force.current_research then
         return nil
     end
 
+    last_tech_index = last_tech_index or #global.researchQ[force.name]
     local est = {}
     local speed = 0
     for key, lab in pairs(global.labs[force.name]) do
@@ -63,7 +76,7 @@ function est_time(force)
                 if module_effect.productivity then productivity_modifier = productivity_modifier + module_effect.productivity.bonus * count end
                 if module_effect.consumption then consumption_modifier = consumption_modifier + module_effect.consumption.bonus * count end
             end
-            --if base lab then use energy values
+            -- if base lab then use energy values
             if lab.name == "lab" then
                 speed = speed + ( (1 + speed_modifier) * (1 + productivity_modifier) * math.min(lab.energy / (math.max(1 + consumption_modifier, 0.2) * 60 * 160 / 9), 1) )
             -- ignore energy values for modded labs, only check if it has energy or not
@@ -103,19 +116,21 @@ function add_research(force, research_name)
     end
 end
 
+-- Remove research is not working correctly?
 function remove_research(force, research_name)
-    local research_index = row_from_research_name(force, research_name)
-    table.remove(global.researchQ[force.name], research_index)
-
     for index, _ in pairs(force.players) do
         if global.offset_queue[index] > 0 then global.offset_queue[index] = global.offset_queue[index] - 1 end
     end
-    -- TODO: restrict the check to affected parts of the queue
-    check_queue(force)
+    local is_top_tech = global.researchQ[force.name][1] == research_name
+    local techs_to_remove = {}
+    techs_to_remove[research_name] = true
+    -- log(serpent.block(techs_to_remove))
+    local gui_invalidated = check_queue(force, techs_to_remove)
     --starts the new researches for the new top item in the queue
-    if force.current_research == research_name and global.researchQ[force.name][1] ~= nil then
+    if (force.current_research == research_name or is_top_tech) and global.researchQ[force.name][1] ~= nil then
         force.current_research = global.researchQ[force.name][1]
     end
+    return gui_invalidated
 end
 
 function row_from_research_name(force, research_name)
@@ -146,7 +161,6 @@ function up(player, research_name, times)
         moved_by_count = moved_by_count + 1
     end
 
-
     if moved_by_count > 0 then
         local new_index = research_index - moved_by_count
         table.remove(global.researchQ[force.name], research_index)
@@ -175,71 +189,95 @@ function down(force, research_name, times)
 end
 
 
--- This is a messy GUI function. It updates the window that shows the queue somehow.
-function updateQ(force)
+function update_queue_force(force, partial_update)
     local time_estimation = est_time(force)
-    for index, player in pairs(force.players) do
+    for _, player in pairs(force.players) do
         if player.gui.center.Q then
-            player.opened = player.gui.center.Q
-            if not player.gui.center.Q.current_q then player.gui.center.Q.add{type = "frame", name = "current_q", caption = "Current queue", style = "technology_preview_frame"} end
-            if player.gui.center.Q.current_q.list then player.gui.center.Q.current_q.list.destroy() end
-
-            local list = player.gui.center.Q.current_q.add{type = "flow", name = "list", style = "rq-flow-vertical", direction = "vertical"}
-
-            if #global.researchQ[force.name] == 0 then
-                list.add{type = "label", name = "empty", caption = "No research queued"}
-            else
-                for i, tech in ipairs(global.researchQ[force.name]) do
-                    local technology = force.technologies[tech]
-                    if global.offset_queue[index] < i and i <= (player.mod_settings["research-queue-rows-count"].value + global.offset_queue[index]) then
-                        --create a frame for each item in the queue
-                        local frame = list.add{type = "frame", name = "rq" .. tech .. "frame", style = "rq-frame"}
-
-
-                        local pcall_status, _ = pcall(frame.add, {type = "frame", name = "rq" .. tech .. "icon", style = "rq-tech" .. tech, tooltip = name})
-                        if not pcall_status then
-                            pcall_status, _ = pcall(frame.add, {type = "frame", name = "rq" .. tech .. "icon", tooltip = name})
-                        end
-
-                        -- adds a description frame in the frame
-                        local description = frame.add{type = "flow", name = "rq" .. tech .. "description", style = "rq-flow-vertical", direction = "vertical"}
-                        description.style.minimal_width = 185
-                        -- places the name of the technology
-                        description.add{type = "label", name = "rq" .. tech .. "name", caption = technology.localised_name, style = "description_label"}
-                        -- add the ingredients and time
-                        local ingredients = description.add{type = "table", name = "rq" .. tech .. "ingredients", style = "table", column_count = 8}
-                        ingredients.add{type = "frame", name = "rqtime", caption = (technology.research_unit_energy / 60), style = "rq-clock"}
-                        for _, item in pairs(technology.research_unit_ingredients) do
-                            local pcall_status, _ = pcall(ingredients.add, {type = "frame", name = "rq" .. item.name, caption = item.amount, style = "rq-tool" .. item.name .. "frame"})
-                            if not pcall_status then
-                                pcall_status, _ = pcall(ingredients.add, {type = "frame", name = "rq" .. item.name, caption = item.amount})
-                            end
-                        end
-                        ingredients.add{type = "label", name = "rqresearch_unit_count", caption = "X " .. technology.research_unit_count, style = "label"}
-                        local caption = nil
-                        if time_estimation and time_estimation[i] ~= math.huge then
-                            caption = "Estimated time: " .. util.formattime(time_estimation[i])
-                        else
-                            caption = "Estimated time: infinity"
-                        end
-                        description.add{type = "label", name = "rq" .. tech .. "time", caption = caption, style = "label"}
-
-
-                        --adds the up/cancel/down buttons
-                        local buttons = frame.add{type = "table", name = "rq" .. tech .. "buttons", style = "slot_table", column_count = 1}
-                        buttons.add{type = "button", name = "rq" .. "upbutton" .. tech, style = "rq-up-button"}
-                        buttons.add{type = "button", name = "rq" .. "cancelbutton" .. tech, style = "rq-cancel-button"}
-                        buttons.add{type = "button", name = "rq" .. "downbutton" .. tech, style = "rq-down-button"}
-
-                    --adds scrollbuttons to the top and bottom of the list
-                    elseif i == global.offset_queue[index] then
-                        list.add{type = "button", name = "rqscrollqueueup", style = "rq-up-button"}
-                    elseif i > player.mod_settings["research-queue-rows-count"].value + global.offset_queue[index] then
-                        list.add{type = "button", name = "rqscrollqueuedown", style = "rq-down-button"}
-                        break
-                    end
-                end
-            end
+            update_queue_player(player, partial_update, time_estimation)
         end
+    end
+end
+
+-- This is a messy GUI function. It updates the window that shows the queue somehow.
+function update_queue_player(player, partial_update, time_estimation)
+    local force = player.force
+    time_estimation = time_estimation or est_time(force)
+    local last_row = player.mod_settings["research-queue-rows-count"].value + global.offset_queue[player.index]
+    local list = nil
+    local start = 1 + global.offset_queue[player.index]
+    local last = math.min(#global.researchQ[force.name], last_row)
+    if not partial_update then
+        player.opened = player.gui.center.Q
+        if not player.gui.center.Q.current_q then player.gui.center.Q.add{type = "frame", name = "current_q", caption = "Current queue", style = "technology_preview_frame"} end
+        if player.gui.center.Q.current_q.list then player.gui.center.Q.current_q.list.destroy() end
+
+        list = player.gui.center.Q.current_q.add{type = "flow", name = "list", style = "rq-flow-vertical", direction = "vertical"}
+
+        if #global.researchQ[force.name] == 0 then
+            list.add{type = "label", name = "empty", caption = "No research queued"}
+        else
+            list.add{type = "button", name = "rqscrollqueueup", style = "rq-up-button", enabled = global.offset_queue[player.index] > 0}
+            for i = start, last do
+                local tech_frame = draw_queued_technology(list, global.researchQ[force.name][i], force)
+            end
+            list.add{type = "button", name = "rqscrollqueuedown", style = "rq-down-button", enabled = #global.researchQ[force.name] > last_row}
+        end
+    end
+    list = list or player.gui.center.Q.current_q.list
+    for i = start, last do
+        local tech_name = global.researchQ[force.name][i]
+        local tech_frame = list["rq" .. tech_name .. "frame"]
+        update_estimated_time(tech_frame, time_estimation[i])
+    end
+end
+
+function draw_queued_technology(drawn_list, tech_name, force)
+    local technology = force.technologies[tech_name]
+    --create a frame for each item in the queue
+    local frame = drawn_list.add{type = "frame", name = "rq" .. tech_name .. "frame", style = "rq-frame"}
+
+    local pcall_status, _ = pcall(frame.add, {type = "frame", name = "rq" .. tech_name .. "icon", style = "rq-tech" .. tech_name, tooltip = name})
+    if not pcall_status then
+        pcall_status, _ = pcall(frame.add, {type = "frame", name = "rq" .. tech_name .. "icon", tooltip = name})
+    end
+
+    -- adds a description frame in the frame
+    local description = frame.add{type = "flow", name = "rqtechdescription", style = "rq-flow-vertical", direction = "vertical"}
+    -- TODO: get rid of this magic number...?
+    description.style.minimal_width = 215
+    -- places the name of the technology
+    description.add{type = "label", name = "rq" .. tech_name .. "name", caption = technology.localised_name, style = "description_label"}
+    -- add the ingredients and time
+    local ingredients = description.add{type = "table", name = "rq" .. tech_name .. "ingredients", style = "table", column_count = 8}
+    ingredients.add{type = "frame", name = "rqtime", caption = (technology.research_unit_energy / 60), style = "rq-clock"}
+    for _, item in pairs(technology.research_unit_ingredients) do
+        local pcall_status, _ = pcall(ingredients.add, {type = "frame", name = "rq" .. item.name, caption = item.amount, style = "rq-tool" .. item.name .. "frame"})
+        if not pcall_status then
+            pcall_status, _ = pcall(ingredients.add, {type = "frame", name = "rq" .. item.name, caption = item.amount})
+        end
+    end
+    ingredients.add{type = "label", name = "rqresearch_unit_count", caption = "X " .. technology.research_unit_count, style = "label"}
+
+
+    --adds the up/cancel/down buttons
+    local buttons = frame.add{type = "table", name = "rq" .. tech_name .. "buttons", style = "slot_table", column_count = 1}
+    buttons.add{type = "button", name = "rqupbutton" .. tech_name, style = "rq-up-button"}
+    buttons.add{type = "button", name = "rqcancelbutton" .. tech_name, style = "rq-cancel-button"}
+    buttons.add{type = "button", name = "rqdownbutton" .. tech_name, style = "rq-down-button"}
+    return frame
+end
+
+function update_estimated_time(tech_frame, time_estimation)
+    local caption = nil
+    if time_estimation and time_estimation ~= math.huge then
+        caption = "Estimated time: " .. util.formattime(time_estimation)
+    else
+        caption = "Estimated time: infinity"
+    end
+
+    if tech_frame.rqtechdescription.rqtechtime then
+        tech_frame.rqtechdescription.rqtechtime.caption = caption
+    else
+        tech_frame.rqtechdescription.add{type = "label", name = "rqtechtime", caption = caption, style = "label"}
     end
 end

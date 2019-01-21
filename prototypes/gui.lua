@@ -96,8 +96,29 @@ data.raw["gui-style"].default["rq-tool-inactive-filter"] =
     height = 36
 }
 
+data.raw["gui-style"].default["rq-tool-frame"] =
+{
+    type = "frame_style",
+    width = 20,
+    height = 20,
+    scalable = true,
+    align = "left",
+    top_padding = 0,
+    right_padding = 0,
+    bottom_padding = 0,
+    left_padding = 0,
+    flow_style =
+    {
+        type = "flow_style",
+        horizontal_spacing = 0,
+        vertical_spacing = 0
+    },
+    font = "rq-label-text"
+}
+
 for k, tool in pairs(data.raw.tool) do
     if tool.icon then
+    -- log(serpent.block(tool))
     data.raw["gui-style"].default["rq-tool" .. tool.name .. "frame"] =
     {
         type = "frame_style",
@@ -345,8 +366,8 @@ data.raw["gui-style"].default["rq-inq-frame"] =
 data.raw["gui-style"].default["rq-available-frame"] =
 {
     type = "frame_style",
-    width = data.raw["gui-style"].default["rq-techautomation"].width +4,
-    height = data.raw["gui-style"].default["rq-techautomation"].height +4,
+    width = data.raw["gui-style"].default["rq-techautomation"].width + 4,
+    height = data.raw["gui-style"].default["rq-techautomation"].height + 4,
     scalable = false,
     align = "center",
     graphical_set =
@@ -831,8 +852,8 @@ data.raw["gui-style"].default["rq-text-checkbox"] =
     {
         filename = "__research-queue__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
-        width = 36,
-        height = 36,
+        width = 32,
+        height = 32,
         x = 96,
         y = 64
     }
@@ -851,6 +872,7 @@ data.raw["gui-style"].default["rq-done-button"] =
         volume = 1
         }
     },
+    horizontally_stretchable = "on",
     top_padding = 0,
     right_padding = 0,
     bottom_padding = 0,
@@ -896,6 +918,7 @@ data.raw["gui-style"].default["rq-inq-button"] =
         volume = 1
         }
     },
+    horizontally_stretchable = "on",
     top_padding = 0,
     right_padding = 0,
     bottom_padding = 0,
@@ -941,6 +964,7 @@ data.raw["gui-style"].default["rq-available-button"] =
         volume = 1
         }
     },
+    horizontally_stretchable = "on",
     top_padding = 0,
     right_padding = 0,
     bottom_padding = 0,
