@@ -46,27 +46,26 @@ function init()
     if global.showBobsaliens == nil then global.showBobsaliens = {} end
 end
 
-function player_init(player_index)
-    if global.researchQ == nil then init() end
-    local player = game.players[player_index]
+function player_init(player)
     local top = mod_gui.get_button_flow(player)
     if not top.research_Q then top.add{type = "button", name = "research_Q", caption = "RQ", style = "rq-top-button"} end
-    global.showIcon[player_index] = true
-    global.showResearched[player_index] = false
-    global.offset_queue[player_index] = 0
-    global.offset_tech[player_index] = 0
-    global.showExtended[player_index] = false
+    global.showIcon[player.index] = true
+    global.showResearched[player.index] = false
+    global.offset_queue[player.index] = 0
+    global.offset_tech[player.index] = 0
+    global.showExtended[player.index] = false
     for name, science in pairs(global.science_packs) do
         if player.force.recipes[name] ~= nil then
-        science[player_index] = player.force.recipes[name].enabled
-        else science[player_index] = false
+            science[player.index] = player.force.recipes[name].enabled
+        else
+            science[player.index] = false
         end
     end
-    global.showBobsmodules[player_index] = player.force.technologies["modules"].researched
+    global.showBobsmodules[player.index] = player.force.technologies["modules"].researched
     if player.force.technologies["alien-research"] then
-        global.showBobsaliens[player_index] = player.force.technologies["alien-research"].researched
+        global.showBobsaliens[player.index] = player.force.technologies["alien-research"].researched
     else
-        global.showBobsaliens[player_index] = false
+        global.showBobsaliens[player.index] = false
     end
 end
 

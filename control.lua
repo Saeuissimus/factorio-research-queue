@@ -3,16 +3,13 @@ require("functions.help_functions")
 require("functions.update_queue")
 require("functions.draw_grid")
 require("functions.initialise")
-local mod_gui = require("mod-gui")
 
 script.on_configuration_changed(function(event)
     if event.mod_changes ~= nil and event.mod_changes["research-queue"] ~= nil then
         init()
         local players = game.players
-        for index, _ in pairs(players) do
-            player_init(index)
-            local top = mod_gui.get_button_flow(players[index])
-            top.research_Q.caption = "RQ"
+        for _, player in pairs(players) do
+            player_init(player)
         end
     end
     local forces = game.forces
@@ -76,9 +73,7 @@ script.on_event(defines.events.on_gui_checked_state_changed, function(event)
     end
 end)
 
-function toggle_gui_window(event)
-    local player = game.players[event.player_index]
-
+function toggle_gui_window(player)
     if player.gui.center.Q then
         player.gui.center.Q.destroy()
         global.offset_tech[player.index] = 0
@@ -100,7 +95,7 @@ script.on_event(defines.events.on_gui_click, function(event)
         global.offset_tech[player.index] = 0
         draw_grid_player(player)
     elseif event.element.name == "research_Q" then
-        toggle_gui_window(event)
+        toggle_gui_window(player)
     elseif string.find(event.element.name, "rq-add", 1, true) == 1 then
         local tech = string.gsub(event.element.name, "rq%-add", "")
 
@@ -186,53 +181,46 @@ script.on_event(defines.events.on_gui_click, function(event)
     elseif event.element.name == "rq-overwrite-no" then
         if player.gui.center.warning then player.gui.center.warning.destroy() end
         if not player.gui.center.Q then player.gui.center.add{type = "flow", name = "Q", style = "rq-flow"} end
+        update_queue_player(player)
         draw_grid_player(player)
     end
 end)
 
 script.on_event(defines.events.on_research_finished, function(event)
 
-    if global.researchQ == nil then init() end
-
     for _, player in pairs(event.research.force.players) do
         player.print{"rq-notices.research-finished", event.research.localised_name}
     end
 
-    local refresh_gui = remove_research(event.research.force, event.research.name)
-    if #global.researchQ[event.research.force.name] > 0 then
-        for _, player in pairs(event.research.force.players) do
-            if player.mod_settings["research-queue_popup-on-queue-finish"].value then
-                if not player.gui.center.Q then
-                    local Q = player.gui.center.add{type = "flow", name = "Q", style = "rq-flow"}
-                    refresh_gui = true
-                end
-            end
-        end
-    end
+    remove_research(event.research.force, event.research.name)
+    local refresh_gui = {}
     for index, player in pairs(event.research.force.players) do
-        if global.offset_queue[index] ~= nil then
-            -- FIXME? This doesn't seem to be correct when the queue didn't have this particular technology in it
-            if global.offset_queue[index] > 0 then
-                global.offset_queue[index] = global.offset_queue[index] - 1
-            end
-            refresh_gui = refresh_gui or player.gui.center.Q
+        local length_queue = #global.researchQ[event.research.force.name]
+
+        if player.gui.center.Q then
+            refresh_gui[player] = player
+        elseif length_queue == 0 and player.mod_settings["research-queue_popup-on-queue-finish"].value then
+            local Q = player.gui.center.add{type = "flow", name = "Q", style = "rq-flow"}
+            refresh_gui[player] = player
         end
+        local offset_queue = global.offset_queue
+        offset_queue[index] = math.max(0, math.min(offset_queue[index],
+                              length_queue - player.mod_settings["research-queue-rows-count"].value))
     end
-    if refresh_gui then
-        update_queue_force(event.research.force)
+    if #refresh_gui > 0 then
+        update_queue_force(event.research.force, false, refresh_gui)
         draw_grid_force(event.research.force)
     end
 end)
 
 script.on_event(defines.events.on_player_created, function(event)
-    player_init(event.player_index)
+    player_init(game.players[event.player_index])
 end)
 
 script.on_event(defines.events.on_force_created, function(event)
-    if global.researchQ == nil then
-        init()
+    if global.researchQ[event.force.name] == nil then
+        global.researchQ[event.force.name] = {}
     end
-    if global.researchQ[event.force.name] == nil then global.researchQ[event.force.name] = {} end
     if global.labs[event.force.name] == nil then
         global.labs[event.force.name] = map_all_entities({type = "lab", force = event.force})
     end
@@ -262,5 +250,5 @@ script.on_nth_tick(60, function(event)
 end)
 
 script.on_event("open-research-queue", function(event)
-    toggle_gui_window(event)
+    toggle_gui_window(game.players[event.player_index])
 end)

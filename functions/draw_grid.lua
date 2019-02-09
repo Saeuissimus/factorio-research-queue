@@ -9,9 +9,12 @@ function get_queued_research(research_queue)
 end
 
 function options(player)
-    local caption = player.gui.center.Q.add2q.add{type = "label", name = "options_caption", caption = "Options"}
+    local caption = player.gui.center.Q.add2q.add{type = "label", name = "options_caption", caption = {"rq-gui.options"}}
     caption.style.minimal_width = player.mod_settings["research-queue-table-width"].value * 68
-    local options = player.gui.center.Q.add2q.add{type = "table", name = "options", style = "rq-table2", column_count = player.mod_settings["research-queue-table-width"].value}
+    local columns = player.mod_settings["research-queue-table-width"].value
+    -- The ratio is higher than this I think, but this is good enough for now.
+    columns = bit32.arshift(columns, -1) - bit32.arshift(columns, 2)
+    local options = player.gui.center.Q.add2q.add{type = "table", name = "options", style = "rq-table2", column_count = columns}
     player.gui.center.Q.add2q.add{type = "textfield", name = "rq-text-filter", text = global.text_filter or ""}
 
     options.add{type = "button", name = "rqextend-button", style = global.showExtended[player.index] and "rq-compact-button" or "rq-extend-button"}
@@ -25,10 +28,16 @@ function options(player)
     for name, science in pairs(global.science_packs) do
         if global.showExtended[player.index] or not (global.bobsmodules[name] or global.bobsaliens[name]) then
             -- Technology icon. If the user clicks this, it will toggle the filter for this specific ingredient.
-            local filter_style = science[player.index] and "rq-tool-selected-filter" or "rq-tool-inactive-filter"
-            -- TODO: write up a templated string for the tooltip to allow for a reasonable tooltip with localizations
+            local filter_style, tooltip = nil, nil
+            if science[player.index] then
+                filter_style = "rq-tool-selected-filter"
+                tooltip = {"rq-gui.exclude_science_pack", item_prototypes[name].localised_name}
+            else
+                filter_style = "rq-tool-inactive-filter"
+                tooltip = {"rq-gui.stop_science_pack_exclusion", item_prototypes[name].localised_name}
+            end
             options.add{type = "sprite-button", name = "rq-science" .. name,
-                        style = filter_style, sprite = "item/" .. name, tooltip = item_prototypes[name].localised_name}
+                        style = filter_style, sprite = "item/" .. name, tooltip = tooltip}
 
         elseif global.bobsmodules[name] and not options["rq-bobsmodules"] then
             options.add{type = "checkbox", name = "rq-bobsmodules", style = "rq-bobsmodules", state = not global.showBobsmodules[player.index]}
@@ -61,7 +70,7 @@ end
 
 function technologies(player, queued_techs)
     queued_techs = queued_techs or get_queued_research(global.researchQ[player.force.name])
-    local caption = player.gui.center.Q.add2q.add{type = "label", name = "add2q_caption", caption = "List of technologies"}
+    local caption = player.gui.center.Q.add2q.add{type = "label", name = "add2q_caption", caption = {"rq-gui.technology-list"}}
     caption.style.minimal_width = player.mod_settings["research-queue-table-width"].value * 68
     --create a smaller table if text is displayed.
     local column_count = nil
@@ -113,17 +122,14 @@ function technologies(player, queued_techs)
                     if global.offset_tech[player.index] < row and row <= (player.mod_settings["research-queue-table-height"].value + global.offset_tech[player.index]) then
                         local bg_frame = rq_table.add{type = "frame", name = "rq" .. name .. "background_frame", style = background}
                         --technology icon
-                        local pcall_status, tech_icon = pcall(bg_frame.add, {type = "frame", name = name .. "frame", style = "rq-tech" .. name, tooltip = tech.localised_name})
-                        if not pcall_status then
-                             pcall_status, tech_icon = pcall(bg_frame.add, {type = "button", name = name .. "frame", caption = name, tooltip = tech.localised_name})
-                        end
+                        local tech_icon = bg_frame.add{type = "sprite-button", name = "rq-add" .. name,
+                                                       sprite = "technology/" .. name, style = "rq-button", tooltip = tech.localised_name}
 
                         --finds if the technology has a number (eg, automation-2) and creates a label with that number
                         local caption = string.match(name, "%-%d+")
                         if caption then caption = string.gsub(caption, "%-", " ") end
-                        local frame3 = tech_icon.add{type = "label", name = name .. "label", style = "rq-label", caption = caption}
-                        -- adds the final button that can be clicked on top.
-                        local button = frame3.add{type = "button", name = "rq-add" .. name, style = "rq-button", tooltip = tech.localised_name}
+                        tech_icon.add{type = "label", name = name .. "label", style = "rq-label", caption = caption,
+                                      ignored_by_interaction = true, enabled = caption and string.len(caption) > 0}
                     elseif row > player.mod_settings["research-queue-table-height"].value + global.offset_tech[player.index] then
                         should_draw_down_button = true
                         break
@@ -168,7 +174,7 @@ end
 function draw_grid_player(player, queued_techs)
     if player.gui.center.Q then
         if player.gui.center.Q.add2q then player.gui.center.Q.add2q.destroy() end
-        player.gui.center.Q.add{type = "frame", name = "add2q", caption = "Add to queue", style = "technology_preview_frame", direction = "vertical"}
+        player.gui.center.Q.add{type = "frame", name = "add2q", caption = {"rq-gui.add-to-queue"}, style = "technology_preview_frame", direction = "vertical"}
         options(player)
         technologies(player, queued_techs)
     end

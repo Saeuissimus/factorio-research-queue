@@ -116,49 +116,25 @@ data.raw["gui-style"].default["rq-tool-frame"] =
     font = "rq-label-text"
 }
 
-for k, tool in pairs(data.raw.tool) do
-    if tool.icon then
-    -- log(serpent.block(tool))
-    data.raw["gui-style"].default["rq-tool" .. tool.name .. "frame"] =
-    {
-        type = "frame_style",
-        width = 20,
-        height = 20,
-        scalable = true,
-        graphical_set =
-        {
-            type = "monolith",
-            top_monolith_border = 0,
-            right_monolith_border = 0,
-            bottom_monolith_border = 0,
-            left_monolith_border = 0,
-            monolith_image =
-            {
-                filename = tool.icon,
-                priority = "extra-high-no-scale",
-                width = 32,
-                height = 32,
-                x = 0,
-                y = 0
-            }
-        },
-        align = "left",
-        top_padding = 0,
-        right_padding = 0,
-        bottom_padding = 0,
-        left_padding = 0,
-        flow_style =
-        {
-            type = "flow_style",
-            horizontal_spacing = 0,
-            vertical_spacing = 0
-        },
-        font = "rq-label-text"
-    }
-    end
-
-
-end
+data.raw["gui-style"].default["rq-ingredient-sprite"] =
+{
+    type = "button_style",
+    parent = "small_slot_button",
+    -- width = 20,
+    -- height = 20,
+    scalable = true,
+    align = "left",
+    -- top_padding = 0,
+    -- right_padding = 0,
+    -- bottom_padding = 0,
+    -- left_padding = 0,
+    -- flow_style =
+    -- {
+    --     type = "flow_style",
+    --     horizontal_spacing = 0,
+    --     vertical_spacing = 0
+    -- }
+}
 
 if bobmods ~= nil then
     if bobmods.modules ~= nil then
@@ -492,6 +468,14 @@ data.raw["gui-style"].default["rq-label"] =
     scalable = true,
     width = data.raw["gui-style"].default["rq-techautomation"].width,
     height = data.raw["gui-style"].default["rq-techautomation"].height,
+}
+
+data.raw["gui-style"].default["rq-small-label"] =
+{
+    type = "label_style",
+    parent = "rq-label",
+    width = 20,
+    height = 20,
 }
 
 data.raw["gui-style"].default["rq-flow"] =
