@@ -15,7 +15,7 @@ function options(player)
     -- The ratio is higher than this I think, but this is good enough for now.
     columns = bit32.arshift(columns, -1) - bit32.arshift(columns, 2)
     local options = player.gui.center.Q.add2q.add{type = "table", name = "options", style = "rq-table2", column_count = columns}
-    player.gui.center.Q.add2q.add{type = "textfield", name = "rq-text-filter", text = global.text_filter or ""}
+    player.gui.center.Q.add2q.add{type = "textfield", name = "rq-text-filter", text = global.text_filter or "", tooltip = {"rq-gui.prefix-text-search"}}
 
     options.add{type = "button", name = "rqextend-button", style = global.showExtended[player.index] and "rq-compact-button" or "rq-extend-button"}
 
