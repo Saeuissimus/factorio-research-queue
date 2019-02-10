@@ -48,7 +48,7 @@ end
 
 function player_init(player)
     local top = mod_gui.get_button_flow(player)
-    if not top.research_Q then top.add{type = "button", name = "research_Q", caption = "RQ", style = "rq-top-button"} end
+    if not top.research_Q_exp then top.add{type = "button", name = "research_Q_exp", caption = "RQe", style = "rq-exp-top-button"} end
     global.showIcon[player.index] = true
     global.showResearched[player.index] = false
     global.offset_queue[player.index] = 0
@@ -69,7 +69,7 @@ function player_init(player)
     end
 end
 
---remote.add_interface("RQ", {popup = function(bool)
+--remote.add_interface("rq-exp", {popup = function(bool)
 --  global.pop_when_empty_queue = false
 --end})
 

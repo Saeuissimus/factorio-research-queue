@@ -3,7 +3,7 @@
 import zipfile, os
 
 
-archive_root = "research-queue_1.6.8"
+archive_root = "research-queue-experimental_1.6.8"
 
 
 with zipfile.ZipFile(archive_root + ".zip", "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
