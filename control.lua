@@ -242,6 +242,16 @@ script.on_event(defines.events.on_entity_died, remove_lab)
 script.on_event(defines.events.on_pre_player_mined_item, remove_lab)
 script.on_event(defines.events.on_robot_pre_mined, remove_lab)
 
+-- This ensures that disconnected players don't have the GUI opened, and thus don't get updates
+--  nor cause crashes when reconnecting with old, inconsistent GUI instances
+-- Overwrite prompts are not removed but shouldn't be able to cause crashes nor are they ever updated
+script.on_event(defines.events.on_player_left_game, function(event)
+    local Q_gui = game.players[event.player_index].gui.center.Q
+    if Q_gui then
+        Q_gui.destroy()
+    end
+end)
+
 script.on_nth_tick(60, function(event)
     local forces = game.forces
     for _, force in pairs(forces) do

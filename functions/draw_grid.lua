@@ -141,13 +141,10 @@ function technologies(player, queued_techs)
                     local row = math.ceil(count / math.floor(player.mod_settings["research-queue-table-width"].value / 3))
                     if global.offset_tech[player.index] < row and row <= ((player.mod_settings["research-queue-table-height"].value*2) + global.offset_tech[player.index]) then
                         local frame = rq_table.add{type = "frame", name = "rqtextframe" .. name, style = "outer_frame"}
-                        frame.add{type = "frame", name = name .. "frame", style = "rq-tech" .. name .. "small"}
 
                         --technology icon
-                        local  pcall_status = pcall(frame.add, {type = "frame", name = name .. "frame", style = "rq-tech" .. name .. "small", tooltip = tech.localised_name})
-                        if not pcall_status then
-                            pcall_status = pcall(frame.add, {type = "button", name = name .. "frame", caption = name, tooltip = tech.localised_name})
-                        end
+                        frame.add{type = "sprite-button", name = name .. "icon", style = "rq-small-dummy-button", tooltip = tech.localised_name,
+                                  sprite = "technology/" .. name, ignored_by_interaction = true}
 
                         frame.add{type = "button", name = "rq-add" .. name, caption = tech.localised_name, style = background, tooltip = tech.localised_name}
                     elseif row > (player.mod_settings["research-queue-table-height"].value * 2) + global.offset_tech[player.index] then

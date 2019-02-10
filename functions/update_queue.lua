@@ -199,21 +199,22 @@ end
 function update_queue_force(force, partial_update, players)
     players = players or force.players
     local last_row = 1
+    local active_players = {}
     for _, player in pairs(players) do
         if player.gui.center.Q then
             last_row = math.max(last_row, player.mod_settings["research-queue-rows-count"].value + global.offset_queue[player.index])
+            active_players[_] = player
         end
     end
     last_row = math.min(last_row, #global.researchQ[force.name])
     local time_estimation = est_time(force, last_row)
 
-    for _, player in pairs(players) do
-        if player.gui.center.Q then
-            update_queue_player(player, partial_update, time_estimation)
-        end
+    for _, player in pairs(active_players) do
+        update_queue_player(player, partial_update, time_estimation)
     end
 end
 
+-- We assume here that the player is connected
 -- time_estimation is an optional argument. Useful to cache results for an entire force.
 function update_queue_player(player, partial_update, time_estimation)
     local descriptions = draw_queue_frame(player, partial_update)
@@ -258,7 +259,7 @@ function draw_queue_frame(player, partial_update)
             local item_prototypes = game.item_prototypes
             for i = start, last do
                 local tech_name = research_queue[i]
-                descriptions[i] = draw_queued_technology(list, tech_name, force.technologies[tech_name], item_prototypes)
+                descriptions[i] = draw_queued_technology(list, tech_name, force.technologies[tech_name], item_prototypes, player.mod_settings["research-queue-queued-tech-description-width"].value)
             end
             list.add{type = "button", name = "rqscrollqueuedown", style = "rq-down-button", enabled = #research_queue > last_row}
         end
@@ -274,19 +275,16 @@ function draw_queue_frame(player, partial_update)
     return descriptions
 end
 
-function draw_queued_technology(drawn_list, tech_name, technology, item_prototypes)
+function draw_queued_technology(drawn_list, tech_name, technology, item_prototypes, description_width)
     --create a frame for each item in the queue
     local frame = drawn_list.add{type = "frame", name = "rq-frame-" .. tech_name, style = "rq-frame"}
 
-    local pcall_status, _ = pcall(frame.add, {type = "frame", name = "rq" .. tech_name .. "icon", style = "rq-tech" .. tech_name})
-    if not pcall_status then
-        pcall_status, _ = pcall(frame.add, {type = "frame", name = "rq" .. tech_name .. "icon"})
-    end
+    frame.add{type = "sprite-button", name = "rq-icon" .. tech_name, style = "rq-dummy-button",
+              sprite = "technology/" .. tech_name, ignored_by_interaction = true}
 
     -- adds a description frame in the frame
     local description = frame.add{type = "flow", name = "rqtechdescription", style = "rq-flow-vertical", direction = "vertical"}
-    -- TODO: get rid of this magic number...?
-    description.style.minimal_width = 265
+    description.style.minimal_width = description_width
     -- places the name of the technology
     description.add{type = "label", name = "rq" .. tech_name .. "name", caption = technology.localised_name, style = "description_label"}
     -- add the ingredients and time

@@ -1,3 +1,12 @@
+1.6.8
+- Experimental version!
+- Reworked all GUI elements to use sprite buttons and avoid defining styles for each technology or ingredient.
+- Limited redrawing the GUI when there are no changes other than time estimation. This fixes an annoying issue where interaction with the GUI is interrupted at random.
+- Added event-local memoization of recursive calls. This improved performance when filtering technologies for certain ingredients.
+- Added a whole bunch of localised strings. This opens up the possibility of future localisation efforts.
+- Fixed time estimation to take into account saved progress on technologies present in the queue.
+- Modified the GUI layout in general in order to stabilize buttons. There is some mild success in this regard, but further work may be needed; especially when taking into account non-default options or localisations other than english.
+- The research queue GUI is now destroyed if it is still open when a player leaves. This should mainly result in a performance improvement but ensures stability too in the context of the GUI rework. Thanks to Devious Null for the idea of filtering disconnected players.
 1.6.7
 - Added Hotkey to open qui
 - Right click erases text in search field

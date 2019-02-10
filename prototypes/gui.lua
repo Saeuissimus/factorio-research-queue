@@ -1,84 +1,5 @@
-function get_size(tech)
-    if tech.icon_size then return tech.icon_size
-    elseif string.find(tech.icon,"__base__") then return 128
-    else return 64 end
-end
-
-
-for k, tech in pairs(data.raw.technology) do
-    if tech.icon then
-        data.raw["gui-style"].default["rq-tech" .. tech.name] =
-        {
-            type = "frame_style",
-            width = 64,
-            height = 64,
-            scalable = false,
-            graphical_set =
-            {
-                type = "monolith",
-                top_monolith_border = 0,
-                right_monolith_border = 0,
-                bottom_monolith_border = 0,
-                left_monolith_border = 0,
-                monolith_image =
-                {
-                    filename = tech.icon,
-                    priority = "extra-high-no-scale",
-                    width = get_size(tech),
-                    height = get_size(tech),
-                    x = 0,
-                    y = 0
-                }
-            },
-            align = "center",
-            top_padding = 0,
-            right_padding = 0,
-            bottom_padding = 0,
-            left_padding = 0,
-            flow_style =
-            {
-                type = "flow_style",
-                horizontal_spacing = 0,
-                vertical_spacing = 0
-            }
-        }
-        data.raw["gui-style"].default["rq-tech" .. tech.name .. "small"] =
-        {
-            type = "frame_style",
-            width = 32,
-            height = 32,
-            scalable = true,
-            graphical_set =
-            {
-                type = "monolith",
-                top_monolith_border = 0,
-                right_monolith_border = 0,
-                bottom_monolith_border = 0,
-                left_monolith_border = 0,
-                monolith_image =
-                {
-                    filename = tech.icon,
-                    priority = "extra-high-no-scale",
-                    width = get_size(tech),
-                    height = get_size(tech),
-                    x = 0,
-                    y = 0
-                }
-            },
-            align = "center",
-            top_padding = 0,
-            right_padding = 0,
-            bottom_padding = 0,
-            left_padding = 0,
-            flow_style =
-            {
-                type = "flow_style",
-                horizontal_spacing = 0,
-                vertical_spacing = 0
-            }
-        }
-    end
-end
+local big_size = 64
+local small_size = 32
 
 data.raw["gui-style"].default["rq-tool-selected-filter"] =
 {
@@ -146,8 +67,8 @@ if bobmods ~= nil then
             right_padding = 0,
             bottom_padding = 0,
             left_padding = 0,
-            width = 32,
-            height = 32,
+            width = small_size,
+            height = small_size,
             scalable = false,
             left_click_sound =
             {
@@ -205,8 +126,8 @@ if data.raw.technology["alien-research"] then
         right_padding = 0,
         bottom_padding = 0,
         left_padding = 0,
-        width = 32,
-        height = 32,
+        width = small_size,
+        height = small_size,
         scalable = false,
         left_click_sound =
         {
@@ -270,8 +191,8 @@ data.raw["gui-style"].default["rq-top-button"] =
 data.raw["gui-style"].default["rq-done-frame"] =
 {
     type = "frame_style",
-    width = data.raw["gui-style"].default["rq-techautomation"].width +4,
-    height = data.raw["gui-style"].default["rq-techautomation"].height +4,
+    width = big_size + 4,
+    height = big_size + 4,
     scalable = false,
     align = "center",
     graphical_set =
@@ -306,8 +227,8 @@ data.raw["gui-style"].default["rq-done-frame"] =
 data.raw["gui-style"].default["rq-inq-frame"] =
 {
     type = "frame_style",
-    width = data.raw["gui-style"].default["rq-techautomation"].width +4,
-    height = data.raw["gui-style"].default["rq-techautomation"].height +4,
+    width = big_size + 4,
+    height = big_size + 4,
     scalable = false,
     align = "center",
     graphical_set =
@@ -342,8 +263,8 @@ data.raw["gui-style"].default["rq-inq-frame"] =
 data.raw["gui-style"].default["rq-available-frame"] =
 {
     type = "frame_style",
-    width = data.raw["gui-style"].default["rq-techautomation"].width + 4,
-    height = data.raw["gui-style"].default["rq-techautomation"].height + 4,
+    width = big_size + 4,
+    height = big_size + 4,
     scalable = false,
     align = "center",
     graphical_set =
@@ -389,8 +310,8 @@ data.raw["gui-style"].default["rq-button"] =
         volume = 1
         }
     },
-    width = data.raw["gui-style"].default["rq-techautomation"].width,
-    height = data.raw["gui-style"].default["rq-techautomation"].height,
+    width = big_size,
+    height = big_size,
     top_padding = 0,
     right_padding = 0,
     bottom_padding = 0,
@@ -449,6 +370,143 @@ data.raw["gui-style"].default["rq-button"] =
         }
     },
 }
+
+data.raw["gui-style"].default["rq-dummy-button"] =
+{
+    type = "button_style",
+    font = "default-button",
+    default_font_color = {r = 1, g = 1, b = 1},
+    align = "center",
+    scalable = false,
+    width = big_size,
+    height = big_size,
+    top_padding = 0,
+    right_padding = 0,
+    bottom_padding = 0,
+    left_padding = 0,
+    default_graphical_set =
+    {
+        type = "monolith",
+        top_monolith_border = 2,
+        right_monolith_border = 2,
+        bottom_monolith_border = 2,
+        left_monolith_border = 2,
+        monolith_image =
+        {
+            filename = "__research-queue__/graphics/gui_elements.png",
+            priority = "extra-high-no-scale",
+            width = 32,
+            height = 32,
+            x = 96,
+            y = 96
+        }
+    },
+    hovered_font_color = {r = 1, g = 1, b = 1},
+    hovered_graphical_set =
+    {
+        type = "monolith",
+        top_monolith_border = 2,
+        right_monolith_border = 2,
+        bottom_monolith_border = 2,
+        left_monolith_border = 2,
+        monolith_image =
+        {
+            filename = "__research-queue__/graphics/gui_elements.png",
+            priority = "extra-high-no-scale",
+            width = 32,
+            height = 32,
+            x = 96,
+            y = 96
+        }
+    },
+    clicked_font_color = {r = 1, g = 1, b = 1},
+    clicked_graphical_set =
+    {
+        type = "monolith",
+        top_monolith_border = 2,
+        right_monolith_border = 2,
+        bottom_monolith_border = 2,
+        left_monolith_border = 2,
+        monolith_image =
+        {
+            filename = "__core__/graphics/gui.png",
+            priority = "extra-high-no-scale",
+            width = 36,
+            height = 36,
+            x = 96,
+            y = 96
+        }
+    },
+}
+
+data.raw["gui-style"].default["rq-small-dummy-button"] =
+{
+    type = "button_style",
+    font = "default-button",
+    default_font_color = {r = 1, g = 1, b = 1},
+    align = "center",
+    scalable = false,
+    width = small_size,
+    height = small_size,
+    top_padding = 0,
+    right_padding = 0,
+    bottom_padding = 0,
+    left_padding = 0,
+    default_graphical_set =
+    {
+        type = "monolith",
+        top_monolith_border = 2,
+        right_monolith_border = 2,
+        bottom_monolith_border = 2,
+        left_monolith_border = 2,
+        monolith_image =
+        {
+            filename = "__research-queue__/graphics/gui_elements.png",
+            priority = "extra-high-no-scale",
+            width = 32,
+            height = 32,
+            x = 96,
+            y = 96
+        }
+    },
+    hovered_font_color = {r = 1, g = 1, b = 1},
+    hovered_graphical_set =
+    {
+        type = "monolith",
+        top_monolith_border = 2,
+        right_monolith_border = 2,
+        bottom_monolith_border = 2,
+        left_monolith_border = 2,
+        monolith_image =
+        {
+            filename = "__research-queue__/graphics/gui_elements.png",
+            priority = "extra-high-no-scale",
+            width = 32,
+            height = 32,
+            x = 96,
+            y = 96
+        }
+    },
+    clicked_font_color = {r = 1, g = 1, b = 1},
+    clicked_graphical_set =
+    {
+        type = "monolith",
+        top_monolith_border = 2,
+        right_monolith_border = 2,
+        bottom_monolith_border = 2,
+        left_monolith_border = 2,
+        monolith_image =
+        {
+            filename = "__core__/graphics/gui.png",
+            priority = "extra-high-no-scale",
+            width = 36,
+            height = 36,
+            x = 96,
+            y = 96
+        }
+    },
+}
+
 data:extend(
 {{
     type = "font",
@@ -466,8 +524,8 @@ data.raw["gui-style"].default["rq-label"] =
     font = "rq-label-text",
     -- font = "default-bold",
     scalable = true,
-    width = data.raw["gui-style"].default["rq-techautomation"].width,
-    height = data.raw["gui-style"].default["rq-techautomation"].height,
+    width = big_size,
+    height = big_size,
 }
 
 data.raw["gui-style"].default["rq-small-label"] =
@@ -718,8 +776,8 @@ data.raw["gui-style"].default["rq-cancel-button"] =
     right_padding = 1,
     bottom_padding = 1,
     left_padding = 1,
-    width = 32,
-    height = 32,
+    width = small_size,
+    height = small_size,
     default_graphical_set =
     {
         type = "monolith",
