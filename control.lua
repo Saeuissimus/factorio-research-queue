@@ -193,21 +193,23 @@ script.on_event(defines.events.on_research_finished, function(event)
     end
 
     remove_research(event.research.force, event.research.name)
-    local refresh_gui = {}
+    local refresh_gui, refresh_counter = {}, 0
     for index, player in pairs(event.research.force.players) do
         local length_queue = #global.researchQ[event.research.force.name]
 
         if player.gui.center.Q then
             refresh_gui[player] = player
+            refresh_counter = refresh_counter + 1
         elseif length_queue == 0 and player.mod_settings["research-queue_popup-on-queue-finish"].value then
             local Q = player.gui.center.add{type = "flow", name = "Q", style = "rq-flow"}
             refresh_gui[player] = player
+            refresh_counter = refresh_counter + 1
         end
         local offset_queue = global.offset_queue
         offset_queue[index] = math.max(0, math.min(offset_queue[index],
                               length_queue - player.mod_settings["research-queue-rows-count"].value))
     end
-    if #refresh_gui > 0 then
+    if refresh_counter > 0 then
         update_queue_force(event.research.force, false, refresh_gui)
         draw_grid_force(event.research.force)
     end
