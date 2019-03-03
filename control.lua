@@ -146,11 +146,26 @@ script.on_event(defines.events.on_gui_click, function(event)
         draw_grid_player(player)
 
     elseif event.element.name == "rqscrollqueueup" then
-        global.offset_queue[player.index] = global.offset_queue[player.index] - 1
+        local move_size = 1
+        if event.button ~= defines.mouse_button_type.left or event.control then
+            move_size = #global.researchQ[force.name]
+        elseif event.alt or event.shift then
+            move_size = 5
+        end
+        global.offset_queue[player.index] = math.max(global.offset_queue[player.index] - move_size, 0)
         update_queue_player(player)
 
     elseif event.element.name == "rqscrollqueuedown" then
-        global.offset_queue[player.index] = global.offset_queue[player.index] + 1
+        local move_size = 1
+        local queue_size = #global.researchQ[force.name]
+        if event.button ~= defines.mouse_button_type.left or event.control then
+            move_size = queue_size
+        elseif event.alt or event.shift then
+            move_size = 5
+        end
+        local offset = global.offset_queue[player.index]
+        local visible_rows = player.mod_settings["research-queue-rows-count"].value
+        global.offset_queue[player.index] = math.max(math.min(offset + move_size, queue_size - visible_rows), 0)
         update_queue_player(player)
 
     elseif event.element.name == "rqextend-button" then
