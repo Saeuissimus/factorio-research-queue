@@ -7,9 +7,8 @@ info_path = os.path.join(base_dir, "info.json")
 
 with open(info_path) as info_file:
   info = json.load(info_file)
-  version = info["version"]
 
-archive_root = "research-queue_" + version
+archive_root = info["name"] + "_" + info["version"]
 archive_name = os.path.join(base_dir, archive_root + ".zip")
 
 with zipfile.ZipFile(archive_name, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
