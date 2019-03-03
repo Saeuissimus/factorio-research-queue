@@ -65,6 +65,9 @@ function est_time(force, last_tech_index)
     end
 
     local speed = 0
+    -- This iterates through all labs. This means that the sum of their speeds is used to estimate the time of completion.
+    -- However, this is wrong for technologies like modules in Bob's modules.
+    -- In fact, modules labs will add their speed to the estimation for common technologies too, even though they can't contribute to the research at all.
     for key, lab in pairs(global.labs[force.name]) do
         if not lab.valid then
             global.labs[force.name][key] = nil
