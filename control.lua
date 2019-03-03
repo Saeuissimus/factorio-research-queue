@@ -146,11 +146,26 @@ script.on_event(defines.events.on_gui_click, function(event)
         draw_grid_player(player)
 
     elseif event.element.name == "rq-expscrollqueueup" then
-        global.offset_queue[player.index] = global.offset_queue[player.index] - 1
+        local move_size = 1
+        if event.button ~= defines.mouse_button_type.left or event.control then
+            move_size = #global.researchQ[force.name]
+        elseif event.alt or event.shift then
+            move_size = 5
+        end
+        global.offset_queue[player.index] = math.max(global.offset_queue[player.index] - move_size, 0)
         update_queue_player(player)
 
     elseif event.element.name == "rq-expscrollqueuedown" then
-        global.offset_queue[player.index] = global.offset_queue[player.index] + 1
+        local move_size = 1
+        local queue_size = #global.researchQ[force.name]
+        if event.button ~= defines.mouse_button_type.left or event.control then
+            move_size = queue_size
+        elseif event.alt or event.shift then
+            move_size = 5
+        end
+        local offset = global.offset_queue[player.index]
+        local visible_rows = player.mod_settings["research-queue-experimental-rows-count"].value
+        global.offset_queue[player.index] = math.max(math.min(offset + move_size, queue_size - visible_rows), 0)
         update_queue_player(player)
 
     elseif event.element.name == "rq-expextend-button" then
@@ -193,21 +208,23 @@ script.on_event(defines.events.on_research_finished, function(event)
     end
 
     remove_research(event.research.force, event.research.name)
-    local refresh_gui = {}
+    local refresh_gui, refresh_counter = {}, 0
     for index, player in pairs(event.research.force.players) do
         local length_queue = #global.researchQ[event.research.force.name]
 
         if player.gui.center.Q_exp then
             refresh_gui[player] = player
+            refresh_counter = refresh_counter + 1
         elseif length_queue == 0 and player.mod_settings["research-queue-experimental_popup-on-queue-finish"].value then
             local Q = player.gui.center.add{type = "flow", name = "Q_exp", style = "rq-exp-flow"}
             refresh_gui[player] = player
+            refresh_counter = refresh_counter + 1
         end
         local offset_queue = global.offset_queue
         offset_queue[index] = math.max(0, math.min(offset_queue[index],
                               length_queue - player.mod_settings["research-queue-experimental-rows-count"].value))
     end
-    if #refresh_gui > 0 then
+    if refresh_counter > 0 then
         update_queue_force(event.research.force, false, refresh_gui)
         draw_grid_force(event.research.force)
     end

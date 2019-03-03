@@ -100,9 +100,6 @@ function technologies(player, queued_techs)
            any(tech.prerequisites, "researched") or matches(tech.prerequisites, "name", queued_techs)) then
             -- ^checks if the research is an upgrade technology and whether or not to show it.
 
-            -- player.print(serpent.line(tech.localised_name))
-            -- player.print(serpent.line(tech.name))
-
             -- filter technologies for selected ingredients and text mask
             if check_tech_ingredients(player, tech, forbidden_ingredients, known_good_techs) and
             (

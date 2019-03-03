@@ -57,13 +57,17 @@ function est_time(force, last_tech_index)
         return nil
     end
 
+    local research_queue = global.researchQ[force.name]
     local est = {}
-    last_tech_index = last_tech_index or #global.researchQ[force.name]
+    last_tech_index = last_tech_index or #research_queue
     if last_tech_index == 0 then
         return est
     end
 
     local speed = 0
+    -- This iterates through all labs. This means that the sum of their speeds is used to estimate the time of completion.
+    -- However, this is wrong for technologies like modules in Bob's modules.
+    -- In fact, modules labs will add their speed to the estimation for common technologies too, even though they can't contribute to the research at all.
     for key, lab in pairs(global.labs[force.name]) do
         if not lab.valid then
             global.labs[force.name][key] = nil
@@ -77,29 +81,32 @@ function est_time(force, last_tech_index)
                 if module_effect.productivity then productivity_modifier = productivity_modifier + module_effect.productivity.bonus * count end
                 if module_effect.consumption then consumption_modifier = consumption_modifier + module_effect.consumption.bonus * count end
             end
-            -- if base lab then use energy values
-            if lab.name == "lab" then
-                speed = speed + ( (1 + speed_modifier) * (1 + productivity_modifier) * math.min(lab.energy / (math.max(1 + consumption_modifier, 0.2) * 60 * 160 / 9), 1) )
-            -- ignore energy values for modded labs, only check if it has energy or not
-            else
-                speed = speed + ( (1 + speed_modifier) * (1 + productivity_modifier) * math.min(lab.energy, 1) )
-            end
+            -- KNOWN ISSUE: In factorio 0.16.51 lab.energy returns a very small number when research is finished.
+            -- This may be related to the lab starting up the next research.
+            -- The best way to work around this seems to be to do away with the estimation update altogether during the on_research_finished event.
+            -- Accessing the prototype may be too costly? The whole calculation can be optimized by caching intermediate results in the global state tick by tick.
+            -- This requires a major rewrite of this function and a few others though.
+            local energy_usage = lab.prototype.energy_usage
+            speed = speed + ( (1 + speed_modifier) * (1 + productivity_modifier) * math.min(lab.energy / (math.max(1 + consumption_modifier, 0.2) * energy_usage), 1) )
         end
     end
 
     speed = speed * (1 + force.laboratory_speed_modifier)
+    local current_research = force.current_research
+    local current_research_name = current_research.name
 
-    local initial_eta = (1 - force.research_progress) * force.current_research.research_unit_count * force.current_research.research_unit_energy / speed
-    for i, tech in ipairs(global.researchQ[force.name]) do
-        if force.current_research.name == tech then
+    local initial_eta = (1 - force.research_progress) * current_research.research_unit_count * current_research.research_unit_energy / speed
+    for i, tech_name in ipairs(research_queue) do
+        if current_research_name == tech_name then
             est[i] = initial_eta
         else
-            local current_saved_progress = force.get_saved_technology_progress(tech)
+            local current_saved_progress = force.get_saved_technology_progress(tech_name)
             local current_remaining_progress = current_saved_progress and (1 - current_saved_progress) or 1
-            local current_eta = current_remaining_progress * force.technologies[tech].research_unit_count * force.technologies[tech].research_unit_energy / speed
+            local technology = force.technologies[tech_name]
+            local current_eta = current_remaining_progress * technology.research_unit_count * technology.research_unit_energy / speed
             if i == 1 then
                 est[i] = initial_eta + current_eta
-            elseif i > 2 and global.researchQ[force.name][i-1] == force.current_research.name then
+            elseif i > 2 and research_queue[i-1] == current_research_name then
                 est[i] = est[i - 2] + current_eta
             else
                 est[i] = est[i - 1] + current_eta
@@ -114,7 +121,7 @@ end
 
 -- pre: research_name has not been researched already
 function add_research(force, research_name)
-    --checks if the prerequisites are already researched, if not call this function for those techs first.
+    -- checks if the prerequisites are already researched; if not, call this function for those techs first.
     for _, pre in pairs(force.technologies[research_name].prerequisites) do
         if not pre.researched then
             add_research(force, pre.name)
@@ -134,15 +141,15 @@ function remove_research(force, research_name)
     techs_to_remove[research_name] = true
     -- log(serpent.block(techs_to_remove))
     check_queue(force, techs_to_remove)
-    --starts the new researches for the new top item in the queue
+    -- starts the new research for the new top item in the queue
     if (force.current_research == research_name or is_top_tech) and global.researchQ[force.name][1] ~= nil then
         force.current_research = global.researchQ[force.name][1]
     end
 end
 
-function row_from_research_name(force, research_name)
-    --find the queue index corresponding to the technology
-    for i, tech in ipairs(global.researchQ[force.name]) do
+function row_from_research_name(research_queue, research_name)
+    -- Find the queue index corresponding to the technology
+    for i, tech in ipairs(research_queue) do
         if tech == research_name then
             return i
         end
@@ -160,20 +167,22 @@ end
 function up(player, research_name, times)
     local moved_by_count = 0
     local force = player.force
-    local research_index = row_from_research_name(force, research_name)
+    local research_queue = global.researchQ[force.name]
+    local research_index = row_from_research_name(research_queue, research_name)
     for i = 1, math.min(times, research_index - 1) do
-        if is_prerequisite(global.researchQ[force.name][research_index - i], force.technologies[research_name].prerequisites) then
+        if is_prerequisite(research_queue[research_index - i], force.technologies[research_name].prerequisites) then
             break
         end
         moved_by_count = moved_by_count + 1
     end
 
+    -- Using table methods ensures a stable insertion
     if moved_by_count > 0 then
         local new_index = research_index - moved_by_count
-        table.remove(global.researchQ[force.name], research_index)
-        table.insert(global.researchQ[force.name], new_index, research_name)
-        --starts the new top research
-        if moved_by_count == 1 and new_index == 1 and
+        table.remove(research_queue, research_index)
+        table.insert(research_queue, new_index, research_name)
+        -- starts the new top research
+        if new_index == 1 and
            force.current_research.name ~= research_name then
             prompt_overwrite_research(player, research_name)
         end
@@ -181,17 +190,19 @@ function up(player, research_name, times)
 end
 
 function down(force, research_name, times)
-    local research_index = row_from_research_name(force, research_name)
+    local research_queue = global.researchQ[force.name]
+    local research_index = row_from_research_name(research_queue, research_name)
     local available_positions = 0
-    for i = 1, math.min(times, #global.researchQ[force.name] - research_index) do
-        if is_prerequisite(research_name, force.technologies[global.researchQ[force.name][research_index + i]].prerequisites) then
+    for i = 1, math.min(times, #research_queue - research_index) do
+        if is_prerequisite(research_name, force.technologies[research_queue[research_index + i]].prerequisites) then
             break
         end
         available_positions = available_positions + 1
     end
+    -- Using table methods ensures a stable insertion
     if available_positions > 0 then
-        table.remove(global.researchQ[force.name], research_index)
-        table.insert(global.researchQ[force.name], research_index + available_positions, research_name)
+        table.remove(research_queue, research_index)
+        table.insert(research_queue, research_index + available_positions, research_name)
     end
 end
 
