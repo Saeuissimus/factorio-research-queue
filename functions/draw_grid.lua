@@ -19,9 +19,27 @@ function options(player)
 
     options.add{type = "button", name = "rqextend-button", style = global.showExtended[player.index] and "rq-compact-button" or "rq-extend-button"}
 
-    options.add{type = "checkbox", name = "rqtext", style = "rq-text-checkbox", state = global.showIcon[player.index]}
+    local text_view_style, text_view_tooltip = nil, nil
+    if global.showIcon[player.index] then
+        text_view_style = "rq-tool-inactive-filter"
+        text_view_tooltip = {"rq-gui.use-tech-labels"}
+    else
+        text_view_style = "rq-tool-selected-filter"
+        text_view_tooltip = {"rq-gui.use-tech-icons"}
+    end
+    options.add{type = "sprite-button", name = "rqtext", sprite = "rq-text-view-icon",
+                style = text_view_style, tooltip = text_view_tooltip }
 
-    options.add{type = "checkbox", name = "rqscience", style = "rq-scienceDone-checkbox", state = not global.showResearched[player.index]}
+    local completed_research_style, completed_research_tooltip = nil, nil
+    if global.showResearched[player.index] then
+        completed_research_style = "rq-tool-selected-filter"
+        completed_research_tooltip = {"rq-gui.stop-showing-researched-techs"}
+    else
+        completed_research_style = "rq-tool-inactive-filter"
+        completed_research_tooltip = {"rq-gui.show-researched-techs"}
+    end
+    options.add{type = "sprite-button", name = "rqscience", sprite = "rq-completed-research-icon",
+                style = completed_research_style, tooltip = completed_research_tooltip}
 
     local item_prototypes = game.item_prototypes
 

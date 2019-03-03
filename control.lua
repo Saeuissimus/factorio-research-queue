@@ -49,15 +49,7 @@ script.on_event(defines.events.on_gui_checked_state_changed, function(event)
     local player = game.players[event.player_index]
     global.offset_tech[player.index] = 0
 
-    if event.element.name == "rqtext" then
-        global.showIcon[player.index] = not global.showIcon[player.index]
-        draw_grid_player(player)
-
-    elseif event.element.name == "rqscience" then
-        global.showResearched[player.index] = not global.showResearched[player.index]
-        draw_grid_player(player)
-
-    elseif event.element.name == "rq-bobsmodules" then
+    if event.element.name == "rq-bobsmodules" then
         global.showBobsmodules[player.index] = not global.showBobsmodules[player.index]
         for name, science in pairs(global.science_packs) do
             if global.bobsmodules[name] then science[player.index] = global.showBobsmodules[player.index] end
@@ -197,6 +189,14 @@ script.on_event(defines.events.on_gui_click, function(event)
         if player.gui.center.warning then player.gui.center.warning.destroy() end
         if not player.gui.center.Q then player.gui.center.add{type = "flow", name = "Q", style = "rq-flow"} end
         update_queue_player(player)
+        draw_grid_player(player)
+
+    elseif event.element.name == "rqtext" then
+        global.showIcon[player.index] = not global.showIcon[player.index]
+        draw_grid_player(player)
+
+    elseif event.element.name == "rqscience" then
+        global.showResearched[player.index] = not global.showResearched[player.index]
         draw_grid_player(player)
     end
 end)

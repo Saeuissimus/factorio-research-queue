@@ -188,6 +188,30 @@ data.raw["gui-style"].default["rq-top-button"] =
     },
 }
 
+data:extend(
+{
+    {
+        type = "sprite",
+        name = "rq-text-view-icon",
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 0,
+        y = 64
+    },
+    {
+        type = "sprite",
+        name = "rq-completed-research-icon",
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 0,
+        y = 96
+    }
+})
+
 data.raw["gui-style"].default["rq-done-frame"] =
 {
     type = "frame_style",
@@ -197,20 +221,13 @@ data.raw["gui-style"].default["rq-done-frame"] =
     align = "center",
     graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-         filename = "__core__/graphics/gui.png",
-         priority = "extra-high-no-scale",
-         width = 36,
-         height = 36,
-         x = 111,
-         y = 108
-        }
+        border = 0,
+        filename = "__core__/graphics/gui.png",
+        priority = "extra-high-no-scale",
+        width = 36,
+        height = 36,
+        x = 111,
+        y = 108
     },
     top_padding = 0,
     right_padding = 0,
@@ -221,7 +238,7 @@ data.raw["gui-style"].default["rq-done-frame"] =
         type = "flow_style",
         horizontal_spacing = 0,
         vertical_spacing = 0
- }
+    }
 }
 
 data.raw["gui-style"].default["rq-inq-frame"] =
@@ -233,20 +250,13 @@ data.raw["gui-style"].default["rq-inq-frame"] =
     align = "center",
     graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 2,
-        right_monolith_border = 2,
-        bottom_monolith_border = 2,
-        left_monolith_border = 2,
-        monolith_image =
-        {
-         filename = "__core__/graphics/gui.png",
-         priority = "extra-high-no-scale",
-         width = 36,
-         height = 36,
-         x = 111,
-         y = 72
-        }
+        border = 2,
+        filename = "__core__/graphics/gui.png",
+        priority = "extra-high-no-scale",
+        width = 36,
+        height = 36,
+        x = 111,
+        y = 72
     },
     top_padding = 0,
     right_padding = 0,
@@ -257,7 +267,7 @@ data.raw["gui-style"].default["rq-inq-frame"] =
         type = "flow_style",
         horizontal_spacing = 0,
         vertical_spacing = 0
- }
+    }
 }
 
 data.raw["gui-style"].default["rq-available-frame"] =
@@ -269,20 +279,13 @@ data.raw["gui-style"].default["rq-available-frame"] =
     align = "center",
     graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 2,
-        right_monolith_border = 2,
-        bottom_monolith_border = 2,
-        left_monolith_border = 2,
-        monolith_image =
-        {
-         filename = "__core__/graphics/gui.png",
-         priority = "extra-high-no-scale",
-         width = 36,
-         height = 36,
-         x = 75,
-         y = 72
-        }
+        border = 2,
+        filename = "__core__/graphics/gui.png",
+        priority = "extra-high-no-scale",
+        width = 36,
+        height = 36,
+        x = 75,
+        y = 72
     },
     top_padding = 0,
     right_padding = 0,
@@ -293,13 +296,13 @@ data.raw["gui-style"].default["rq-available-frame"] =
         type = "flow_style",
         horizontal_spacing = 0,
         vertical_spacing = 0
- }
+    }
 }
 
 data.raw["gui-style"].default["rq-button"] =
 {
     type = "button_style",
-    font = "default-button",
+    font = "default",
     default_font_color = {r = 1, g = 1, b = 1},
     align = "center",
     scalable = false,
@@ -318,63 +321,42 @@ data.raw["gui-style"].default["rq-button"] =
     left_padding = 0,
     default_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 2,
-        right_monolith_border = 2,
-        bottom_monolith_border = 2,
-        left_monolith_border = 2,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 96,
-            y = 96
-        }
+        border = 2,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 96,
+        y = 96
     },
     hovered_font_color = {r = 1, g = 1, b = 1},
     hovered_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 2,
-        right_monolith_border = 2,
-        bottom_monolith_border = 2,
-        left_monolith_border = 2,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 0,
-            y = 0
-        }
+        border = 2,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 0,
+        y = 0
     },
     clicked_font_color = {r = 1, g = 1, b = 1},
     clicked_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 2,
-        right_monolith_border = 2,
-        bottom_monolith_border = 2,
-        left_monolith_border = 2,
-        monolith_image =
-        {
-            filename = "__core__/graphics/gui.png",
-            priority = "extra-high-no-scale",
-            width = 36,
-            height = 36,
-            x = 148,
-            y = 0
-        }
+        border = 2,
+        filename = "__core__/graphics/gui.png",
+        priority = "extra-high-no-scale",
+        width = 36,
+        height = 36,
+        x = 148,
+        y = 0
     },
 }
 
 data.raw["gui-style"].default["rq-dummy-button"] =
 {
     type = "button_style",
-    font = "default-button",
+    font = "default",
     default_font_color = {r = 1, g = 1, b = 1},
     align = "center",
     scalable = false,
@@ -386,63 +368,42 @@ data.raw["gui-style"].default["rq-dummy-button"] =
     left_padding = 0,
     default_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 2,
-        right_monolith_border = 2,
-        bottom_monolith_border = 2,
-        left_monolith_border = 2,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 96,
-            y = 96
-        }
+        border = 2,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 96,
+        y = 96
     },
     hovered_font_color = {r = 1, g = 1, b = 1},
     hovered_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 2,
-        right_monolith_border = 2,
-        bottom_monolith_border = 2,
-        left_monolith_border = 2,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 96,
-            y = 96
-        }
+        border = 2,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 96,
+        y = 96
     },
     clicked_font_color = {r = 1, g = 1, b = 1},
     clicked_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 2,
-        right_monolith_border = 2,
-        bottom_monolith_border = 2,
-        left_monolith_border = 2,
-        monolith_image =
-        {
-            filename = "__core__/graphics/gui.png",
-            priority = "extra-high-no-scale",
-            width = 36,
-            height = 36,
-            x = 96,
-            y = 96
-        }
+        border = 2,
+        filename = "__core__/graphics/gui.png",
+        priority = "extra-high-no-scale",
+        width = 36,
+        height = 36,
+        x = 96,
+        y = 96
     },
 }
 
 data.raw["gui-style"].default["rq-small-dummy-button"] =
 {
     type = "button_style",
-    font = "default-button",
+    font = "default",
     default_font_color = {r = 1, g = 1, b = 1},
     align = "center",
     scalable = false,
@@ -454,56 +415,35 @@ data.raw["gui-style"].default["rq-small-dummy-button"] =
     left_padding = 0,
     default_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 2,
-        right_monolith_border = 2,
-        bottom_monolith_border = 2,
-        left_monolith_border = 2,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 96,
-            y = 96
-        }
+        border = 2,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 96,
+        y = 96
     },
     hovered_font_color = {r = 1, g = 1, b = 1},
     hovered_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 2,
-        right_monolith_border = 2,
-        bottom_monolith_border = 2,
-        left_monolith_border = 2,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 96,
-            y = 96
-        }
+        border = 2,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 96,
+        y = 96
     },
     clicked_font_color = {r = 1, g = 1, b = 1},
     clicked_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 2,
-        right_monolith_border = 2,
-        bottom_monolith_border = 2,
-        left_monolith_border = 2,
-        monolith_image =
-        {
-            filename = "__core__/graphics/gui.png",
-            priority = "extra-high-no-scale",
-            width = 36,
-            height = 36,
-            x = 96,
-            y = 96
-        }
+        border = 2,
+        filename = "__core__/graphics/gui.png",
+        priority = "extra-high-no-scale",
+        width = 36,
+        height = 36,
+        x = 96,
+        y = 96
     },
 }
 
@@ -559,7 +499,7 @@ data.raw["gui-style"].default["rq-flow-vertical"] =
 data.raw["gui-style"].default["rq-frame"] =
 {
     type = "frame_style",
-    font = "default-frame",
+    font = "heading-2",
     font_color = {r = 1, g = 1, b = 1},
     top_padding = 0,
     right_padding = 0,
@@ -584,7 +524,7 @@ data.raw["gui-style"].default["rq-frame"] =
 data.raw["gui-style"].default["rq-up-button"] =
 {
     type = "button_style",
-    font = "default-button",
+    font = "default",
     align = "center",
     scalable = false,
     left_click_sound =
@@ -602,78 +542,50 @@ data.raw["gui-style"].default["rq-up-button"] =
     height = 16,
     default_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-         filename = "__research-queue__/graphics/gui_elements.png",
-         priority = "extra-high-no-scale",
-         width = 32,
-         height = 16,
-         x = 32,
-         y = 0
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 16,
+        x = 32,
+        y = 0
     },
     hovered_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-         filename = "__research-queue__/graphics/gui_elements.png",
-         priority = "extra-high-no-scale",
-         width = 32,
-         height = 16,
-         x = 64,
-         y = 0
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 16,
+        x = 64,
+        y = 0
     },
     clicked_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-         filename = "__research-queue__/graphics/gui_elements.png",
-         priority = "extra-high-no-scale",
-         width = 32,
-         height = 16,
-         x = 96,
-         y = 0
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 16,
+        x = 96,
+        y = 0
     },
     disabled_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-         filename = "__research-queue__/graphics/gui_elements.png",
-         priority = "extra-high-no-scale",
-         width = 32,
-         height = 16,
-         x = 96,
-         y = 96
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 16,
+        x = 96,
+        y = 96
     }
 }
 
 data.raw["gui-style"].default["rq-down-button"] =
 {
     type = "button_style",
-    font = "default-button",
+    font = "default",
     align = "center",
     scalable = false,
     left_click_sound =
@@ -691,78 +603,50 @@ data.raw["gui-style"].default["rq-down-button"] =
     height = 16,
     default_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-         filename = "__research-queue__/graphics/gui_elements.png",
-         priority = "extra-high-no-scale",
-         width = 32,
-         height = 16,
-         x = 32,
-         y = 16
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 16,
+        x = 32,
+        y = 16
     },
     hovered_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-         filename = "__research-queue__/graphics/gui_elements.png",
-         priority = "extra-high-no-scale",
-         width = 32,
-         height = 16,
-         x = 64,
-         y = 16
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 16,
+        x = 64,
+        y = 16
     },
     clicked_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-         filename = "__research-queue__/graphics/gui_elements.png",
-         priority = "extra-high-no-scale",
-         width = 32,
-         height = 16,
-         x = 96,
-         y = 16
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 16,
+        x = 96,
+        y = 16
     },
     disabled_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-         filename = "__research-queue__/graphics/gui_elements.png",
-         priority = "extra-high-no-scale",
-         width = 32,
-         height = 16,
-         x = 96,
-         y = 96
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 16,
+        x = 96,
+        y = 96
     }
 }
 
 data.raw["gui-style"].default["rq-cancel-button"] =
 {
     type = "button_style",
-    font = "default-button",
+    font = "default",
     align = "center",
     scalable = false,
     left_click_sound =
@@ -780,69 +664,41 @@ data.raw["gui-style"].default["rq-cancel-button"] =
     height = small_size,
     default_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 32,
-            y = 32
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 32,
+        y = 32
     },
     hovered_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 64,
-            y = 32
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 64,
+        y = 32
     },
     clicked_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 96,
-            y = 32
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 96,
+        y = 32
     },
     disabled_graphical_set = {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image = {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 96,
-            y = 96
-        }
+        border = 0,
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 96,
+        y = 96
     }
 }
 
@@ -1111,7 +967,7 @@ data.raw["gui-style"].default["rq-table2"] =
 data.raw["gui-style"].default["rq-compact-button"] =
 {
     type = "button_style",
-    font = "default-button",
+    font = "default",
     align = "center",
     scalable = false,
     left_click_sound =
@@ -1129,61 +985,40 @@ data.raw["gui-style"].default["rq-compact-button"] =
     height = 32,
     default_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 0,
-            y = 128
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 0,
+        y = 128
     },
     hovered_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 32,
-            y = 128
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 32,
+        y = 128
     },
     clicked_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 64,
-            y = 128
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 64,
+        y = 128
     }
 }
 
 data.raw["gui-style"].default["rq-extend-button"] =
 {
     type = "button_style",
-    font = "default-button",
+    font = "default",
     align = "center",
     scalable = false,
     left_click_sound =
@@ -1201,54 +1036,33 @@ data.raw["gui-style"].default["rq-extend-button"] =
     height = 32,
     default_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 0,
-            y = 160
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 0,
+        y = 160
     },
     hovered_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 32,
-            y = 160
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 32,
+        y = 160
     },
     clicked_graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-            filename = "__research-queue__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 64,
-            y = 160
-        }
+        border = 0,
+        filename = "__research-queue__/graphics/gui_elements.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 64,
+        y = 160
     }
 }
 
@@ -1260,20 +1074,13 @@ data.raw["gui-style"].default["rq-clock"] =
     scalable = true,
     graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-            filename = "__core__/graphics/clock-icon.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 0,
-            y = 0
-        }
+        border = 0,
+        filename = "__core__/graphics/clock-icon.png",
+        priority = "extra-high-no-scale",
+        width = 32,
+        height = 32,
+        x = 0,
+        y = 0
     },
     align = "left",
     top_padding = 0,
@@ -1297,21 +1104,14 @@ data.raw["gui-style"].default["rq-warning-icon"] =
     scalable = true,
     graphical_set =
     {
-        type = "monolith",
-        top_monolith_border = 0,
-        right_monolith_border = 0,
-        bottom_monolith_border = 0,
-        left_monolith_border = 0,
-        monolith_image =
-        {
-            icon_size = 64,
-            filename = "__core__/graphics/warning-icon.png",
-            priority = "extra-high-no-scale",
-            width = 64,
-            height = 64,
-            x = 0,
-            y = 0
-        }
+        border = 0,
+        icon_size = 64,
+        filename = "__core__/graphics/warning-icon.png",
+        priority = "extra-high-no-scale",
+        width = 64,
+        height = 64,
+        x = 0,
+        y = 0
     },
     align = "center",
     top_padding = 2,
