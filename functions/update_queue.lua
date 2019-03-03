@@ -114,7 +114,7 @@ end
 
 -- pre: research_name has not been researched already
 function add_research(force, research_name)
-    --checks if the prerequisites are already researched, if not call this function for those techs first.
+    -- checks if the prerequisites are already researched; if not, call this function for those techs first.
     for _, pre in pairs(force.technologies[research_name].prerequisites) do
         if not pre.researched then
             add_research(force, pre.name)
@@ -134,7 +134,7 @@ function remove_research(force, research_name)
     techs_to_remove[research_name] = true
     -- log(serpent.block(techs_to_remove))
     check_queue(force, techs_to_remove)
-    --starts the new researches for the new top item in the queue
+    -- starts the new research for the new top item in the queue
     if (force.current_research == research_name or is_top_tech) and global.researchQ[force.name][1] ~= nil then
         force.current_research = global.researchQ[force.name][1]
     end
