@@ -1,7 +1,7 @@
 local big_size = 64
 local small_size = 32
 
-data.raw["gui-style"].default["rq-tool-selected-filter"] =
+data.raw["gui-style"].default["rq-exp-tool-selected-filter"] =
 {
     type = "button_style",
     parent = "image_tab_selected_slot",
@@ -9,7 +9,7 @@ data.raw["gui-style"].default["rq-tool-selected-filter"] =
     height = 36
 }
 
-data.raw["gui-style"].default["rq-tool-inactive-filter"] =
+data.raw["gui-style"].default["rq-exp-tool-inactive-filter"] =
 {
     type = "button_style",
     parent = "image_tab_slot",
@@ -17,7 +17,7 @@ data.raw["gui-style"].default["rq-tool-inactive-filter"] =
     height = 36
 }
 
-data.raw["gui-style"].default["rq-tool-frame"] =
+data.raw["gui-style"].default["rq-exp-tool-frame"] =
 {
     type = "frame_style",
     width = 20,
@@ -34,10 +34,10 @@ data.raw["gui-style"].default["rq-tool-frame"] =
         horizontal_spacing = 0,
         vertical_spacing = 0
     },
-    font = "rq-label-text"
+    font = "rq-exp-label-text"
 }
 
-data.raw["gui-style"].default["rq-ingredient-sprite"] =
+data.raw["gui-style"].default["rq-exp-ingredient-sprite"] =
 {
     type = "button_style",
     parent = "small_slot_button",
@@ -48,7 +48,7 @@ data.raw["gui-style"].default["rq-ingredient-sprite"] =
 if bobmods ~= nil then
     if bobmods.modules ~= nil then
         log("research queue: Found Bob mods modules")
-        data.raw["gui-style"].default["rq-bobsmodules"] =
+        data.raw["gui-style"].default["rq-exp-bobsmodules"] =
         {
             type = "checkbox_style",
             top_padding = 0,
@@ -94,7 +94,7 @@ if bobmods ~= nil then
             },
             checked =
             {
-                filename = "__research-queue__/graphics/gui_elements.png",
+                filename = "__research-queue-experimental__/graphics/gui_elements.png",
                 priority = "extra-high-no-scale",
                 width = 32,
                 height = 32,
@@ -107,7 +107,7 @@ end
 
 if data.raw.technology["alien-research"] then
     log("research queue: Found Bob mods aliens")
-    data.raw["gui-style"].default["rq-bobsalien"] =
+    data.raw["gui-style"].default["rq-exp-bobsalien"] =
     {
         type = "checkbox_style",
         top_padding = 0,
@@ -153,7 +153,7 @@ if data.raw.technology["alien-research"] then
         },
         checked =
         {
-            filename = "__research-queue__/graphics/gui_elements.png",
+            filename = "__research-queue-experimental__/graphics/gui_elements.png",
             priority = "extra-high-no-scale",
             width = 32,
             height = 32,
@@ -163,7 +163,7 @@ if data.raw.technology["alien-research"] then
     }
 end
 
-data.raw["gui-style"].default["rq-top-button"] =
+data.raw["gui-style"].default["rq-exp-top-button"] =
 {
     type = "button_style",
     parent = "button",
@@ -180,8 +180,8 @@ data:extend(
 {
     {
         type = "sprite",
-        name = "rq-text-view-icon",
-        filename = "__research-queue__/graphics/gui_elements.png",
+        name = "rq-exp-text-view-icon",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -190,8 +190,8 @@ data:extend(
     },
     {
         type = "sprite",
-        name = "rq-completed-research-icon",
-        filename = "__research-queue__/graphics/gui_elements.png",
+        name = "rq-exp-completed-research-icon",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -200,7 +200,7 @@ data:extend(
     }
 })
 
-data.raw["gui-style"].default["rq-done-frame"] =
+data.raw["gui-style"].default["rq-exp-done-frame"] =
 {
     type = "frame_style",
     width = big_size + 4,
@@ -229,7 +229,7 @@ data.raw["gui-style"].default["rq-done-frame"] =
     }
 }
 
-data.raw["gui-style"].default["rq-inq-frame"] =
+data.raw["gui-style"].default["rq-exp-inq-frame"] =
 {
     type = "frame_style",
     width = big_size + 4,
@@ -258,7 +258,7 @@ data.raw["gui-style"].default["rq-inq-frame"] =
     }
 }
 
-data.raw["gui-style"].default["rq-available-frame"] =
+data.raw["gui-style"].default["rq-exp-available-frame"] =
 {
     type = "frame_style",
     width = big_size + 4,
@@ -287,7 +287,7 @@ data.raw["gui-style"].default["rq-available-frame"] =
     }
 }
 
-data.raw["gui-style"].default["rq-button"] =
+data.raw["gui-style"].default["rq-exp-button"] =
 {
     type = "button_style",
     font = "default",
@@ -310,7 +310,7 @@ data.raw["gui-style"].default["rq-button"] =
     default_graphical_set =
     {
         border = 2,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -321,7 +321,7 @@ data.raw["gui-style"].default["rq-button"] =
     hovered_graphical_set =
     {
         border = 2,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -341,7 +341,7 @@ data.raw["gui-style"].default["rq-button"] =
     },
 }
 
-data.raw["gui-style"].default["rq-dummy-button"] =
+data.raw["gui-style"].default["rq-exp-dummy-button"] =
 {
     type = "button_style",
     font = "default",
@@ -357,7 +357,7 @@ data.raw["gui-style"].default["rq-dummy-button"] =
     default_graphical_set =
     {
         border = 2,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -368,7 +368,7 @@ data.raw["gui-style"].default["rq-dummy-button"] =
     hovered_graphical_set =
     {
         border = 2,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -388,7 +388,7 @@ data.raw["gui-style"].default["rq-dummy-button"] =
     },
 }
 
-data.raw["gui-style"].default["rq-small-dummy-button"] =
+data.raw["gui-style"].default["rq-exp-small-dummy-button"] =
 {
     type = "button_style",
     font = "default",
@@ -404,7 +404,7 @@ data.raw["gui-style"].default["rq-small-dummy-button"] =
     default_graphical_set =
     {
         border = 2,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -415,7 +415,7 @@ data.raw["gui-style"].default["rq-small-dummy-button"] =
     hovered_graphical_set =
     {
         border = 2,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -438,33 +438,33 @@ data.raw["gui-style"].default["rq-small-dummy-button"] =
 data:extend(
 {{
     type = "font",
-    name = "rq-label-text",
+    name = "rq-exp-label-text",
     from = "default-bold",
     size = 14,
     border = true,
     border_color = {}
 }})
 
-data.raw["gui-style"].default["rq-label"] =
+data.raw["gui-style"].default["rq-exp-label"] =
 {
     type = "label_style",
     parent = "label",
-    font = "rq-label-text",
+    font = "rq-exp-label-text",
     -- font = "default-bold",
     scalable = true,
     width = big_size,
     height = big_size,
 }
 
-data.raw["gui-style"].default["rq-small-label"] =
+data.raw["gui-style"].default["rq-exp-small-label"] =
 {
     type = "label_style",
-    parent = "rq-label",
+    parent = "rq-exp-label",
     width = 20,
     height = 20,
 }
 
-data.raw["gui-style"].default["rq-flow"] =
+data.raw["gui-style"].default["rq-exp-flow"] =
 {
     type = "horizontal_flow_style",
     horizontal_spacing = 0,
@@ -474,7 +474,7 @@ data.raw["gui-style"].default["rq-flow"] =
     resize_to_row_height = true
 }
 
-data.raw["gui-style"].default["rq-flow-vertical"] =
+data.raw["gui-style"].default["rq-exp-flow-vertical"] =
 {
     type = "vertical_flow_style",
     horizontal_spacing = 0,
@@ -484,7 +484,7 @@ data.raw["gui-style"].default["rq-flow-vertical"] =
     resize_to_row_height = true
 }
 
-data.raw["gui-style"].default["rq-frame"] =
+data.raw["gui-style"].default["rq-exp-frame"] =
 {
     type = "frame_style",
     font = "heading-2",
@@ -509,7 +509,7 @@ data.raw["gui-style"].default["rq-frame"] =
     }
 }
 
-data.raw["gui-style"].default["rq-up-button"] =
+data.raw["gui-style"].default["rq-exp-up-button"] =
 {
     type = "button_style",
     font = "default",
@@ -531,7 +531,7 @@ data.raw["gui-style"].default["rq-up-button"] =
     default_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 16,
@@ -541,7 +541,7 @@ data.raw["gui-style"].default["rq-up-button"] =
     hovered_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 16,
@@ -551,7 +551,7 @@ data.raw["gui-style"].default["rq-up-button"] =
     clicked_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 16,
@@ -561,7 +561,7 @@ data.raw["gui-style"].default["rq-up-button"] =
     disabled_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 16,
@@ -570,7 +570,7 @@ data.raw["gui-style"].default["rq-up-button"] =
     }
 }
 
-data.raw["gui-style"].default["rq-down-button"] =
+data.raw["gui-style"].default["rq-exp-down-button"] =
 {
     type = "button_style",
     font = "default",
@@ -592,7 +592,7 @@ data.raw["gui-style"].default["rq-down-button"] =
     default_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 16,
@@ -602,7 +602,7 @@ data.raw["gui-style"].default["rq-down-button"] =
     hovered_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 16,
@@ -612,7 +612,7 @@ data.raw["gui-style"].default["rq-down-button"] =
     clicked_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 16,
@@ -622,7 +622,7 @@ data.raw["gui-style"].default["rq-down-button"] =
     disabled_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 16,
@@ -631,7 +631,7 @@ data.raw["gui-style"].default["rq-down-button"] =
     }
 }
 
-data.raw["gui-style"].default["rq-cancel-button"] =
+data.raw["gui-style"].default["rq-exp-cancel-button"] =
 {
     type = "button_style",
     font = "default",
@@ -653,7 +653,7 @@ data.raw["gui-style"].default["rq-cancel-button"] =
     default_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -663,7 +663,7 @@ data.raw["gui-style"].default["rq-cancel-button"] =
     hovered_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -673,7 +673,7 @@ data.raw["gui-style"].default["rq-cancel-button"] =
     clicked_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -682,6 +682,7 @@ data.raw["gui-style"].default["rq-cancel-button"] =
     },
     disabled_graphical_set = {
         border = 0,
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -690,7 +691,7 @@ data.raw["gui-style"].default["rq-cancel-button"] =
     }
 }
 
-data.raw["gui-style"].default["rq-done-button"] =
+data.raw["gui-style"].default["rq-exp-done-button"] =
 {
     type = "button_style",
     font = "default-semibold",
@@ -711,7 +712,7 @@ data.raw["gui-style"].default["rq-done-button"] =
     default_graphical_set =
     {
         type = "composition",
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {0, 32}
@@ -720,7 +721,7 @@ data.raw["gui-style"].default["rq-done-button"] =
     hovered_graphical_set =
     {
         type = "composition",
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {8, 32}
@@ -729,14 +730,14 @@ data.raw["gui-style"].default["rq-done-button"] =
     clicked_graphical_set =
     {
         type = "composition",
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {16, 32}
     }
 }
 
-data.raw["gui-style"].default["rq-inq-button"] =
+data.raw["gui-style"].default["rq-exp-inq-button"] =
 {
     type = "button_style",
     font = "default-semibold",
@@ -757,7 +758,7 @@ data.raw["gui-style"].default["rq-inq-button"] =
     default_graphical_set =
     {
         type = "composition",
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {0, 40}
@@ -766,7 +767,7 @@ data.raw["gui-style"].default["rq-inq-button"] =
     hovered_graphical_set =
     {
         type = "composition",
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {8, 40}
@@ -775,14 +776,14 @@ data.raw["gui-style"].default["rq-inq-button"] =
     clicked_graphical_set =
     {
         type = "composition",
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {16, 40}
     }
 }
 
-data.raw["gui-style"].default["rq-available-button"] =
+data.raw["gui-style"].default["rq-exp-available-button"] =
 {
     type = "button_style",
     font = "default-semibold",
@@ -803,7 +804,7 @@ data.raw["gui-style"].default["rq-available-button"] =
     default_graphical_set =
     {
         type = "composition",
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {0, 48}
@@ -812,7 +813,7 @@ data.raw["gui-style"].default["rq-available-button"] =
     hovered_graphical_set =
     {
         type = "composition",
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {8, 48}
@@ -821,28 +822,28 @@ data.raw["gui-style"].default["rq-available-button"] =
     clicked_graphical_set =
     {
         type = "composition",
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {16, 48}
     }
 }
 
-data.raw["gui-style"].default["rq-table1"] =
+data.raw["gui-style"].default["rq-exp-table1"] =
 {
     type = "table_style",
     horizontal_spacing = 2,
     vertical_spacing = 2
 }
 
-data.raw["gui-style"].default["rq-table2"] =
+data.raw["gui-style"].default["rq-exp-table2"] =
 {
     type = "table_style",
     horizontal_spacing = 6,
     vertical_spacing = 6
 }
 
-data.raw["gui-style"].default["rq-compact-button"] =
+data.raw["gui-style"].default["rq-exp-compact-button"] =
 {
     type = "button_style",
     font = "default",
@@ -864,7 +865,7 @@ data.raw["gui-style"].default["rq-compact-button"] =
     default_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -874,7 +875,7 @@ data.raw["gui-style"].default["rq-compact-button"] =
     hovered_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -884,7 +885,7 @@ data.raw["gui-style"].default["rq-compact-button"] =
     clicked_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -893,7 +894,7 @@ data.raw["gui-style"].default["rq-compact-button"] =
     }
 }
 
-data.raw["gui-style"].default["rq-extend-button"] =
+data.raw["gui-style"].default["rq-exp-extend-button"] =
 {
     type = "button_style",
     font = "default",
@@ -915,7 +916,7 @@ data.raw["gui-style"].default["rq-extend-button"] =
     default_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -925,7 +926,7 @@ data.raw["gui-style"].default["rq-extend-button"] =
     hovered_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -935,7 +936,7 @@ data.raw["gui-style"].default["rq-extend-button"] =
     clicked_graphical_set =
     {
         border = 0,
-        filename = "__research-queue__/graphics/gui_elements.png",
+        filename = "__research-queue-experimental__/graphics/gui_elements.png",
         priority = "extra-high-no-scale",
         width = 32,
         height = 32,
@@ -944,7 +945,7 @@ data.raw["gui-style"].default["rq-extend-button"] =
     }
 }
 
-data.raw["gui-style"].default["rq-clock"] =
+data.raw["gui-style"].default["rq-exp-clock"] =
 {
     type = "frame_style",
     width = 20,
@@ -971,10 +972,10 @@ data.raw["gui-style"].default["rq-clock"] =
         horizontal_spacing = 0,
         vertical_spacing = 0
     },
-    font = "rq-label-text"
+    font = "rq-exp-label-text"
 }
 
-data.raw["gui-style"].default["rq-warning-icon"] =
+data.raw["gui-style"].default["rq-exp-warning-icon"] =
 {
     type = "frame_style",
     width = 80,
