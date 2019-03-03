@@ -144,9 +144,9 @@ function remove_research(force, research_name)
     end
 end
 
-function row_from_research_name(force, research_name)
-    --find the queue index corresponding to the technology
-    for i, tech in ipairs(global.researchQ[force.name]) do
+function row_from_research_name(research_queue, research_name)
+    -- Find the queue index corresponding to the technology
+    for i, tech in ipairs(research_queue) do
         if tech == research_name then
             return i
         end
@@ -164,20 +164,22 @@ end
 function up(player, research_name, times)
     local moved_by_count = 0
     local force = player.force
-    local research_index = row_from_research_name(force, research_name)
+    local research_queue = global.researchQ[force.name]
+    local research_index = row_from_research_name(research_queue, research_name)
     for i = 1, math.min(times, research_index - 1) do
-        if is_prerequisite(global.researchQ[force.name][research_index - i], force.technologies[research_name].prerequisites) then
+        if is_prerequisite(research_queue[research_index - i], force.technologies[research_name].prerequisites) then
             break
         end
         moved_by_count = moved_by_count + 1
     end
 
+    -- Using table methods ensures a stable insertion
     if moved_by_count > 0 then
         local new_index = research_index - moved_by_count
-        table.remove(global.researchQ[force.name], research_index)
-        table.insert(global.researchQ[force.name], new_index, research_name)
-        --starts the new top research
-        if moved_by_count == 1 and new_index == 1 and
+        table.remove(research_queue, research_index)
+        table.insert(research_queue, new_index, research_name)
+        -- starts the new top research
+        if new_index == 1 and
            force.current_research.name ~= research_name then
             prompt_overwrite_research(player, research_name)
         end
@@ -185,17 +187,19 @@ function up(player, research_name, times)
 end
 
 function down(force, research_name, times)
-    local research_index = row_from_research_name(force, research_name)
+    local research_queue = global.researchQ[force.name]
+    local research_index = row_from_research_name(research_queue, research_name)
     local available_positions = 0
-    for i = 1, math.min(times, #global.researchQ[force.name] - research_index) do
-        if is_prerequisite(research_name, force.technologies[global.researchQ[force.name][research_index + i]].prerequisites) then
+    for i = 1, math.min(times, #research_queue - research_index) do
+        if is_prerequisite(research_name, force.technologies[research_queue[research_index + i]].prerequisites) then
             break
         end
         available_positions = available_positions + 1
     end
+    -- Using table methods ensures a stable insertion
     if available_positions > 0 then
-        table.remove(global.researchQ[force.name], research_index)
-        table.insert(global.researchQ[force.name], research_index + available_positions, research_name)
+        table.remove(research_queue, research_index)
+        table.insert(research_queue, research_index + available_positions, research_name)
     end
 end
 
