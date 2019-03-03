@@ -57,8 +57,9 @@ function est_time(force, last_tech_index)
         return nil
     end
 
+    local research_queue = global.researchQ[force.name]
     local est = {}
-    last_tech_index = last_tech_index or #global.researchQ[force.name]
+    last_tech_index = last_tech_index or #research_queue
     if last_tech_index == 0 then
         return est
     end
@@ -77,29 +78,32 @@ function est_time(force, last_tech_index)
                 if module_effect.productivity then productivity_modifier = productivity_modifier + module_effect.productivity.bonus * count end
                 if module_effect.consumption then consumption_modifier = consumption_modifier + module_effect.consumption.bonus * count end
             end
-            -- if base lab then use energy values
-            if lab.name == "lab" then
-                speed = speed + ( (1 + speed_modifier) * (1 + productivity_modifier) * math.min(lab.energy / (math.max(1 + consumption_modifier, 0.2) * 60 * 160 / 9), 1) )
-            -- ignore energy values for modded labs, only check if it has energy or not
-            else
-                speed = speed + ( (1 + speed_modifier) * (1 + productivity_modifier) * math.min(lab.energy, 1) )
-            end
+            -- KNOWN ISSUE: In factorio 0.16.51 lab.energy returns a very small number when research is finished.
+            -- This may be related to the lab starting up the next research.
+            -- The best way to work around this seems to be to do away with the estimation update altogether during the on_research_finished event.
+            -- Accessing the prototype may be too costly? The whole calculation can be optimized by caching intermediate results in the global state tick by tick.
+            -- This requires a major rewrite of this function and a few others though.
+            local energy_usage = lab.prototype.energy_usage
+            speed = speed + ( (1 + speed_modifier) * (1 + productivity_modifier) * math.min(lab.energy / (math.max(1 + consumption_modifier, 0.2) * energy_usage), 1) )
         end
     end
 
     speed = speed * (1 + force.laboratory_speed_modifier)
+    local current_research = force.current_research
+    local current_research_name = current_research.name
 
-    local initial_eta = (1 - force.research_progress) * force.current_research.research_unit_count * force.current_research.research_unit_energy / speed
-    for i, tech in ipairs(global.researchQ[force.name]) do
-        if force.current_research.name == tech then
+    local initial_eta = (1 - force.research_progress) * current_research.research_unit_count * current_research.research_unit_energy / speed
+    for i, tech_name in ipairs(research_queue) do
+        if current_research_name == tech_name then
             est[i] = initial_eta
         else
-            local current_saved_progress = force.get_saved_technology_progress(tech)
+            local current_saved_progress = force.get_saved_technology_progress(tech_name)
             local current_remaining_progress = current_saved_progress and (1 - current_saved_progress) or 1
-            local current_eta = current_remaining_progress * force.technologies[tech].research_unit_count * force.technologies[tech].research_unit_energy / speed
+            local technology = force.technologies[tech_name]
+            local current_eta = current_remaining_progress * technology.research_unit_count * technology.research_unit_energy / speed
             if i == 1 then
                 est[i] = initial_eta + current_eta
-            elseif i > 2 and global.researchQ[force.name][i-1] == force.current_research.name then
+            elseif i > 2 and research_queue[i-1] == current_research_name then
                 est[i] = est[i - 2] + current_eta
             else
                 est[i] = est[i - 1] + current_eta
