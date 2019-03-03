@@ -41,20 +41,8 @@ data.raw["gui-style"].default["rq-ingredient-sprite"] =
 {
     type = "button_style",
     parent = "small_slot_button",
-    -- width = 20,
-    -- height = 20,
     scalable = true,
     align = "left",
-    -- top_padding = 0,
-    -- right_padding = 0,
-    -- bottom_padding = 0,
-    -- left_padding = 0,
-    -- flow_style =
-    -- {
-    --     type = "flow_style",
-    --     horizontal_spacing = 0,
-    --     vertical_spacing = 0
-    -- }
 }
 
 if bobmods ~= nil then
@@ -702,61 +690,6 @@ data.raw["gui-style"].default["rq-cancel-button"] =
     }
 }
 
-data.raw["gui-style"].default["rq-text-checkbox"] =
-{
-    type = "checkbox_style",
-    top_padding = 0,
-    right_padding = 0,
-    bottom_padding = 0,
-    left_padding = 0,
-    width = 32,
-    height = 32,
-    scalable = false,
-    left_click_sound =
-    {
-        {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
-        }
-    },
-    default_background =
-    {
-        filename = "__research-queue__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 0,
-        y = 64
-    },
-    hovered_background =
-    {
-        filename = "__research-queue__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 32,
-        y = 64
-    },
-    clicked_background =
-    {
-        filename = "__research-queue__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 64,
-        y = 64
-    },
-    checked =
-    {
-        filename = "__research-queue__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 96,
-        y = 64
-    }
-}
-
 data.raw["gui-style"].default["rq-done-button"] =
 {
     type = "button_style",
@@ -892,61 +825,6 @@ data.raw["gui-style"].default["rq-available-button"] =
         priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {16, 48}
-    }
-}
-
-data.raw["gui-style"].default["rq-scienceDone-checkbox"] =
-{
-    type = "checkbox_style",
-    top_padding = 0,
-    right_padding = 0,
-    bottom_padding = 0,
-    left_padding = 0,
-    width = 32,
-    height = 32,
-    scalable = false,
-    left_click_sound =
-    {
-        {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
-        }
-    },
-    default_background =
-    {
-        filename = "__research-queue__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 0,
-        y = 96
-    },
-    hovered_background =
-    {
-        filename = "__research-queue__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 32,
-        y = 96
-    },
-    clicked_background =
-    {
-        filename = "__research-queue__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 64,
-        y = 96
-    },
-    checked =
-    {
-        filename = "__research-queue__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 96,
-        y = 64
     }
 }
 
