@@ -1,5 +1,3 @@
-if not rq then rq = {} end
-
 function get_queued_research(research_queue)
     local mapped_research = {}
     for _, tech in ipairs(research_queue) do
@@ -58,9 +56,25 @@ function options(player)
                         style = filter_style, sprite = "item/" .. name, tooltip = tooltip}
 
         elseif global.bobsmodules[name] and not options["rq-exp-bobsmodules"] then
-            options.add{type = "checkbox", name = "rq-exp-bobsmodules", style = "rq-exp-bobsmodules", state = not global.showBobsmodules[player.index]}
+            local checkbox_state, checkbox_tooltip = nil, nil
+            if global.showBobsmodules[player.index] then
+                checkbox_state = false
+                checkbox_tooltip = {"rq-exp-gui.stop-showing-bobs-modules-techs"}
+            else
+                checkbox_state = true
+                checkbox_tooltip = {"rq-exp-gui.show-bobs-modules-techs"}
+            end
+            options.add{type = "checkbox", name = "rq-exp-bobsmodules", style = "rq-exp-bobsmodules", state = checkbox_state, tooltip = checkbox_tooltip}
         elseif global.bobsaliens[name] and not options["rq-exp-bobsaliens"] then
-            options.add{type = "checkbox", name = "rq-exp-bobsaliens", style = "rq-exp-bobsalien", state = not global.showBobsaliens[player.index]}
+            local checkbox_state, checkbox_tooltip = nil, nil
+            if global.showBobsaliens[player.index] then
+                checkbox_state = false
+                checkbox_tooltip = {"rq-exp-gui.stop-showing-bobs-aliens-techs"}
+            else
+                checkbox_state = true
+                checkbox_tooltip = {"rq-exp-gui.show-bobs-aliens-techs"}
+            end
+            options.add{type = "checkbox", name = "rq-exp-bobsaliens", style = "rq-exp-bobsalien", state = checkbox_state, tooltip = checkbox_tooltip}
         end
     end
 end
