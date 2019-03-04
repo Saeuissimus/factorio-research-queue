@@ -1,4 +1,3 @@
-if not rq then rq = {} end
 require("util")
 
 function research_is_in_queue(research_name, queue, start, last)
