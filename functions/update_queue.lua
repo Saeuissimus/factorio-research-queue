@@ -167,10 +167,11 @@ end
 function up(player, research_name, times)
     local moved_by_count = 0
     local force = player.force
+    local prerequisites = force.technologies[research_name].prerequisites
     local research_queue = global.researchQ[force.name]
     local research_index = row_from_research_name(research_queue, research_name)
     for i = 1, math.min(times, research_index - 1) do
-        if is_prerequisite(research_queue[research_index - i], force.technologies[research_name].prerequisites) then
+        if is_prerequisite(research_queue[research_index - i], prerequisites) then
             break
         end
         moved_by_count = moved_by_count + 1
