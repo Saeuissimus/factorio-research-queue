@@ -191,11 +191,11 @@ script.on_event(defines.events.on_gui_click, function(event)
         update_queue_player(player)
         draw_grid_player(player)
 
-    elseif event.element.name == "rqtext" then
+    elseif event.element.name == "rq-exptext" then
         global.showIcon[player.index] = not global.showIcon[player.index]
         draw_grid_player(player)
 
-    elseif event.element.name == "rqscience" then
+    elseif event.element.name == "rq-expscience" then
         global.showResearched[player.index] = not global.showResearched[player.index]
         draw_grid_player(player)
     end
