@@ -1,3 +1,8 @@
+1.6.9
+- This version consists of minor cleanups and refactorizations mostly.
+- Fixed a crash that occurred when a research was completed while the GUI was open.
+- Added support for faster queue navigation with Alt, Control and Shift modifiers. They behave just like they do for moving technologies.
+- Time estimation was improved. It should be able to estimate more accurately modded labs, but I didn't get around to testing it in depth. It didn't crash nor behave strangely at least.
 1.6.8
 - Experimental version!
 - Reworked all GUI elements to use sprite buttons and avoid defining styles for each technology or ingredient.
