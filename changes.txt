@@ -1,3 +1,7 @@
+1.7.0
+- This version adds compatibility for Factorio v0.17.
+- Several GUI prototype definitions were removed. Checkboxes can't be customized in the same way that they could be in v0.16.51.
+- To help with the resulting impact in the GUI, I added a few more tooltips to GUI elements. The toggles for Bob's modules and Bob's alien artifacts are still inconsistent with the rest of the mod though. They display as plain checkboxes. Some of the old checkboxes were changed into buttons but still need a bit of work to look like the science pack buttons.
 1.6.9
 - This version consists of minor cleanups and refactorizations mostly.
 - Fixed a crash that occurred when a research was completed while the GUI was open.
