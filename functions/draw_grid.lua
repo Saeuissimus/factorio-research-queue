@@ -1,5 +1,3 @@
-if not rq then rq = {} end
-
 function get_queued_research(research_queue)
     local mapped_research = {}
     for _, tech in ipairs(research_queue) do
