@@ -56,9 +56,25 @@ function options(player)
                         style = filter_style, sprite = "item/" .. name, tooltip = tooltip}
 
         elseif global.bobsmodules[name] and not options["rq-bobsmodules"] then
-            options.add{type = "checkbox", name = "rq-bobsmodules", style = "rq-bobsmodules", state = not global.showBobsmodules[player.index]}
+            local checkbox_state, checkbox_tooltip = nil, nil
+            if global.showBobsmodules[player.index] then
+                checkbox_state = false
+                checkbox_tooltip = {"rq-gui.stop-showing-bobs-modules-techs"}
+            else
+                checkbox_state = true
+                checkbox_tooltip = {"rq-gui.show-bobs-modules-techs"}
+            end
+            options.add{type = "checkbox", name = "rq-bobsmodules", style = "rq-bobsmodules", state = checkbox_state, tooltip = checkbox_tooltip}
         elseif global.bobsaliens[name] and not options["rq-bobsaliens"] then
-            options.add{type = "checkbox", name = "rq-bobsaliens", style = "rq-bobsalien", state = not global.showBobsaliens[player.index]}
+            local checkbox_state, checkbox_tooltip = nil, nil
+            if global.showBobsaliens[player.index] then
+                checkbox_state = false
+                checkbox_tooltip = {"rq-gui.stop-showing-bobs-aliens-techs"}
+            else
+                checkbox_state = true
+                checkbox_tooltip = {"rq-gui.show-bobs-aliens-techs"}
+            end
+            options.add{type = "checkbox", name = "rq-bobsaliens", style = "rq-bobsalien", state = checkbox_state, tooltip = checkbox_tooltip}
         end
     end
 end
