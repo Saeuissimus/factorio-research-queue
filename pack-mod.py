@@ -21,6 +21,6 @@ with zipfile.ZipFile(archive_name, "w", compression=zipfile.ZIP_DEFLATED, compre
       if not os.path.isfile(file_path) or ".zip" in file or ".sh" in file or file == ".gitignore" or file in __file__:
         continue
       archive_path = os.path.normpath(os.path.join(archive_root, os.path.relpath(os.path.join(root, file), start=base_dir)))
-      print("File path: " + str(file_path) + " Archive path: " + str(archive_path))
+      print(f"File path: {file_path} Archive path: {archive_path}")
       archive.write(file_path, archive_path)
 
