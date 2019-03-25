@@ -13,7 +13,7 @@ function options(player)
     -- The ratio is higher than this I think, but this is good enough for now.
     columns = bit32.arshift(columns, -1) - bit32.arshift(columns, 2)
     local options = player.gui.center.Q.add2q.add{type = "table", name = "options", style = "rqon-table2", column_count = columns}
-    player.gui.center.Q.add2q.add{type = "textfield", name = "rqon-text-filter", text = global.text_filter or "", tooltip = {"rqon-gui.prefix-text-search"}}
+    player.gui.center.Q.add2q.add{type = "textfield", name = "rqon-text-filter", text = global.text_filter or "", tooltip = {"rqon-gui.text-search"}}
 
     options.add{type = "button", name = "rqonextend-button", style = global.showExtended[player.index] and "rqon-compact-button" or "rqon-extend-button"}
 
