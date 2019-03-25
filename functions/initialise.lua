@@ -69,10 +69,6 @@ function player_init(player)
     end
 end
 
---remote.add_interface("RQ", {popup = function(bool)
---  global.pop_when_empty_queue = false
---end})
-
 
 function map_all_entities(input)
     -- input = {name = string, type = string, force = string or force, surface = string or {table of surface(s)}
