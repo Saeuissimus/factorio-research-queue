@@ -48,7 +48,7 @@ end
 
 function player_init(player)
     local top = mod_gui.get_button_flow(player)
-    if not top.research_Q then top.add{type = "button", name = "research_Q", caption = "RQ", style = "rq-top-button"} end
+    if not top.research_Q_TONT then top.add{type = "button", name = "research_Q_TONT", caption = "RQ", style = "rqon-top-button"} end
     global.showIcon[player.index] = true
     global.showResearched[player.index] = false
     global.offset_queue[player.index] = 0

@@ -1,41 +1,41 @@
 data:extend({
     {
         type = "bool-setting",
-        name = "research-queue_popup-on-queue-finish",
-        localised_name = {"rq-settings.popup-on-queue-finish"},
-        localised_description = {"rq-settings.popup-on-queue-finish-detailed"},
+        name = "research-queue-the-old-new-thing_popup-on-queue-finish",
+        localised_name = {"rqon-settings.popup-on-queue-finish"},
+        localised_description = {"rqon-settings.popup-on-queue-finish-detailed"},
         setting_type = "runtime-per-user",
         default_value = false
     },
     {
         type = "int-setting",
-        name = "research-queue-rows-count",
-        localised_name = {"rq-settings.row-queue-view"},
-        localised_description = {"rq-settings.row-queue-view-detailed"},
+        name = "research-queue-the-old-new-thing-rows-count",
+        localised_name = {"rqon-settings.row-queue-view"},
+        localised_description = {"rqon-settings.row-queue-view-detailed"},
         setting_type = "runtime-per-user",
         default_value = 8
     },
     {
         type = "int-setting",
-        name = "research-queue-table-width",
-        localised_name = {"rq-settings.table-width"},
-        localised_description = {"rq-settings.table-width-detailed"},
+        name = "research-queue-the-old-new-thing-table-width",
+        localised_name = {"rqon-settings.table-width"},
+        localised_description = {"rqon-settings.table-width-detailed"},
         setting_type = "runtime-per-user",
         default_value = 10
     },
     {
         type = "int-setting",
-        name = "research-queue-table-height",
-        localised_name = {"rq-settings.table-height"},
-        localised_description = {"rq-settings.table-height-detailed"},
+        name = "research-queue-the-old-new-thing-table-height",
+        localised_name = {"rqon-settings.table-height"},
+        localised_description = {"rqon-settings.table-height-detailed"},
         setting_type = "runtime-per-user",
         default_value = 8
     },
     {
         type = "int-setting",
-        name = "research-queue-queued-tech-description-width",
-        localised_name = {"rq-settings.queued-descriptions-width"},
-        localised_description = {"rq-settings.queued-descriptions-width-detailed"},
+        name = "research-queue-the-old-new-thing-queued-tech-description-width",
+        localised_name = {"rqon-settings.queued-descriptions-width"},
+        localised_description = {"rqon-settings.queued-descriptions-width-detailed"},
         setting_type = "runtime-per-user",
         default_value = 265
     },

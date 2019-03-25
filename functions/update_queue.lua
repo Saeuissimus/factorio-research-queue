@@ -41,13 +41,13 @@ function prompt_overwrite_research(player, research_name)
     if player.force.current_research ~= research_name then
         if player.gui.center.Q then player.gui.center.Q.destroy() end
         local warning = player.gui.center.add{type = "frame", name = "warning", style = "frame"}
-        warning.add{type = "frame", name = "warning-icon", style = "rq-warning-icon"}
-        local text = warning.add{type = "flow", name = "rq-warning-text", style = "vertical_flow", direction = "vertical"}
-        local caption = {"rq-gui.tech-prompt-overwrite", math.ceil(player.force.research_progress * 1000) / 10}
-        text.add{type = "label", name = "rq-warning-text-content", caption = caption, style = "description_label"}
-        local buttons = text.add{type = "flow", name = "rq-warning-buttons", style = "horizontal_flow", direction = "horizontal"}
-        buttons.add{type = "button", name = "rq-overwrite-yes", style = "button", caption = {"rq-gui.accept"}}
-        buttons.add{type = "button", name = "rq-overwrite-no", style = "button", caption = {"rq-gui.cancel"}}
+        warning.add{type = "frame", name = "warning-icon", style = "rqon-warning-icon"}
+        local text = warning.add{type = "flow", name = "rqon-warning-text", style = "vertical_flow", direction = "vertical"}
+        local caption = {"rqon-gui.tech-prompt-overwrite", math.ceil(player.force.research_progress * 1000) / 10}
+        text.add{type = "label", name = "rqon-warning-text-content", caption = caption, style = "description_label"}
+        local buttons = text.add{type = "flow", name = "rqon-warning-buttons", style = "horizontal_flow", direction = "horizontal"}
+        buttons.add{type = "button", name = "rqon-overwrite-yes", style = "button", caption = {"rqon-gui.accept"}}
+        buttons.add{type = "button", name = "rqon-overwrite-no", style = "button", caption = {"rqon-gui.cancel"}}
     end
 end
 
@@ -213,7 +213,7 @@ function update_queue_force(force, partial_update, players)
     local active_players = {}
     for _, player in pairs(players) do
         if player.gui.center.Q then
-            last_row = math.max(last_row, player.mod_settings["research-queue-rows-count"].value + global.offset_queue[player.index])
+            last_row = math.max(last_row, player.mod_settings["research-queue-the-old-new-thing-rows-count"].value + global.offset_queue[player.index])
             active_players[_] = player
         end
     end
@@ -231,7 +231,7 @@ function update_queue_player(player, partial_update, time_estimation)
     local descriptions = draw_queue_frame(player, partial_update)
 
     if time_estimation == nil then
-        local last_row = player.mod_settings["research-queue-rows-count"].value + global.offset_queue[player.index]
+        local last_row = player.mod_settings["research-queue-the-old-new-thing-rows-count"].value + global.offset_queue[player.index]
         local last = math.min(#global.researchQ[player.force.name], last_row)
         time_estimation = est_time(player.force, last)
     end
@@ -245,41 +245,41 @@ end
 function draw_queue_frame(player, partial_update)
     local force = player.force
     local research_queue = global.researchQ[force.name]
-    local last_row = player.mod_settings["research-queue-rows-count"].value + global.offset_queue[player.index]
+    local last_row = player.mod_settings["research-queue-the-old-new-thing-rows-count"].value + global.offset_queue[player.index]
     local start = 1 + global.offset_queue[player.index]
     local last = math.min(#research_queue, last_row)
     local descriptions = {}
     if not partial_update then
         player.opened = player.gui.center.Q
         if not player.gui.center.Q.current_q then
-            player.gui.center.Q.add{type = "frame", name = "current_q", caption = {"rq-gui.current-queue"}, style = "technology_preview_frame"}
+            player.gui.center.Q.add{type = "frame", name = "current_q", caption = {"rqon-gui.current-queue"}, style = "technology_preview_frame"}
         end
 
         local list = nil
         if not player.gui.center.Q.current_q.list then
-            list = player.gui.center.Q.current_q.add{type = "flow", name = "list", style = "rq-flow-vertical", direction = "vertical"}
+            list = player.gui.center.Q.current_q.add{type = "flow", name = "list", style = "rqon-flow-vertical", direction = "vertical"}
         else
             list = player.gui.center.Q.current_q.list
             list.clear()
         end
 
         if #research_queue == 0 then
-            list.add{type = "label", name = "empty", caption = {"rq-gui.empty-queue"}}
+            list.add{type = "label", name = "empty", caption = {"rqon-gui.empty-queue"}}
         else
-            list.add{type = "button", name = "rqscrollqueueup", style = "rq-up-button", enabled = start > 1}
+            list.add{type = "button", name = "rqonscrollqueueup", style = "rqon-up-button", enabled = start > 1}
             local item_prototypes = game.item_prototypes
             for i = start, last do
                 local tech_name = research_queue[i]
-                descriptions[i] = draw_queued_technology(list, tech_name, force.technologies[tech_name], item_prototypes, player.mod_settings["research-queue-queued-tech-description-width"].value)
+                descriptions[i] = draw_queued_technology(list, tech_name, force.technologies[tech_name], item_prototypes, player.mod_settings["research-queue-the-old-new-thing-queued-tech-description-width"].value)
             end
-            list.add{type = "button", name = "rqscrollqueuedown", style = "rq-down-button", enabled = #research_queue > last_row}
+            list.add{type = "button", name = "rqonscrollqueuedown", style = "rqon-down-button", enabled = #research_queue > last_row}
         end
     else
         -- Construct the descriptions list to update them easily
         local list = player.gui.center.Q.current_q.list
         for i = start, last do
             local tech_name = research_queue[i]
-            local tech_description = list["rq-frame-" .. tech_name].rqtechdescription
+            local tech_description = list["rqon-frame-" .. tech_name].rqontechdescription
             descriptions[i] = tech_description
         end
     end
@@ -288,49 +288,49 @@ end
 
 function draw_queued_technology(drawn_list, tech_name, technology, item_prototypes, description_width)
     --create a frame for each item in the queue
-    local frame = drawn_list.add{type = "frame", name = "rq-frame-" .. tech_name, style = "rq-frame"}
+    local frame = drawn_list.add{type = "frame", name = "rqon-frame-" .. tech_name, style = "rqon-frame"}
 
-    frame.add{type = "sprite-button", name = "rq-icon" .. tech_name, style = "rq-dummy-button",
+    frame.add{type = "sprite-button", name = "rqon-icon" .. tech_name, style = "rqon-dummy-button",
               sprite = "technology/" .. tech_name, ignored_by_interaction = true}
 
     -- adds a description frame in the frame
-    local description = frame.add{type = "flow", name = "rqtechdescription", style = "rq-flow-vertical", direction = "vertical"}
+    local description = frame.add{type = "flow", name = "rqontechdescription", style = "rqon-flow-vertical", direction = "vertical"}
     description.style.minimal_width = description_width
     -- places the name of the technology
-    description.add{type = "label", name = "rq" .. tech_name .. "name", caption = technology.localised_name, style = "description_label"}
+    description.add{type = "label", name = "rqon" .. tech_name .. "name", caption = technology.localised_name, style = "description_label"}
     -- add the ingredients and time
-    local ingredients = description.add{type = "table", name = "rq" .. tech_name .. "ingredients", style = "table", column_count = 10}
-    ingredients.add{type = "frame", name = "rqtime", caption = (technology.research_unit_energy / 60), style = "rq-clock"}
+    local ingredients = description.add{type = "table", name = "rqon" .. tech_name .. "ingredients", style = "table", column_count = 10}
+    ingredients.add{type = "frame", name = "rqontime", caption = (technology.research_unit_energy / 60), style = "rqon-clock"}
     for _, item in pairs(technology.research_unit_ingredients) do
         -- This looks a bit clunky? May be worth reworking after 0.17
         local item_localised_name = item_prototypes[item.name].localised_name
-        local button = ingredients.add{type = "sprite-button", name = "rq-ingredient" .. item.name, tooltip = item_localised_name,
-                                       sprite = "item/" .. item.name, style = "rq-ingredient-sprite"}
-        button.add{type = "label", name = "rq-label" .. item.name, style = "rq-small-label",
+        local button = ingredients.add{type = "sprite-button", name = "rqon-ingredient" .. item.name, tooltip = item_localised_name,
+                                       sprite = "item/" .. item.name, style = "rqon-ingredient-sprite"}
+        button.add{type = "label", name = "rqon-label" .. item.name, style = "rqon-small-label",
                    caption = item.amount, ignored_by_interaction = true}
     end
-    ingredients.add{type = "label", name = "rqresearch_unit_count", caption = "X " .. technology.research_unit_count, style = "label"}
+    ingredients.add{type = "label", name = "rqonresearch_unit_count", caption = "X " .. technology.research_unit_count, style = "label"}
 
 
     --adds the up/cancel/down buttons
-    local buttons = frame.add{type = "table", name = "rq" .. tech_name .. "buttons", style = "slot_table", column_count = 1}
-    buttons.add{type = "button", name = "rqupbutton" .. tech_name, style = "rq-up-button"}
-    buttons.add{type = "button", name = "rqcancelbutton" .. tech_name, style = "rq-cancel-button"}
-    buttons.add{type = "button", name = "rqdownbutton" .. tech_name, style = "rq-down-button"}
+    local buttons = frame.add{type = "table", name = "rqon" .. tech_name .. "buttons", style = "slot_table", column_count = 1}
+    buttons.add{type = "button", name = "rqonupbutton" .. tech_name, style = "rqon-up-button"}
+    buttons.add{type = "button", name = "rqoncancelbutton" .. tech_name, style = "rqon-cancel-button"}
+    buttons.add{type = "button", name = "rqondownbutton" .. tech_name, style = "rqon-down-button"}
     return description
 end
 
 function update_estimated_time(tech_description, time_estimation)
     local caption = nil
     if time_estimation and time_estimation ~= math.huge then
-        caption = {"rq-gui.finite-eta", util.formattime(time_estimation)}
+        caption = {"rqon-gui.finite-eta", util.formattime(time_estimation)}
     else
-        caption = {"rq-gui.infinite-eta"}
+        caption = {"rqon-gui.infinite-eta"}
     end
 
-    if tech_description.rqtechtime then
-        tech_description.rqtechtime.caption = caption
+    if tech_description.rqontechtime then
+        tech_description.rqontechtime.caption = caption
     else
-        tech_description.add{type = "label", name = "rqtechtime", caption = caption, style = "label"}
+        tech_description.add{type = "label", name = "rqontechtime", caption = caption, style = "label"}
     end
 end
