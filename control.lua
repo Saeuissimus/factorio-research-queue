@@ -205,7 +205,12 @@ script.on_event(defines.events.on_research_finished, function(event)
 
     for _, player in pairs(event.research.force.players) do
         player.print{"rqon-notices.research-finished", event.research.localised_name}
+        -- The on_player_created event for this mod may not be called in time if another mod triggers this event.
+        if global.offset_queue[player.index] == nil then
+            player_init(player)
+        end
     end
+
 
     remove_research(event.research.force, event.research.name)
     local refresh_gui, refresh_counter = {}, 0
