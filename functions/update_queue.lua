@@ -183,9 +183,14 @@ function up(player, research_name, times)
         table.remove(research_queue, research_index)
         table.insert(research_queue, new_index, research_name)
         -- starts the new top research
-        if new_index == 1 and
-           force.current_research.name ~= research_name then
-            prompt_overwrite_research(player, research_name)
+        if new_index == 1 then
+            -- This covers a current quirk in the queue where research may not be automatically started.
+            -- TODO: decide whether it should always be automatic and how the queue should be represented in that case.
+            if not force.current_research then
+                force.current_research = research_name
+            elseif force.current_research.name ~= research_name then
+                prompt_overwrite_research(player, research_name)
+            end
         end
     end
 end
