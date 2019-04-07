@@ -106,7 +106,7 @@ function est_time(force, last_tech_index)
             local current_eta = current_remaining_progress * technology.research_unit_count * technology.research_unit_energy / speed
             if i == 1 then
                 est[i] = initial_eta + current_eta
-            elseif i > 2 and research_queue[i-1] == current_research_name then
+            elseif i > 2 and research_queue[i - 1] == current_research_name then
                 est[i] = est[i - 2] + current_eta
             else
                 est[i] = est[i - 1] + current_eta
@@ -233,8 +233,8 @@ function update_queue_player(player, partial_update, time_estimation)
 
     if time_estimation == nil then
         local last_row = player.mod_settings["research-queue-the-old-new-thing-rows-count"].value + global.offset_queue[player.index]
-        local last = math.min(#global.researchQ[player.force.name], last_row)
-        time_estimation = est_time(player.force, last)
+        last_row = math.min(last_row, #global.researchQ[player.force.name])
+        time_estimation = est_time(player.force, last_row)
     end
 
     for index, tech_description in pairs(descriptions) do
@@ -247,8 +247,8 @@ function draw_queue_frame(player, partial_update)
     local force = player.force
     local research_queue = global.researchQ[force.name]
     local last_row = player.mod_settings["research-queue-the-old-new-thing-rows-count"].value + global.offset_queue[player.index]
-    local start = 1 + global.offset_queue[player.index]
     local last = math.min(#research_queue, last_row)
+    local start = 1 + global.offset_queue[player.index]
     local descriptions = {}
     if not partial_update then
         player.opened = player.gui.center.Q
@@ -269,9 +269,10 @@ function draw_queue_frame(player, partial_update)
         else
             list.add{type = "button", name = "rqonscrollqueueup", style = "rqon-up-button", enabled = start > 1}
             local item_prototypes = game.item_prototypes
+            local description_width = player.mod_settings["research-queue-the-old-new-thing-queued-tech-description-width"].value
             for i = start, last do
                 local tech_name = research_queue[i]
-                descriptions[i] = draw_queued_technology(list, tech_name, force.technologies[tech_name], item_prototypes, player.mod_settings["research-queue-the-old-new-thing-queued-tech-description-width"].value)
+                descriptions[i] = draw_queued_technology(list, tech_name, force.technologies[tech_name], item_prototypes, description_width)
             end
             list.add{type = "button", name = "rqonscrollqueuedown", style = "rqon-down-button", enabled = #research_queue > last_row}
         end

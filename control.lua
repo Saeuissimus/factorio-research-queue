@@ -217,6 +217,7 @@ script.on_event(defines.events.on_research_finished, function(event)
     for index, player in pairs(event.research.force.players) do
         local length_queue = #global.researchQ[event.research.force.name]
 
+        -- All of these cases require a full redraw because a technology has been finished.
         if player.gui.center.Q then
             refresh_gui[player] = player
             refresh_counter = refresh_counter + 1
