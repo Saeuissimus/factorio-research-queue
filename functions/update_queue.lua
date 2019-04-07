@@ -52,8 +52,9 @@ function prompt_overwrite_research(player, research_name)
 end
 
 function est_time(force, last_tech_index)
+    -- If there's no active research, no items will ever be consumed from the queue.
     if not force.current_research then
-        return nil
+        return {}
     end
 
     local research_queue = global.researchQ[force.name]
