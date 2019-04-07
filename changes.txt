@@ -1,16 +1,19 @@
-1.7.1
+### 1.7.2
+- Fixed a crash that occurred when drawing the queue GUI when there was no active research but the queue was not empty.
+- Fixed a crash that occurred when moving a research to the top of the queue when there was no active research.
+### 1.7.1
 - Fixed a crash that occurred when on_research_finished was triggered by another mod during initialization.
-1.7.0
+### 1.7.0
 - Changed name to "Research Queue: The Old New Thing" to cleanly separate development from the original mod.
 - This version adds compatibility for Factorio v0.17.
 - Several GUI prototype definitions were removed. Checkboxes can't be customized in the same way that they could be in v0.16.51.
 - To help with the resulting impact in the GUI, I added a few more tooltips to GUI elements. The toggles for Bob's modules and Bob's alien artifacts are still inconsistent with the rest of the mod though. They display as plain checkboxes. Some of the old checkboxes were changed into buttons but still need a bit of work to look like the science pack buttons.
-1.6.9
+### 1.6.9
 - This version consists of minor cleanups and refactorizations mostly.
 - Fixed a crash that occurred when a research was completed while the GUI was open.
 - Added support for faster queue navigation with Alt, Control and Shift modifiers. They behave just like they do for moving technologies.
 - Time estimation was improved. It should be able to estimate more accurately modded labs, but I didn't get around to testing it in depth. It didn't crash nor behave strangely at least.
-1.6.8
+### 1.6.8
 - Experimental version!
 - Reworked all GUI elements to use sprite buttons and avoid defining styles for each technology or ingredient.
 - Limited redrawing the GUI when there are no changes other than time estimation. This fixes an annoying issue where interaction with the GUI is interrupted at random.
@@ -19,22 +22,22 @@
 - Fixed time estimation to take into account saved progress on technologies present in the queue.
 - Modified the GUI layout in general in order to stabilize buttons. There is some mild success in this regard, but further work may be needed; especially when taking into account non-default options or localisations other than english.
 - The research queue GUI is now destroyed if it is still open when a player leaves. This should mainly result in a performance improvement but ensures stability too in the context of the GUI rework. Thanks to Devious Null for the idea of filtering disconnected players.
-1.6.7
+### 1.6.7
 - Added Hotkey to open qui
 - Right click erases text in search field
-1.6.6
+### 1.6.6
 - Fixed crush at "__research-queue__/functions/update_queue.lua:167: in function 'updateQ'" - missing styles, added pcall
-1.6.5
+### 1.6.5
 - Added hint with technology name to technology button
 - Fixed scroll didn't reset when filters change
 - Now you can shift-click or alt-click up button - this will result in x5 clicks, same for down button
 - Now you can control-click or right-click up button - this will result in x50 clicks (likely moving a technology up as high as possible), same for down button
 - Now setting ingredients filters will also hide non-researched technologies which have prerequesties not matching given criteria
 - Fixed time estimation bug if no research is running
-1.6.4
+### 1.6.4
 - More fixes
 - Added quick search (searches only in english since I didn't figured out how to get Localized name in plain string)
-1.6.3
+### 1.6.3
 - Fixed crush in GUI when no technology style is generated (this happens somewhere in Angel's mods)
 - Moved config to settings
 - Added optional dependencies to Angels' mods
