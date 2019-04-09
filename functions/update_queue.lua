@@ -141,7 +141,7 @@ function remove_research(force, research_name)
     -- log(serpent.block(techs_to_remove))
     check_queue(force, techs_to_remove)
     -- First we remove the research if it's the current one.
-    if force.current_research.name == research_name then
+    if force.current_research and force.current_research.name == research_name then
         force.cancel_current_research()
     end
     -- Starts the new research for the new top item in the queue
