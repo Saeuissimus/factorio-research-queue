@@ -1,3 +1,8 @@
+### 1.7.3
+- Updated the mod to use the new research APIs `LuaForce::add_research` and `LuaForce::cancel_current_research`.
+- Added a button to toggle the native research queue. When the native research queue is enabled, elements queued there are prioritized. The mod will only start up research tasks when there are no tasks in the native queue. Report any issues in the discussion threads for the mod page in the mod portal.
+- Added ingredient details for technologies to their tooltips. Thanks to Thedrah for the suggestion.
+- Manually cleaned up the mod's sprites. I don't think it was a good job but I still think they look better now. Previously, it was a bit hard to distinguish the state of a few buttons.
 ### 1.7.2
 - Fixed a crash that occurred when drawing the queue GUI when there was no active research but the queue was not empty.
 - Fixed a crash that occurred when moving a research to the top of the queue when there was no active research.
