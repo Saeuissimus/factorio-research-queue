@@ -161,15 +161,18 @@ function technologies(player, queued_techs)
                     local row = math.ceil(count / player.mod_settings["research-queue-the-old-new-thing-table-width"].value)
                     if global.offset_tech[player.index] < row and row <= (player.mod_settings["research-queue-the-old-new-thing-table-height"].value + global.offset_tech[player.index]) then
                         local bg_frame = rqon_table.add{type = "frame", name = "rqon" .. name .. "background_frame", style = background}
-                        --technology icon
+                        -- technology icon
+                        local tech_tooltip = build_tooltip(tech)
                         local tech_icon = bg_frame.add{type = "sprite-button", name = "rqon-add" .. name,
-                                                       sprite = "technology/" .. name, style = "rqon-button", tooltip = tech.localised_name}
+                                                       sprite = "technology/" .. name, style = "rqon-button", tooltip = tech_tooltip}
 
-                        --finds if the technology has a number (eg, automation-2) and creates a label with that number
+                        -- finds if the technology has a number (eg, automation-2) and creates a label with that number
                         local caption = string.match(name, "%-%d+")
                         if caption then caption = string.gsub(caption, "%-", " ") end
-                        tech_icon.add{type = "label", name = name .. "label", style = "rqon-label", caption = caption,
-                                      ignored_by_interaction = true, enabled = caption and string.len(caption) > 0}
+                        if caption then
+                            tech_icon.add{type = "label", name = name .. "label", style = "rqon-label", caption = caption,
+                                          ignored_by_interaction = true, enabled = string.len(caption) > 0}
+                        end
                     elseif row > player.mod_settings["research-queue-the-old-new-thing-table-height"].value + global.offset_tech[player.index] then
                         should_draw_down_button = true
                         break
@@ -182,11 +185,12 @@ function technologies(player, queued_techs)
                     if global.offset_tech[player.index] < row and row <= ((player.mod_settings["research-queue-the-old-new-thing-table-height"].value*2) + global.offset_tech[player.index]) then
                         local frame = rqon_table.add{type = "frame", name = "rqontextframe" .. name, style = "outer_frame"}
 
+                        local tech_tooltip = build_tooltip(tech)
                         --technology icon
-                        frame.add{type = "sprite-button", name = name .. "icon", style = "rqon-small-dummy-button", tooltip = tech.localised_name,
+                        frame.add{type = "sprite-button", name = name .. "icon", style = "rqon-small-dummy-button", tooltip = tech_tooltip,
                                   sprite = "technology/" .. name, ignored_by_interaction = true}
 
-                        frame.add{type = "button", name = "rqon-add" .. name, caption = tech.localised_name, style = background, tooltip = tech.localised_name}
+                        frame.add{type = "button", name = "rqon-add" .. name, caption = tech.localised_name, style = background, tooltip = tech_tooltip}
                     elseif row > (player.mod_settings["research-queue-the-old-new-thing-table-height"].value * 2) + global.offset_tech[player.index] then
                         should_draw_down_button = true
                         break
@@ -198,6 +202,23 @@ function technologies(player, queued_techs)
     -- This is to allow the window to render mostly the same once you click on one of the buttons
     player.gui.center.Q.add2q.add{type = "button", name = "rqonscrolltechup", style = "rqon-up-button", enabled = global.offset_tech[player.index] > 0}
     player.gui.center.Q.add2q.add{type = "button", name = "rqonscrolltechdown", style = "rqon-down-button", enabled = should_draw_down_button}
+end
+
+function build_tooltip(tech)
+    local tooltip = {"rqon-gui.tech-tooltip", tech.localised_name}
+    local iterator = tooltip
+    local item_prototypes = game.item_prototypes
+    for _, ingredient in pairs(tech.research_unit_ingredients) do
+        iterator[#iterator + 1] = {
+            "rqon-gui.tech-ingredient-description",
+            "[item=" .. ingredient.name .. "]",
+            item_prototypes[ingredient.name].localised_name,
+            ingredient.amount * tech.research_unit_count
+        }
+        iterator = iterator[#iterator]
+    end
+    iterator[#iterator + 1] = ""
+    return tooltip
 end
 
 function draw_grid_force(force)
