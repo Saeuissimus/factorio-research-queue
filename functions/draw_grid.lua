@@ -15,7 +15,18 @@ function options(player)
     local options = player.gui.center.Q.add2q.add{type = "table", name = "options", style = "rqon-table2", column_count = columns}
     player.gui.center.Q.add2q.add{type = "textfield", name = "rqon-text-filter", text = global.text_filter or "", tooltip = {"rqon-gui.text-search"}}
 
-    options.add{type = "button", name = "rqonextend-button", style = global.showExtended[player.index] and "rqon-compact-button" or "rqon-extend-button"}
+    local extended_view_style, extended_view_tooltip, extended_view_sprite = nil, nil, nil
+    if global.showExtended[player.index] then
+        extended_view_style = "rqon-tool-selected-filter"
+        extended_view_tooltip = {"rqon-gui.hide-tech-upgrades"}
+        extended_view_sprite = "rqon-compact-icon"
+    else
+        extended_view_style = "rqon-tool-inactive-filter"
+        extended_view_tooltip = {"rqon-gui.show-tech-upgrades"}
+        extended_view_sprite = "rqon-extend-icon"
+    end
+    options.add{type = "sprite-button", name = "rqonextend-button", sprite = extended_view_sprite, tooltip = extended_view_tooltip,
+                style = global.showExtended[player.index] and "rqon-tool-selected-filter" or "rqon-tool-inactive-filter"}
 
     local text_view_style, text_view_tooltip = nil, nil
     if global.showIcon[player.index] then

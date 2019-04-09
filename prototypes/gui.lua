@@ -213,6 +213,24 @@ data:extend(
         x = 0,
         y = 96,
         tint = {r = 0.5, g = 1, b = 0.4, a = 1}
+    },
+    {
+        type = "sprite",
+        name = "rqon-extend-icon",
+        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
+        width = 32,
+        height = 32,
+        x = 0,
+        y = 160
+    },
+    {
+        type = "sprite",
+        name = "rqon-compact-icon",
+        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
+        width = 32,
+        height = 32,
+        x = 0,
+        y = 128
     }
 })
 
@@ -856,108 +874,6 @@ data.raw["gui-style"].default["rqon-table2"] =
     type = "table_style",
     horizontal_spacing = 6,
     vertical_spacing = 6
-}
-
-data.raw["gui-style"].default["rqon-compact-button"] =
-{
-    type = "button_style",
-    font = "default",
-    align = "center",
-    scalable = false,
-    left_click_sound =
-    {
-        {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
-        }
-    },
-    top_padding = 0,
-    right_padding = 0,
-    bottom_padding = 0,
-    left_padding = 0,
-    width = 32,
-    height = 32,
-    default_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 0,
-        y = 128
-    },
-    hovered_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 32,
-        y = 128
-    },
-    clicked_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 64,
-        y = 128
-    }
-}
-
-data.raw["gui-style"].default["rqon-extend-button"] =
-{
-    type = "button_style",
-    font = "default",
-    align = "center",
-    scalable = false,
-    left_click_sound =
-    {
-        {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
-        }
-    },
-    top_padding = 0,
-    right_padding = 0,
-    bottom_padding = 0,
-    left_padding = 0,
-    width = 32,
-    height = 32,
-    default_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 0,
-        y = 160
-    },
-    hovered_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 32,
-        y = 160
-    },
-    clicked_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
-        width = 32,
-        height = 32,
-        x = 64,
-        y = 160
-    }
 }
 
 data.raw["gui-style"].default["rqon-clock"] =
