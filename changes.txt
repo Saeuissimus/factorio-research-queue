@@ -1,3 +1,5 @@
+### 1.7.4
+- Fixed `remove_research` when it was only removing the research from the mod queue.
 ### 1.7.3
 - Updated the mod to use the new research APIs `LuaForce::add_research` and `LuaForce::cancel_current_research`.
 - Added a button to toggle the native research queue. When the native research queue is enabled, elements queued there are prioritized. The mod will only start up research tasks when there are no tasks in the native queue. Report any issues in the discussion threads for the mod page in the mod portal.
