@@ -94,7 +94,7 @@ script.on_event(defines.events.on_gui_click, function(event)
         if not force.technologies[tech].researched then
             add_research(force, tech)
             if not force.current_research then
-                force.current_research = global.researchQ[force.name][1]
+                force.add_research(global.researchQ[force.name][1])
             end
             update_queue_force(force)
             draw_grid_force(force)
@@ -103,9 +103,6 @@ script.on_event(defines.events.on_gui_click, function(event)
     elseif string.find(event.element.name, "rqoncancelbutton", 1, true) == 1 then
         local tech = string.gsub(event.element.name, "rqoncancelbutton", "")
         remove_research(force, tech)
-        if force.current_research.name == tech and #global.researchQ[force.name] > 0 then
-            force.current_research = global.researchQ[force.name][1]
-        end
         update_queue_force(force)
         draw_grid_force(force)
 
@@ -179,7 +176,10 @@ script.on_event(defines.events.on_gui_click, function(event)
         draw_grid_player(player)
 
     elseif event.element.name == "rqon-overwrite-yes" then
-        force.current_research = global.researchQ[force.name][1]
+        -- TODO: Add message to communicate the other case to the player?
+        if not force.research_queue_enabled then
+            force.add_research(global.researchQ[force.name][1])
+        end
         if player.gui.center.warning then player.gui.center.warning.destroy() end
         if not player.gui.center.Q then player.gui.center.add{type = "flow", name = "Q", style = "rqon-flow"} end
         update_queue_force(force)
@@ -198,6 +198,15 @@ script.on_event(defines.events.on_gui_click, function(event)
     elseif event.element.name == "rqonscience" then
         global.showResearched[player.index] = not global.showResearched[player.index]
         draw_grid_player(player)
+
+    elseif event.element.name == "rqon-native-queue" then
+        force.research_queue_enabled = not force.research_queue_enabled
+        local notice = force.research_queue_enabled and {"rqon-notices.native-research-queue-enabled"} or {"rqon-notices.native-research-queue-disabled"}
+
+        draw_grid_force(force)
+        for _, player in pairs(force.players) do
+            player.print(notice)
+        end
     end
 end)
 

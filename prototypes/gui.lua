@@ -203,6 +203,16 @@ data:extend(
         height = 32,
         x = 0,
         y = 96
+    },
+    {
+        type = "sprite",
+        name = "rqon-native-queue-icon",
+        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
+        width = 32,
+        height = 32,
+        x = 0,
+        y = 96,
+        tint = {r = 0.5, g = 1, b = 0.4, a = 1}
     }
 })
 

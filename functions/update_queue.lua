@@ -136,14 +136,17 @@ function remove_research(force, research_name)
     for index, _ in pairs(force.players) do
         if global.offset_queue[index] > 0 then global.offset_queue[index] = global.offset_queue[index] - 1 end
     end
-    local is_top_tech = global.researchQ[force.name][1] == research_name
     local techs_to_remove = {}
     techs_to_remove[research_name] = true
     -- log(serpent.block(techs_to_remove))
     check_queue(force, techs_to_remove)
-    -- starts the new research for the new top item in the queue
-    if (force.current_research == research_name or is_top_tech) and global.researchQ[force.name][1] ~= nil then
-        force.current_research = global.researchQ[force.name][1]
+    -- First we remove the research if it's the current one.
+    if force.current_research == research_name then
+        force.cancel_current_research()
+    end
+    -- Starts the new research for the new top item in the queue
+    if global.researchQ[force.name][1] ~= nil and force.current_research == nil then
+        force.add_research(global.researchQ[force.name][1])
     end
 end
 
@@ -187,8 +190,8 @@ function up(player, research_name, times)
             -- This covers a current quirk in the queue where research may not be automatically started.
             -- TODO: decide whether it should always be automatic and how the queue should be represented in that case.
             if not force.current_research then
-                force.current_research = research_name
-            elseif force.current_research.name ~= research_name then
+                force.add_research(research_name)
+            elseif force.current_research.name ~= research_name and not force.research_queue_enabled then
                 prompt_overwrite_research(player, research_name)
             end
         end

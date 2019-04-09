@@ -39,6 +39,17 @@ function options(player)
     options.add{type = "sprite-button", name = "rqonscience", sprite = "rqon-completed-research-icon",
                 style = completed_research_style, tooltip = completed_research_tooltip}
 
+    local native_research_toggle_style, native_research_toggle_tooltip = nil, nil
+    if player.force.research_queue_enabled == true then
+        native_research_toggle_style = "rqon-tool-selected-filter"
+        native_research_toggle_tooltip = {"rqon-gui.disable-native-research-queue"}
+    else
+        native_research_toggle_style = "rqon-tool-inactive-filter"
+        native_research_toggle_tooltip = {"rqon-gui.enable-native-research-queue"}
+    end
+    options.add{type = "sprite-button", name = "rqon-native-queue", sprite = "rqon-native-queue-icon",
+                style = native_research_toggle_style, tooltip = native_research_toggle_tooltip}
+
     local item_prototypes = game.item_prototypes
 
     for name, science in pairs(global.science_packs) do
