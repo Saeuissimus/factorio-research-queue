@@ -64,43 +64,43 @@ if bobmods ~= nil then
                 filename = "__core__/sound/gui-click.ogg",
                 volume = 1
                 }
-            },
-            default_background =
-            {
-                filename = "__bobmodules__/graphics/icons/god-module.png",
-                priority = "extra-high-no-scale",
-                width = 32,
-                height = 32,
-                x = 0,
-                y = 0
-            },
-            hovered_background =
-            {
-                filename = "__bobmodules__/graphics/icons/god-module.png",
-                priority = "extra-high-no-scale",
-                width = 32,
-                height = 32,
-                x = 0,
-                y = 0
-            },
-            clicked_background =
-            {
-                filename = "__bobmodules__/graphics/icons/god-module.png",
-                priority = "extra-high-no-scale",
-                width = 32,
-                height = 32,
-                x = 0,
-                y = 0
-            },
-            checked =
-            {
-                filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-                priority = "extra-high-no-scale",
-                width = 32,
-                height = 32,
-                x = 96,
-                y = 64
             }
+            -- default_background =
+            -- {
+            --     filename = "__bobmodules__/graphics/icons/god-module.png",
+            --     priority = "extra-high-no-scale",
+            --     width = 32,
+            --     height = 32,
+            --     x = 0,
+            --     y = 0
+            -- },
+            -- hovered_background =
+            -- {
+            --     filename = "__bobmodules__/graphics/icons/god-module.png",
+            --     priority = "extra-high-no-scale",
+            --     width = 32,
+            --     height = 32,
+            --     x = 0,
+            --     y = 0
+            -- },
+            -- clicked_background =
+            -- {
+            --     filename = "__bobmodules__/graphics/icons/god-module.png",
+            --     priority = "extra-high-no-scale",
+            --     width = 32,
+            --     height = 32,
+            --     x = 0,
+            --     y = 0
+            -- },
+            -- checked =
+            -- {
+            --     filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
+            --     priority = "extra-high-no-scale",
+            --     width = 32,
+            --     height = 32,
+            --     x = 96,
+            --     y = 64
+            -- }
         }
     end
 end
@@ -123,43 +123,43 @@ if data.raw.technology["alien-research"] then
             filename = "__core__/sound/gui-click.ogg",
             volume = 1
             }
-        },
-        default_background =
-        {
-            filename = "__base__/graphics/icons/alien-artifact-goo.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 0,
-            y = 0
-        },
-        hovered_background =
-        {
-            filename = "__base__/graphics/icons/alien-artifact-goo.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 0,
-            y = 0
-        },
-        clicked_background =
-        {
-            filename = "__base__/graphics/icons/alien-artifact-goo.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 0,
-            y = 0
-        },
-        checked =
-        {
-            filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-            priority = "extra-high-no-scale",
-            width = 32,
-            height = 32,
-            x = 96,
-            y = 64
         }
+        -- default_background =
+        -- {
+        --     filename = "__base__/graphics/icons/alien-artifact-goo.png",
+        --     priority = "extra-high-no-scale",
+        --     width = 32,
+        --     height = 32,
+        --     x = 0,
+        --     y = 0
+        -- },
+        -- hovered_background =
+        -- {
+        --     filename = "__base__/graphics/icons/alien-artifact-goo.png",
+        --     priority = "extra-high-no-scale",
+        --     width = 32,
+        --     height = 32,
+        --     x = 0,
+        --     y = 0
+        -- },
+        -- clicked_background =
+        -- {
+        --     filename = "__base__/graphics/icons/alien-artifact-goo.png",
+        --     priority = "extra-high-no-scale",
+        --     width = 32,
+        --     height = 32,
+        --     x = 0,
+        --     y = 0
+        -- },
+        -- checked =
+        -- {
+        --     filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
+        --     priority = "extra-high-no-scale",
+        --     width = 32,
+        --     height = 32,
+        --     x = 96,
+        --     y = 64
+        -- }
     }
 end
 
@@ -188,7 +188,6 @@ data:extend(
         type = "sprite",
         name = "rqon-text-view-icon",
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 0,
@@ -198,7 +197,6 @@ data:extend(
         type = "sprite",
         name = "rqon-completed-research-icon",
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 0,

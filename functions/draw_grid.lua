@@ -6,7 +6,7 @@ function get_queued_research(research_queue)
     return mapped_research
 end
 
-function options(player)
+function draw_options(player)
     local caption = player.gui.center.Q.add2q.add{type = "label", name = "options_caption", caption = {"rqon-gui.options"}}
     caption.style.minimal_width = player.mod_settings["research-queue-the-old-new-thing-table-width"].value * 68
     local columns = player.mod_settings["research-queue-the-old-new-thing-table-width"].value
@@ -101,7 +101,7 @@ function options(player)
     end
 end
 
-function check_tech_ingredients(player, tech, forbidden_ingredients, known_good_techs)
+function check_tech_ingredients(technologies, tech, forbidden_ingredients, known_good_techs)
     if known_good_techs[tech.name] == true then
         return true
     elseif known_good_techs[tech.name] == false then
@@ -110,10 +110,9 @@ function check_tech_ingredients(player, tech, forbidden_ingredients, known_good_
         known_good_techs[tech.name] = false
         return false
     end
-
     --checks if the prerequisites match given same criteria
-    for _, pre in pairs(player.force.technologies[tech.name].prerequisites) do
-        if not pre.researched and not check_tech_ingredients(player, pre, forbidden_ingredients, known_good_techs) then
+    for _, pre in pairs(technologies[tech.name].prerequisites) do
+        if not pre.researched and not check_tech_ingredients(technologies, pre, forbidden_ingredients, known_good_techs) then
             known_good_techs[tech.name] = false
             return false
         end
@@ -122,8 +121,9 @@ function check_tech_ingredients(player, tech, forbidden_ingredients, known_good_
     return true
 end
 
-function technologies(player, queued_techs)
-    queued_techs = queued_techs or get_queued_research(global.researchQ[player.force.name])
+function draw_technologies(player, queued_techs)
+    local force = player.force
+    queued_techs = queued_techs or get_queued_research(global.researchQ[force.name])
     local caption = player.gui.center.Q.add2q.add{type = "label", name = "add2q_caption", caption = {"rqon-gui.technology-list"}}
     caption.style.minimal_width = player.mod_settings["research-queue-the-old-new-thing-table-width"].value * 68
     --create a smaller table if text is displayed.
@@ -147,7 +147,7 @@ function technologies(player, queued_techs)
     for item, science in pairs(global.science_packs) do
         forbidden_ingredients[item] = not science[player.index]
     end
-    for name, tech in pairs(player.force.technologies) do
+    for name, tech in pairs(force.technologies) do
         -- checks if the research is enabled and either not completed or if it should show completed.
         if tech.enabled and (not tech.researched or global.showResearched[player.index]) and
           (global.showExtended[player.index] or not tech.upgrade or not any(tech.prerequisites, "upgrade") or
@@ -155,13 +155,12 @@ function technologies(player, queued_techs)
             -- ^checks if the research is an upgrade technology and whether or not to show it.
 
             -- filter technologies for selected ingredients and text mask
-            if check_tech_ingredients(player, tech, forbidden_ingredients, known_good_techs) and
+            if check_tech_ingredients(force.technologies, tech, forbidden_ingredients, known_good_techs) and
             (
                 not global.text_filter
                 or global.text_filter == ""
                 or tech.name and string.find(string.lower(tech.name), string.lower(global.text_filter), 1, true)
                 or name and string.find(string.lower(name), string.lower(global.text_filter), 1, true)
-                -- or tech.localized_name and string.find(string.lower(tech.localized_name), string.lower(global.text_filter), 1, true)
             ) then
                 -- Select the right (color) of background depending on the status of the technology (done/available or in queue)
                 local background = tech.researched and "rqon-done-" or queued_techs[tech.name] and "rqon-inq-" or "rqon-available-"
@@ -244,7 +243,7 @@ function draw_grid_player(player, queued_techs)
     if player.gui.center.Q then
         if player.gui.center.Q.add2q then player.gui.center.Q.add2q.destroy() end
         player.gui.center.Q.add{type = "frame", name = "add2q", caption = {"rqon-gui.add-to-queue"}, style = "technology_preview_frame", direction = "vertical"}
-        options(player)
-        technologies(player, queued_techs)
+        draw_options(player)
+        draw_technologies(player, queued_techs)
     end
 end
