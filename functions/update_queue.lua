@@ -275,14 +275,16 @@ function draw_queue_frame(player, partial_update)
         if #research_queue == 0 then
             list.add{type = "label", name = "empty", caption = {"rqon-gui.empty-queue"}}
         else
-            list.add{type = "button", name = "rqonscrollqueueup", style = "rqon-up-button", enabled = start > 1}
+            list.add{type = "sprite-button", name = "rqonscrollqueueup", sprite = "rqon-up-icon",
+                     style = "rqon-up-button", enabled = start > 1}
             local item_prototypes = game.item_prototypes
             local description_width = player.mod_settings["research-queue-the-old-new-thing-queued-tech-description-width"].value
             for i = start, last do
                 local tech_name = research_queue[i]
                 descriptions[i] = draw_queued_technology(list, tech_name, force.technologies[tech_name], item_prototypes, description_width)
             end
-            list.add{type = "button", name = "rqonscrollqueuedown", style = "rqon-down-button", enabled = #research_queue > last_row}
+            list.add{type = "sprite-button", name = "rqonscrollqueuedown", sprite = "rqon-down-icon",
+                     style = "rqon-down-button", enabled = #research_queue > last_row}
         end
     else
         -- Construct the descriptions list to update them easily
@@ -310,7 +312,12 @@ function draw_queued_technology(drawn_list, tech_name, technology, item_prototyp
     description.add{type = "label", name = "rqon" .. tech_name .. "name", caption = technology.localised_name, style = "description_label"}
     -- add the ingredients and time
     local ingredients = description.add{type = "table", name = "rqon" .. tech_name .. "ingredients", style = "table", column_count = 10}
-    ingredients.add{type = "frame", name = "rqontime", caption = (technology.research_unit_energy / 60), style = "rqon-clock"}
+    local time_cost = technology.research_unit_energy / 60
+    time_cost_tooltip = {"rqon-gui.ingredient-time-cost", time_cost}
+    local time_cost_button = ingredients.add{type = "sprite-button", name = "rqon-time", sprite = "utility/clock",
+                                             style = "rqon-ingredient-sprite", tooltip = time_cost_tooltip}
+    time_cost_button.add{type = "label", name = "rqon-time-label", style = "rqon-small-label",
+                  caption = time_cost, ignored_by_interaction = true}
     for _, item in pairs(technology.research_unit_ingredients) do
         -- This looks a bit clunky? May be worth reworking after 0.17
         local item_localised_name = item_prototypes[item.name].localised_name
@@ -324,9 +331,9 @@ function draw_queued_technology(drawn_list, tech_name, technology, item_prototyp
 
     --adds the up/cancel/down buttons
     local buttons = frame.add{type = "table", name = "rqon" .. tech_name .. "buttons", style = "slot_table", column_count = 1}
-    buttons.add{type = "button", name = "rqonupbutton" .. tech_name, style = "rqon-up-button"}
-    buttons.add{type = "button", name = "rqoncancelbutton" .. tech_name, style = "rqon-cancel-button"}
-    buttons.add{type = "button", name = "rqondownbutton" .. tech_name, style = "rqon-down-button"}
+    buttons.add{type = "sprite-button", name = "rqonupbutton" .. tech_name, sprite = "rqon-up-icon", style = "rqon-up-button"}
+    buttons.add{type = "sprite-button", name = "rqoncancelbutton" .. tech_name, sprite = "rqon-cancel-icon", style = "rqon-cancel-button"}
+    buttons.add{type = "sprite-button", name = "rqondownbutton" .. tech_name, sprite = "rqon-down-icon", style = "rqon-down-button"}
     return description
 end
 

@@ -1,5 +1,6 @@
 local big_size = 64
 local small_size = 32
+local tiny_size = 24
 
 data.raw["gui-style"].default["rqon-tool-selected-filter"] =
 {
@@ -17,30 +18,11 @@ data.raw["gui-style"].default["rqon-tool-inactive-filter"] =
     height = 36
 }
 
-data.raw["gui-style"].default["rqon-tool-frame"] =
-{
-    type = "frame_style",
-    width = 20,
-    height = 20,
-    scalable = true,
-    align = "left",
-    top_padding = 0,
-    right_padding = 0,
-    bottom_padding = 0,
-    left_padding = 0,
-    flow_style =
-    {
-        type = "flow_style",
-        horizontal_spacing = 0,
-        vertical_spacing = 0
-    },
-    font = "rqon-label-text"
-}
-
 data.raw["gui-style"].default["rqon-ingredient-sprite"] =
 {
     type = "button_style",
-    parent = "small_slot_button",
+    parent = "slot_button",
+    size = tiny_size,
     scalable = true,
     align = "left",
 }
@@ -111,6 +93,33 @@ data:extend(
         height = 32,
         x = 0,
         y = 128
+    },
+    {
+        type = "sprite",
+        name = "rqon-up-icon",
+        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
+        width = 32,
+        height = 16,
+        x = 32,
+        y = 0
+    },
+    {
+        type = "sprite",
+        name = "rqon-down-icon",
+        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
+        width = 32,
+        height = 16,
+        x = 32,
+        y = 16
+    },
+    {
+        type = "sprite",
+        name = "rqon-cancel-icon",
+        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
+        width = 32,
+        height = 32,
+        x = 32,
+        y = 32
     }
 })
 
@@ -255,7 +264,6 @@ data.raw["gui-style"].default["rqon-dummy-button"] =
     font = "default",
     default_font_color = {r = 1, g = 1, b = 1},
     align = "center",
-    scalable = false,
     width = big_size,
     height = big_size,
     top_padding = 0,
@@ -296,74 +304,48 @@ data.raw["gui-style"].default["rqon-dummy-button"] =
 data.raw["gui-style"].default["rqon-small-dummy-button"] =
 {
     type = "button_style",
-    font = "default",
-    default_font_color = {r = 1, g = 1, b = 1},
-    align = "center",
-    scalable = false,
+    parent = "rqon-dummy-button",
     width = small_size,
-    height = small_size,
-    top_padding = 0,
-    right_padding = 0,
-    bottom_padding = 0,
-    left_padding = 0,
-    default_graphical_set =
-    {
-        border = 2,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 32,
-        x = 96,
-        y = 96
-    },
-    hovered_font_color = {r = 1, g = 1, b = 1},
-    hovered_graphical_set =
-    {
-        border = 2,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 32,
-        x = 96,
-        y = 96
-    },
-    clicked_font_color = {r = 1, g = 1, b = 1},
-    clicked_graphical_set =
-    {
-        border = 2,
-        filename = "__core__/graphics/gui.png",
-        width = 36,
-        height = 36,
-        x = 96,
-        y = 96
-    },
+    height = small_size
 }
 
 data:extend(
-{{
-    type = "font",
-    name = "rqon-label-text",
-    from = "default-bold",
-    size = 14,
-    border = true,
-    border_color = {}
-}})
+{
+    {
+        type = "font",
+        name = "rqon-label-text",
+        from = "default-bold",
+        size = 14,
+        border = true,
+        border_color = {}
+    },
+    {
+        type = "font",
+        name = "rqon-small-label-text",
+        from = "default-bold",
+        size = 12,
+        border = true,
+        border_color = {}
+    }
+})
 
 data.raw["gui-style"].default["rqon-label"] =
 {
     type = "label_style",
     parent = "label",
     font = "rqon-label-text",
-    -- font = "default-bold",
     scalable = true,
     width = big_size,
-    height = big_size,
+    height = big_size
 }
 
 data.raw["gui-style"].default["rqon-small-label"] =
 {
     type = "label_style",
     parent = "rqon-label",
-    width = 20,
-    height = 20,
+    font = "rqon-small-label-text",
+    width = tiny_size,
+    height = tiny_size
 }
 
 data.raw["gui-style"].default["rqon-flow"] =
@@ -427,44 +409,8 @@ data.raw["gui-style"].default["rqon-up-button"] =
     right_padding = 0,
     bottom_padding = 0,
     left_padding = 0,
-    width = 32,
-    height = 16,
-    default_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 16,
-        x = 32,
-        y = 0
-    },
-    hovered_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 16,
-        x = 64,
-        y = 0
-    },
-    clicked_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 16,
-        x = 96,
-        y = 0
-    },
-    disabled_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 16,
-        x = 96,
-        y = 96
-    }
+    width = small_size,
+    height = small_size / 2
 }
 
 data.raw["gui-style"].default["rqon-down-button"] =
@@ -484,44 +430,8 @@ data.raw["gui-style"].default["rqon-down-button"] =
     right_padding = 1,
     bottom_padding = 1,
     left_padding = 1,
-    width = 32,
-    height = 16,
-    default_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 16,
-        x = 32,
-        y = 16
-    },
-    hovered_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 16,
-        x = 64,
-        y = 16
-    },
-    clicked_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 16,
-        x = 96,
-        y = 16
-    },
-    disabled_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 16,
-        x = 96,
-        y = 96
-    }
+    width = small_size,
+    height = small_size / 2
 }
 
 data.raw["gui-style"].default["rqon-cancel-button"] =
@@ -542,41 +452,7 @@ data.raw["gui-style"].default["rqon-cancel-button"] =
     bottom_padding = 1,
     left_padding = 1,
     width = small_size,
-    height = small_size,
-    default_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 32,
-        x = 32,
-        y = 32
-    },
-    hovered_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 32,
-        x = 64,
-        y = 32
-    },
-    clicked_graphical_set =
-    {
-        border = 0,
-        filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        width = 32,
-        height = 32,
-        x = 96,
-        y = 32
-    },
-    disabled_graphical_set = {
-        border = 0,
-        width = 32,
-        height = 32,
-        x = 96,
-        y = 96
-    }
+    height = small_size
 }
 
 data.raw["gui-style"].default["rqon-done-button"] =
@@ -720,35 +596,6 @@ data.raw["gui-style"].default["rqon-table2"] =
     type = "table_style",
     horizontal_spacing = 6,
     vertical_spacing = 6
-}
-
-data.raw["gui-style"].default["rqon-clock"] =
-{
-    type = "frame_style",
-    width = 20,
-    height = 20,
-    scalable = true,
-    graphical_set =
-    {
-        border = 0,
-        filename = "__core__/graphics/clock-icon.png",
-        width = 32,
-        height = 32,
-        x = 0,
-        y = 0
-    },
-    align = "left",
-    top_padding = 0,
-    right_padding = 0,
-    bottom_padding = 0,
-    left_padding = 0,
-    flow_style =
-    {
-        type = "flow_style",
-        horizontal_spacing = 0,
-        vertical_spacing = 0
-    },
-    font = "rqon-label-text"
 }
 
 data.raw["gui-style"].default["rqon-warning-icon"] =

@@ -212,8 +212,10 @@ function draw_technologies(player, queued_techs)
         end
     end
     -- This is to allow the window to render mostly the same once you click on one of the buttons
-    player.gui.center.Q.add2q.add{type = "button", name = "rqonscrolltechup", style = "rqon-up-button", enabled = global.offset_tech[player.index] > 0}
-    player.gui.center.Q.add2q.add{type = "button", name = "rqonscrolltechdown", style = "rqon-down-button", enabled = should_draw_down_button}
+    player.gui.center.Q.add2q.add{type = "sprite-button", name = "rqonscrolltechup", sprite = "rqon-up-icon",
+                                  style = "rqon-up-button", enabled = global.offset_tech[player.index] > 0}
+    player.gui.center.Q.add2q.add{type = "sprite-button", name = "rqonscrolltechdown", sprite = "rqon-down-icon",
+                                  style = "rqon-down-button", enabled = should_draw_down_button}
 end
 
 function build_tooltip(tech)
