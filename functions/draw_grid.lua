@@ -78,25 +78,27 @@ function draw_options(player)
                         style = filter_style, sprite = "item/" .. name, tooltip = tooltip}
 
         elseif global.bobsmodules[name] and not options["rqon-bobsmodules"] then
-            local checkbox_state, checkbox_tooltip = nil, nil
+            local bobsmodules_filter_style, bobsmodules_filter_tooltip = nil, nil
             if global.showBobsmodules[player.index] then
-                checkbox_state = false
-                checkbox_tooltip = {"rqon-gui.stop-showing-bobs-modules-techs"}
+                bobsmodules_filter_style = "rqon-tool-selected-filter"
+                bobsmodules_filter_tooltip = {"rqon-gui.stop-showing-bobs-modules-techs"}
             else
-                checkbox_state = true
-                checkbox_tooltip = {"rqon-gui.show-bobs-modules-techs"}
+                bobsmodules_filter_style = "rqon-tool-inactive-filter"
+                bobsmodules_filter_tooltip = {"rqon-gui.show-bobs-modules-techs"}
             end
-            options.add{type = "checkbox", name = "rqon-bobsmodules", style = "rqon-bobsmodules", state = checkbox_state, tooltip = checkbox_tooltip}
+            options.add{type = "sprite-button", name = "rqon-bobsmodules", style = bobsmodules_filter_style,
+                        sprite = "item/module-case", tooltip = bobsmodules_filter_tooltip}
         elseif global.bobsaliens[name] and not options["rqon-bobsaliens"] then
-            local checkbox_state, checkbox_tooltip = nil, nil
+            local bobsaliens_filter_style, bobsaliens_filter_tooltip = nil, nil
             if global.showBobsaliens[player.index] then
-                checkbox_state = false
-                checkbox_tooltip = {"rqon-gui.stop-showing-bobs-aliens-techs"}
+                bobsaliens_filter_style = "rqon-tool-selected-filter"
+                bobsaliens_filter_tooltip = {"rqon-gui.stop-showing-bobs-aliens-techs"}
             else
-                checkbox_state = true
-                checkbox_tooltip = {"rqon-gui.show-bobs-aliens-techs"}
+                bobsaliens_filter_style = "rqon-tool-inactive-filter"
+                bobsaliens_filter_tooltip = {"rqon-gui.show-bobs-aliens-techs"}
             end
-            options.add{type = "checkbox", name = "rqon-bobsaliens", style = "rqon-bobsalien", state = checkbox_state, tooltip = checkbox_tooltip}
+            options.add{type = "sprite-button", name = "rqon-bobsaliens", style = bobsaliens_filter_style,
+                        sprite = "technology/alien-research", tooltip = bobsaliens_filter_tooltip}
         end
     end
 end

@@ -45,26 +45,6 @@ script.on_event(defines.events.on_gui_text_changed, function(event)
     end
 end)
 
-script.on_event(defines.events.on_gui_checked_state_changed, function(event)
-    local player = game.players[event.player_index]
-    global.offset_tech[player.index] = 0
-
-    if event.element.name == "rqon-bobsmodules" then
-        global.showBobsmodules[player.index] = not global.showBobsmodules[player.index]
-        for name, science in pairs(global.science_packs) do
-            if global.bobsmodules[name] then science[player.index] = global.showBobsmodules[player.index] end
-        end
-        draw_grid_player(player)
-
-    elseif event.element.name == "rqon-bobsaliens" then
-        global.showBobsaliens[player.index] = not global.showBobsaliens[player.index]
-        for name, science in pairs(global.science_packs) do
-            if global.bobsaliens[name] then science[player.index] = global.showBobsaliens[player.index] end
-        end
-        draw_grid_player(player)
-    end
-end)
-
 function toggle_gui_window(player)
     if player.gui.center.Q then
         player.gui.center.Q.destroy()
@@ -207,6 +187,22 @@ script.on_event(defines.events.on_gui_click, function(event)
         for _, player in pairs(force.players) do
             player.print(notice)
         end
+
+    elseif event.element.name == "rqon-bobsmodules" then
+        global.showBobsmodules[player.index] = not global.showBobsmodules[player.index]
+        -- This can be easily improved with a custom iterator
+        for name, science in pairs(global.science_packs) do
+            if global.bobsmodules[name] then science[player.index] = global.showBobsmodules[player.index] end
+        end
+        draw_grid_player(player)
+
+    elseif event.element.name == "rqon-bobsaliens" then
+        global.showBobsaliens[player.index] = not global.showBobsaliens[player.index]
+        -- This can be easily improved with a custom iterator
+        for name, science in pairs(global.science_packs) do
+            if global.bobsaliens[name] then science[player.index] = global.showBobsaliens[player.index] end
+        end
+        draw_grid_player(player)
     end
 end)
 
