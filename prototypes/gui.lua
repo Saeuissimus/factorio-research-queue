@@ -125,7 +125,6 @@ data.raw["gui-style"].default["rqon-done-frame"] =
     {
         border = 0,
         filename = "__core__/graphics/gui.png",
-        priority = "extra-high-no-scale",
         width = 36,
         height = 36,
         x = 111,
@@ -154,7 +153,6 @@ data.raw["gui-style"].default["rqon-inq-frame"] =
     {
         border = 2,
         filename = "__core__/graphics/gui.png",
-        priority = "extra-high-no-scale",
         width = 36,
         height = 36,
         x = 111,
@@ -183,7 +181,6 @@ data.raw["gui-style"].default["rqon-available-frame"] =
     {
         border = 2,
         filename = "__core__/graphics/gui.png",
-        priority = "extra-high-no-scale",
         width = 36,
         height = 36,
         x = 75,
@@ -225,7 +222,6 @@ data.raw["gui-style"].default["rqon-button"] =
     {
         border = 2,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 96,
@@ -236,7 +232,6 @@ data.raw["gui-style"].default["rqon-button"] =
     {
         border = 2,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 0,
@@ -247,7 +242,6 @@ data.raw["gui-style"].default["rqon-button"] =
     {
         border = 2,
         filename = "__core__/graphics/gui.png",
-        priority = "extra-high-no-scale",
         width = 36,
         height = 36,
         x = 148,
@@ -272,7 +266,6 @@ data.raw["gui-style"].default["rqon-dummy-button"] =
     {
         border = 2,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 96,
@@ -283,7 +276,6 @@ data.raw["gui-style"].default["rqon-dummy-button"] =
     {
         border = 2,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 96,
@@ -294,7 +286,6 @@ data.raw["gui-style"].default["rqon-dummy-button"] =
     {
         border = 2,
         filename = "__core__/graphics/gui.png",
-        priority = "extra-high-no-scale",
         width = 36,
         height = 36,
         x = 96,
@@ -319,7 +310,6 @@ data.raw["gui-style"].default["rqon-small-dummy-button"] =
     {
         border = 2,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 96,
@@ -330,7 +320,6 @@ data.raw["gui-style"].default["rqon-small-dummy-button"] =
     {
         border = 2,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 96,
@@ -341,7 +330,6 @@ data.raw["gui-style"].default["rqon-small-dummy-button"] =
     {
         border = 2,
         filename = "__core__/graphics/gui.png",
-        priority = "extra-high-no-scale",
         width = 36,
         height = 36,
         x = 96,
@@ -411,7 +399,6 @@ data.raw["gui-style"].default["rqon-frame"] =
     {
         type = "composition",
         filename = "__core__/graphics/gui.png",
-        priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {8, 0}
     },
@@ -446,7 +433,6 @@ data.raw["gui-style"].default["rqon-up-button"] =
     {
         border = 0,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 16,
         x = 32,
@@ -456,7 +442,6 @@ data.raw["gui-style"].default["rqon-up-button"] =
     {
         border = 0,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 16,
         x = 64,
@@ -466,7 +451,6 @@ data.raw["gui-style"].default["rqon-up-button"] =
     {
         border = 0,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 16,
         x = 96,
@@ -476,7 +460,6 @@ data.raw["gui-style"].default["rqon-up-button"] =
     {
         border = 0,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 16,
         x = 96,
@@ -507,7 +490,6 @@ data.raw["gui-style"].default["rqon-down-button"] =
     {
         border = 0,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 16,
         x = 32,
@@ -517,7 +499,6 @@ data.raw["gui-style"].default["rqon-down-button"] =
     {
         border = 0,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 16,
         x = 64,
@@ -527,7 +508,6 @@ data.raw["gui-style"].default["rqon-down-button"] =
     {
         border = 0,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 16,
         x = 96,
@@ -537,7 +517,6 @@ data.raw["gui-style"].default["rqon-down-button"] =
     {
         border = 0,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 16,
         x = 96,
@@ -568,7 +547,6 @@ data.raw["gui-style"].default["rqon-cancel-button"] =
     {
         border = 0,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 32,
@@ -578,7 +556,6 @@ data.raw["gui-style"].default["rqon-cancel-button"] =
     {
         border = 0,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 64,
@@ -588,7 +565,6 @@ data.raw["gui-style"].default["rqon-cancel-button"] =
     {
         border = 0,
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 96,
@@ -596,7 +572,6 @@ data.raw["gui-style"].default["rqon-cancel-button"] =
     },
     disabled_graphical_set = {
         border = 0,
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 96,
@@ -626,7 +601,6 @@ data.raw["gui-style"].default["rqon-done-button"] =
     {
         type = "composition",
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {0, 32}
     },
@@ -635,7 +609,6 @@ data.raw["gui-style"].default["rqon-done-button"] =
     {
         type = "composition",
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {8, 32}
     },
@@ -644,7 +617,6 @@ data.raw["gui-style"].default["rqon-done-button"] =
     {
         type = "composition",
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {16, 32}
     }
@@ -672,7 +644,6 @@ data.raw["gui-style"].default["rqon-inq-button"] =
     {
         type = "composition",
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {0, 40}
     },
@@ -681,7 +652,6 @@ data.raw["gui-style"].default["rqon-inq-button"] =
     {
         type = "composition",
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {8, 40}
     },
@@ -690,7 +660,6 @@ data.raw["gui-style"].default["rqon-inq-button"] =
     {
         type = "composition",
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {16, 40}
     }
@@ -718,7 +687,6 @@ data.raw["gui-style"].default["rqon-available-button"] =
     {
         type = "composition",
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {0, 48}
     },
@@ -727,7 +695,6 @@ data.raw["gui-style"].default["rqon-available-button"] =
     {
         type = "composition",
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {8, 48}
     },
@@ -736,7 +703,6 @@ data.raw["gui-style"].default["rqon-available-button"] =
     {
         type = "composition",
         filename = "__research-queue-the-old-new-thing__/graphics/gui_elements.png",
-        priority = "extra-high-no-scale",
         corner_size = {3, 3},
         position = {16, 48}
     }
@@ -766,7 +732,6 @@ data.raw["gui-style"].default["rqon-clock"] =
     {
         border = 0,
         filename = "__core__/graphics/clock-icon.png",
-        priority = "extra-high-no-scale",
         width = 32,
         height = 32,
         x = 0,
@@ -797,7 +762,6 @@ data.raw["gui-style"].default["rqon-warning-icon"] =
         border = 0,
         icon_size = 64,
         filename = "__core__/graphics/warning-icon.png",
-        priority = "extra-high-no-scale",
         width = 64,
         height = 64,
         x = 0,
