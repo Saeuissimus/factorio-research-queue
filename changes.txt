@@ -1,3 +1,6 @@
+### 1.7.5
+- Updated bob's alien technology and modules filters. Now they are buttons instead of checkboxes just like the rest of the filters.
+- Ingredient display in the queue GUI was improved a little bit by making ingredient icons bigger. A tooltip was added to the time cost component to make its meaning clearer too.
 ### 1.7.4
 - Fixed `remove_research` when it was only removing the research from the mod queue.
 ### 1.7.3
