@@ -5,12 +5,10 @@ require("functions.draw_grid")
 require("functions.initialise")
 
 script.on_configuration_changed(function(event)
-    if event.mod_changes ~= nil and event.mod_changes["research-queue-the-old-new-thing"] ~= nil then
-        init()
-        local players = game.players
-        for _, player in pairs(players) do
-            player_init(player)
-        end
+    init()
+    local players = game.players
+    for _, player in pairs(players) do
+        player_init(player)
     end
     local forces = game.forces
     for name, force in pairs(forces) do
