@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.7.6
+Date: 2019.10.31
+  Info:
+    - Added standard changelog!
+  Bugfixes:
+    - Fixed initialisation of the mod. This fixes issues with changes on the state introduced by new mods added to an already existing game.
+  Optimisations:
+    - Restricted iteration of player collections to online players in general.
+---------------------------------------------------------------------------------------------------
 Version: 1.7.5
 Date: 2019.04.15
   Gui:
