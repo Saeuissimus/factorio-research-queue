@@ -217,7 +217,7 @@ end
 
 -- pre: players should all belong to force
 function update_queue_force(force, partial_update, players)
-    players = players or force.players
+    players = players or force.connected_players
     local last_row = 1
     local active_players = {}
     for _, player in pairs(players) do

@@ -182,7 +182,7 @@ script.on_event(defines.events.on_gui_click, function(event)
         local notice = force.research_queue_enabled and {"rqon-notices.native-research-queue-enabled"} or {"rqon-notices.native-research-queue-disabled"}
 
         draw_grid_force(force)
-        for _, player in pairs(force.players) do
+        for _, player in pairs(force.connected_players) do
             player.print(notice)
         end
 
@@ -206,7 +206,7 @@ end)
 
 script.on_event(defines.events.on_research_finished, function(event)
 
-    for _, player in pairs(event.research.force.players) do
+    for _, player in pairs(event.research.force.connected_players) do
         player.print{"rqon-notices.research-finished", event.research.localised_name}
         -- The on_player_created event for this mod may not be called in time if another mod triggers this event.
         if global.offset_queue[player.index] == nil then
@@ -217,7 +217,7 @@ script.on_event(defines.events.on_research_finished, function(event)
 
     remove_research(event.research.force, event.research.name)
     local refresh_gui, refresh_counter = {}, 0
-    for index, player in pairs(event.research.force.players) do
+    for index, player in pairs(event.research.force.connected_players) do
         local length_queue = #global.researchQ[event.research.force.name]
 
         -- All of these cases require a full redraw because a technology has been finished.
@@ -276,6 +276,8 @@ script.on_event(defines.events.on_player_left_game, function(event)
     if Q_gui then
         Q_gui.destroy()
     end
+    global.offset_queue[event.player_index] = 0
+    global.offset_tech[event.player_index] = 0
 end)
 
 script.on_nth_tick(60, function(event)

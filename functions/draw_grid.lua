@@ -238,7 +238,7 @@ end
 function draw_grid_force(force)
     -- Cache the queued techs for the generation of each GUI tree (one per player at most)
     local queued_techs = get_queued_research(global.researchQ[force.name])
-    for _, player in pairs(force.players) do
+    for _, player in pairs(force.connected_players) do
         draw_grid_player(player, queued_techs)
     end
 end
