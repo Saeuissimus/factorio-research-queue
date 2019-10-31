@@ -51,7 +51,7 @@ function draw_options(player)
                 style = completed_research_style, tooltip = completed_research_tooltip}
 
     local native_research_toggle_style, native_research_toggle_tooltip = nil, nil
-    if player.force.research_queue_enabled == true then
+    if player.force.research_queue_enabled then
         native_research_toggle_style = "rqon-tool-selected-filter"
         native_research_toggle_tooltip = {"rqon-gui.disable-native-research-queue"}
     else
