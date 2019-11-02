@@ -138,6 +138,7 @@ function draw_technologies(player, queued_techs)
         column_count = math.floor(player.mod_settings["research-queue-the-old-new-thing-table-width"].value / 3)
         width_hack = 3 * 34
     end
+    column_count = math.max(column_count, 1)
     local rqon_table = player.gui.center.Q.add2q.add{type = "table", name = "add2q_table", style = "rqon-table1", column_count = column_count}
     rqon_table.style.width = player.mod_settings["research-queue-the-old-new-thing-table-width"].value * 68 + width_hack
     local count = 0
