@@ -252,21 +252,23 @@ script.on_event(defines.events.on_force_created, function(event)
     end
 end)
 
+
+local lab_filter = {
+    { filter = "type", type = "lab" }
+}
+
 script.on_event(defines.events.on_built_entity, function(event)
-    if event.created_entity.type == "lab" then
-        global.labs[event.created_entity.force.name][event.created_entity] = event.created_entity
-    end
-end)
+    global.labs[event.created_entity.force.name][event.created_entity] = event.created_entity
+end, lab_filter)
 
 function remove_lab(event)
-    if event.entity.type == "lab" then
-        global.labs[event.entity.force.name][event.entity] = nil
-    end
+    global.labs[event.entity.force.name][event.entity] = nil
 end
 
-script.on_event(defines.events.on_entity_died, remove_lab)
-script.on_event(defines.events.on_pre_player_mined_item, remove_lab)
-script.on_event(defines.events.on_robot_pre_mined, remove_lab)
+script.on_event(defines.events.on_entity_died, remove_lab, lab_filter)
+script.on_event(defines.events.on_pre_player_mined_item, remove_lab, lab_filter)
+script.on_event(defines.events.on_robot_pre_mined, remove_lab, lab_filter)
+
 
 -- This ensures that disconnected players don't have the GUI opened, and thus don't get updates
 --  nor cause crashes when reconnecting with old, inconsistent GUI instances
