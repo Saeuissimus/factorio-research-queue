@@ -71,7 +71,7 @@ end
 
 
 function map_all_entities(input)
-    -- input = {name = string, type = string, force = string or force, surface = string or {table of surface(s)}
+    -- input = {name = string, type = string, force = string or force, surface = string or {table of surface(s)}}
     local map = {}
 
     if type(input.surface) == "string" then input.surface = {game.surfaces[input.surface]} end

@@ -47,7 +47,6 @@ function toggle_gui_window(player)
     if player.gui.center.Q then
         player.gui.center.Q.destroy()
         global.offset_tech[player.index] = 0
-        global.offset_tech[player.index] = 0
         global.showIcon[player.index] = true
     else
         local Q = player.gui.center.add{type = "flow", name = "Q", style = "rqon-flow"}
