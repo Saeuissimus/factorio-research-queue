@@ -220,17 +220,21 @@ function update_queue_force(force, partial_update, players)
     players = players or force.connected_players
     local last_row = 1
     local active_players = {}
+    local number_of_active_players = 0
     for _, player in pairs(players) do
         if player.gui.center.Q then
             last_row = math.max(last_row, player.mod_settings["research-queue-the-old-new-thing-rows-count"].value + global.offset_queue[player.index])
             active_players[_] = player
+            number_of_active_players = number_of_active_players + 1
         end
     end
-    last_row = math.min(last_row, #global.researchQ[force.name])
-    local time_estimation = est_time(force, last_row)
+    if number_of_active_players > 0 then
+        last_row = math.min(last_row, #global.researchQ[force.name])
+        local time_estimation = est_time(force, last_row)
 
-    for _, player in pairs(active_players) do
-        update_queue_player(player, partial_update, time_estimation)
+        for _, player in pairs(active_players) do
+            update_queue_player(player, partial_update, time_estimation)
+        end
     end
 end
 
