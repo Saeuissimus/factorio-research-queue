@@ -18,12 +18,11 @@ function init()
     if global.offset_queue == nil then global.offset_queue = {} end
     if global.offset_tech == nil then global.offset_tech = {} end
     if global.showExtended == nil then global.showExtended = {} end
-    if global.science_packs == nil then global.science_packs = {} end
-    local item_prototypes = game.item_prototypes
+    -- Always clean known science packs to avoid iterating obsolete prototypes.
+    global.science_packs = {}
+    local item_prototypes = game.get_filtered_item_prototypes({{ filter = "type", type = "tool" }})
     for name, item in pairs(item_prototypes) do
-        if item.type == "tool" then
-            global.science_packs[name] = {}
-        end
+        global.science_packs[name] = {}
     end
     global.bobsmodules = {
         ["module-case"] = true,
