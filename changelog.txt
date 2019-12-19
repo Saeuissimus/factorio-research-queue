@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.7.10
+Date: 2019.12.18
+  Bugfixes:
+    - Fixed handling of game events raised by third party mods (e.g. `on_built_entity`).
+  Optimisations:
+    - Estimation of time to finish research is no longer calculated when there are no players with the GUI open.
+---------------------------------------------------------------------------------------------------
 Version: 1.7.9
 Date: 2019.12.17
   Bugfixes:
