@@ -257,11 +257,19 @@ local lab_filter = {
 }
 
 script.on_event(defines.events.on_built_entity, function(event)
-    global.labs[event.created_entity.force.name][event.created_entity] = event.created_entity
+    -- The entity type check is still needed to handle events raised by other mods.
+    -- Such events are not filtered by the game engine.
+    if event.created_entity.type == "lab" then
+        global.labs[event.created_entity.force.name][event.created_entity] = event.created_entity
+    end
 end, lab_filter)
 
 function remove_lab(event)
-    global.labs[event.entity.force.name][event.entity] = nil
+    -- The entity type check is still needed to handle events raised by other mods.
+    -- Such events are not filtered by the game engine.
+    if event.created_entity.type == "lab" then
+        global.labs[event.entity.force.name][event.entity] = nil
+    end
 end
 
 script.on_event(defines.events.on_entity_died, remove_lab, lab_filter)
