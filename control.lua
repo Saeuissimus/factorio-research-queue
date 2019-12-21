@@ -267,7 +267,7 @@ end, lab_filter)
 function remove_lab(event)
     -- The entity type check is still needed to handle events raised by other mods.
     -- Such events are not filtered by the game engine.
-    if event.created_entity.type == "lab" then
+    if event.entity.type == "lab" then
         global.labs[event.entity.force.name][event.entity] = nil
     end
 end
