@@ -36,14 +36,7 @@ data.raw["gui-style"].default["rqon-top-button"] =
     top_padding = 0,
     right_padding = 0,
     bottom_padding = 0,
-    left_padding = 0,
-    left_click_sound =
-    {
-        {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
-        }
-    },
+    left_padding = 0
 }
 
 data:extend(
@@ -217,8 +210,8 @@ data.raw["gui-style"].default["rqon-button"] =
     left_click_sound =
     {
         {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
+            filename = "__core__/sound/gui-click.ogg",
+            volume = 1
         }
     },
     width = big_size,
@@ -401,8 +394,8 @@ data.raw["gui-style"].default["rqon-up-button"] =
     left_click_sound =
     {
         {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
+            filename = "__core__/sound/gui-click.ogg",
+            volume = 1
         }
     },
     top_padding = 0,
@@ -422,8 +415,8 @@ data.raw["gui-style"].default["rqon-down-button"] =
     left_click_sound =
     {
         {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
+            filename = "__core__/sound/gui-click.ogg",
+            volume = 1
         }
     },
     top_padding = 1,
@@ -443,8 +436,8 @@ data.raw["gui-style"].default["rqon-cancel-button"] =
     left_click_sound =
     {
         {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
+            filename = "__core__/sound/gui-click.ogg",
+            volume = 1
         }
     },
     top_padding = 1,
@@ -464,8 +457,8 @@ data.raw["gui-style"].default["rqon-done-button"] =
     left_click_sound =
     {
         {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
+            filename = "__core__/sound/gui-click.ogg",
+            volume = 1
         }
     },
     horizontally_stretchable = "on",
@@ -507,8 +500,8 @@ data.raw["gui-style"].default["rqon-inq-button"] =
     left_click_sound =
     {
         {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
+            filename = "__core__/sound/gui-click.ogg",
+            volume = 1
         }
     },
     horizontally_stretchable = "on",
@@ -550,8 +543,8 @@ data.raw["gui-style"].default["rqon-available-button"] =
     left_click_sound =
     {
         {
-        filename = "__core__/sound/gui-click.ogg",
-        volume = 1
+            filename = "__core__/sound/gui-click.ogg",
+            volume = 1
         }
     },
     horizontally_stretchable = "on",
@@ -596,27 +589,4 @@ data.raw["gui-style"].default["rqon-table2"] =
     type = "table_style",
     horizontal_spacing = 6,
     vertical_spacing = 6
-}
-
-data.raw["gui-style"].default["rqon-warning-icon"] =
-{
-    type = "frame_style",
-    width = 80,
-    height = 71,
-    scalable = true,
-    graphical_set =
-    {
-        border = 0,
-        icon_size = 64,
-        filename = "__core__/graphics/warning-icon.png",
-        width = 64,
-        height = 64,
-        x = 0,
-        y = 0
-    },
-    align = "center",
-    top_padding = 2,
-    right_padding = 2,
-    bottom_padding = 2,
-    left_padding = 2
 }

@@ -41,7 +41,7 @@ function prompt_overwrite_research(player, research_name)
     if player.force.current_research ~= research_name then
         if player.gui.center.Q then player.gui.center.Q.destroy() end
         local warning = player.gui.center.add{type = "frame", name = "warning", style = "frame"}
-        warning.add{type = "frame", name = "warning-icon", style = "rqon-warning-icon"}
+        warning.add{type = "sprite", name = "warning_icon", sprite = "utility/warning_icon"}
         local text = warning.add{type = "flow", name = "rqon-warning-text", style = "vertical_flow", direction = "vertical"}
         local caption = {"rqon-gui.tech-prompt-overwrite", math.ceil(player.force.research_progress * 1000) / 10}
         text.add{type = "label", name = "rqon-warning-text-content", caption = caption, style = "description_label"}
