@@ -223,16 +223,27 @@ function build_tooltip(tech)
     local tooltip = {"rqon-gui.tech-tooltip", tech.localised_name}
     local iterator = tooltip
     local item_prototypes = game.item_prototypes
+    local tree_depth = 0
+    local final_string = ""
+    local MAX_TREE_DEPTH = 16
     for _, ingredient in pairs(tech.research_unit_ingredients) do
-        iterator[#iterator + 1] = {
-            "rqon-gui.tech-ingredient-description",
-            "[item=" .. ingredient.name .. "]",
-            item_prototypes[ingredient.name].localised_name,
-            ingredient.amount * tech.research_unit_count
-        }
-        iterator = iterator[#iterator]
+        -- TODO: look for a better way to build a list of localised strings.
+        -- Avoid creating a localised string tree that is too deep for the engine.
+        tree_depth = tree_depth + 1
+        if tree_depth <= MAX_TREE_DEPTH then
+            iterator[#iterator + 1] = {
+                "rqon-gui.tech-ingredient-description",
+                "[item=" .. ingredient.name .. "]",
+                item_prototypes[ingredient.name].localised_name,
+                ingredient.amount * tech.research_unit_count
+            }
+            iterator = iterator[#iterator]
+        end
     end
-    iterator[#iterator + 1] = ""
+    if tree_depth > MAX_TREE_DEPTH then
+        final_string = "\n... and some more ingredients."
+    end
+    iterator[#iterator + 1] = final_string
     return tooltip
 end
 
